@@ -5,6 +5,7 @@ import Services from './components/Services'
 import TechStack from './components/TechStack'
 import Manifesto from './components/Manifesto'
 import SuccessCases from './components/SuccessCases'
+import RecentProjects from './components/RecentProjects'
 import BlogPreview from './components/BlogPreview'
 import Diagnosis from './components/Diagnosis'
 import Footer from './components/Footer'
@@ -29,6 +30,7 @@ function App() {
             <TechStack />
             <Manifesto />
             <SuccessCases />
+            <RecentProjects />
             <BlogPreview />
             <Diagnosis />
           </main>
