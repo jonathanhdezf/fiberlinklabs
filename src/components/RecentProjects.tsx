@@ -1,4 +1,4 @@
-const CARD_DELAY_CLASSES = ["project-card-delay-0", "project-card-delay-1", "project-card-delay-2"];
+const CARD_DELAY_CLASSES = ["project-card-delay-0", "project-card-delay-1", "project-card-delay-2", "project-card-delay-3"];
 
 const projects = [
     {
@@ -29,6 +29,16 @@ const projects = [
         image: "/fiberlinklabs.jpg",
         url: "https://fiberlinklabs.vercel.app/",
         tags: ["Vite", "TypeScript", "B2B"],
+        status: "En producción",
+    },
+    {
+        id: 4,
+        name: "PokeNexus",
+        category: "Entertainment & Gaming",
+        description: "Enciclopedia Pokémon avanzada con integración de API, búsqueda inteligente y visualización interactiva de estadísticas y evoluciones.",
+        image: "/pokenexus.jpg",
+        url: "https://pokenexus-fiberlinks-projects.vercel.app/",
+        tags: ["React", "PokeAPI", "Framer Motion"],
         status: "En producción",
     },
 ];
@@ -63,7 +73,7 @@ const RecentProjects = () => {
                 </div>
 
                 {/* Cards grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {projects.map((project, idx) => (
                         <a
                             key={project.id}
