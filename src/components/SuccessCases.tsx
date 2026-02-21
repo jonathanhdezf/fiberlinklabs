@@ -24,16 +24,22 @@ const SuccessCases = () => {
     ];
 
     return (
-        <section id="casos" className="py-24 px-6 bg-white dark:bg-background-dark">
+        <section id="casos" className="py-24 px-6 bg-background transition-colors duration-500">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
                     <div className="max-w-2xl">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">Casos de Éxito</h2>
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            Casos de Éxito
+                        </div>
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
                             Arquitecturas que <span className="text-gradient">redefinen industrias.</span>
                         </h1>
                     </div>
-                    <button className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-bold hover:border-primary transition-all text-sm">
+                    <button className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-bold hover:border-primary transition-all text-sm text-foreground">
                         Ver todos los proyectos
                     </button>
                 </div>
@@ -58,8 +64,8 @@ const SuccessCases = () => {
                             </div>
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-                                    <p className="text-slate-500 dark:text-slate-400 font-medium">{project.client}</p>
+                                    <h3 className="text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
+                                    <p className="text-slate-500 dark:text-white font-medium">{project.client}</p>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-2xl font-black text-primary">{project.metric}</div>

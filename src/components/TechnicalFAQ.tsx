@@ -90,9 +90,9 @@ const TechnicalFAQ: React.FC = () => {
                         <button className="text-sm font-medium hover:text-primary transition-colors" onClick={() => navigate('/')}>Soluciones</button>
                         <button className="text-sm font-medium hover:text-primary transition-colors text-primary border-b-2 border-primary pb-1">Conocimiento</button>
                         <button className="text-sm font-medium hover:text-primary transition-colors" onClick={() => navigate('/')}>Casos</button>
-                        <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                        <a href="#contacto" className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20 text-center">
                             Agendar Sesión
-                        </button>
+                        </a>
                     </nav>
                 </div>
             </header>
@@ -209,9 +209,9 @@ const TechnicalFAQ: React.FC = () => {
                                 Nuestros ingenieros senior están listos para discutir los pormenores de su arquitectura y cómo FiberLink Labs puede optimizar sus procesos.
                             </p>
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <button className="w-full sm:w-auto px-10 py-4 bg-white text-primary font-bold rounded-lg hover:bg-blue-50 transition-all shadow-xl">
+                                <a href="#contacto" className="w-full sm:w-auto px-10 py-4 bg-white text-primary font-bold rounded-lg hover:bg-blue-50 transition-all shadow-xl text-center">
                                     Programar Sesión Estratégica
-                                </button>
+                                </a>
                                 <button className="w-full sm:w-auto px-10 py-4 border border-white/30 text-white font-bold rounded-lg hover:bg-white/10 transition-all">
                                     Descargar Whitepaper
                                 </button>

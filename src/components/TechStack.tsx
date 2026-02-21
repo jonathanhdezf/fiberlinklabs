@@ -25,13 +25,19 @@ const TechStack = () => {
     ];
 
     return (
-        <section id="tech-stack" className="py-24 px-6 relative overflow-hidden bg-background-light dark:bg-background-dark">
+        <section id="tech-stack" className="py-24 px-6 relative overflow-hidden bg-background transition-colors duration-500">
             <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-20">
-                    <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-primary mb-4">Nuestro DNA Tecnológico</h2>
-                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">
+                <div className="text-center mb-20 flex flex-col items-center">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        Nuestro DNA Tecnológico
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-black text-foreground mb-6">
                         Construimos con el <span className="text-gradient">stack del futuro.</span>
                     </h1>
                     <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light">
@@ -60,7 +66,7 @@ const TechStack = () => {
                                                     {tech.icon}
                                                 </span>
                                             </div>
-                                            <span className="text-sm font-bold text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">
+                                            <span className="text-sm font-bold text-slate-700 dark:text-white group-hover:text-primary transition-colors">
                                                 {tech.name}
                                             </span>
                                         </div>

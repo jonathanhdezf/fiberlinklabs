@@ -2,9 +2,31 @@ import React, { useState } from 'react';
 
 const GrowthEngine: React.FC = () => {
     const [isEngineMode, setIsEngineMode] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState({ title: '', desc: '', icon: '' });
+
+    const stateDetails = {
+        static: {
+            title: "Estado Estático (Legacy)",
+            icon: "history",
+            desc: "Representa el modelo tradicional de presencia digital: sitios web que funcionan como folletos binarios. Son pasivos, requieren intervención manual constante, carecen de inteligencia de datos y tienen un techo de escalabilidad muy bajo. Es una infraestructura que consume recursos sin generar un ROI medible."
+        },
+        engine: {
+            title: "Motor de Crecimiento",
+            icon: "bolt",
+            desc: "La evolución hacia una infraestructura de alto rendimiento. Es un sistema autónomo que integra automatización profunda, centralización de datos y arquitectura cloud elástica. Opera como un motor 24/7 que prospecta, califica y procesa oportunidades de negocio sin fricción, permitiendo un crecimiento exponencial."
+        }
+    };
+
+    const handleToggle = (engine: boolean) => {
+        setIsEngineMode(engine);
+        const content = engine ? stateDetails.engine : stateDetails.static;
+        setModalContent(content);
+        setShowModal(true);
+    };
 
     return (
-        <section id="metodologia" className="relative min-h-screen flex flex-col overflow-hidden bg-grid py-20">
+        <section id="metodologia" className="relative min-h-screen flex flex-col overflow-hidden bg-grid py-20 transition-colors duration-700">
             {/* Subtle Particle Background Simulation */}
             <div className="absolute inset-0 pointer-events-none opacity-40">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px]"></div>
@@ -19,7 +41,7 @@ const GrowthEngine: React.FC = () => {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        Innovación B2B
+                        Metodología Labs
                     </div>
                     <h2 className="text-4xl md:text-6xl font-bold leading-[1.1] mb-6 tracking-tight dark:text-white">
                         De Página Estática a <br />
@@ -31,23 +53,25 @@ const GrowthEngine: React.FC = () => {
                 </div>
 
                 {/* Value Switcher */}
-                <div className="w-full max-w-md flex p-1.5 bg-slate-200 dark:bg-card-dark rounded-xl border border-slate-300 dark:border-white/10 mb-20">
+                <div className="w-full max-w-md flex p-1.5 bg-slate-200 dark:bg-card-dark rounded-xl border border-slate-300 dark:border-white/10 mb-20 relative z-20">
                     <button
-                        onClick={() => setIsEngineMode(false)}
-                        className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${!isEngineMode ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-lg' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-200'}`}
+                        onClick={() => handleToggle(false)}
+                        className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${!isEngineMode ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-lg' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-200'}`}
                     >
-                        Estado Estático (Legacy)
+                        <span className="material-symbols-outlined text-sm">history</span>
+                        Estático
                     </button>
                     <button
-                        onClick={() => setIsEngineMode(true)}
-                        className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all ${isEngineMode ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-200'}`}
+                        onClick={() => handleToggle(true)}
+                        className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${isEngineMode ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-200'}`}
                     >
-                        Motor de Crecimiento
+                        <span className="material-symbols-outlined text-sm">bolt</span>
+                        Motor
                     </button>
                 </div>
 
                 {/* Interactive Pillars Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full relative">
+                <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 w-full relative transition-opacity duration-500 ${!isEngineMode ? 'opacity-60 grayscale' : 'opacity-100'}`}>
                     {/* SVG Connecting Lines (Visual Decor) */}
                     <div className="absolute inset-0 -z-10 hidden lg:block overflow-visible">
                         <svg className="opacity-20" height="100%" width="100%">
@@ -63,30 +87,29 @@ const GrowthEngine: React.FC = () => {
                         <div>
                             <h3 className="text-xl font-bold mb-3 dark:text-white">Automatización 24/7</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                                Elimine cuellos de botella manuales. Orquestamos flujos de datos que operan mientras su equipo descansa.
+                                {isEngineMode
+                                    ? "Elimine cuellos de botella manuales. Orquestamos flujos de datos que operan mientras su equipo descansa."
+                                    : "Procesos manuales propensos a errores. Cada acción requiere intervención humana y tiempo del equipo."}
                             </p>
                             {/* Visual representation of flowlines */}
                             <div className="relative h-24 w-full bg-slate-100 dark:bg-black/40 rounded-lg overflow-hidden p-4">
                                 <div className="absolute top-4 left-4 flex gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-primary/40"></span>
-                                    <span className="w-2 h-2 rounded-full bg-primary/40"></span>
-                                    <span className="w-2 h-2 rounded-full bg-primary/40"></span>
+                                    <span className={`w-2 h-2 rounded-full ${isEngineMode ? 'bg-primary/40' : 'bg-slate-400/40'}`}></span>
+                                    <span className={`w-2 h-2 rounded-full ${isEngineMode ? 'bg-primary/40' : 'bg-slate-400/40'}`}></span>
+                                    <span className={`w-2 h-2 rounded-full ${isEngineMode ? 'bg-primary/40' : 'bg-slate-400/40'}`}></span>
                                 </div>
                                 <div className="flex flex-col gap-3 mt-4">
-                                    <div className="h-1.5 w-[60%] bg-primary/30 rounded-full relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-primary w-1/3 animate-pulse"></div>
+                                    <div className={`h-1.5 w-[60%] rounded-full relative overflow-hidden ${isEngineMode ? 'bg-primary/30' : 'bg-slate-300'}`}>
+                                        <div className={`absolute inset-0 bg-primary w-1/3 ${isEngineMode ? 'animate-pulse' : 'hidden'}`}></div>
                                     </div>
-                                    <div className="h-1.5 w-[85%] bg-primary/30 rounded-full relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-primary w-1/2 delay-100 animate-pulse"></div>
-                                    </div>
-                                    <div className="h-1.5 w-[40%] bg-primary/30 rounded-full relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-primary w-full opacity-50"></div>
+                                    <div className={`h-1.5 w-[85%] rounded-full relative overflow-hidden ${isEngineMode ? 'bg-primary/30' : 'bg-slate-300'}`}>
+                                        <div className={`absolute inset-0 bg-primary w-1/2 delay-100 ${isEngineMode ? 'animate-pulse' : 'hidden'}`}></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* Tooltip/Metric Toggle Area */}
-                        <div className="mt-auto relative group/popover">
+                        <div className={`mt-auto relative group/popover transition-opacity duration-300 ${isEngineMode ? 'opacity-100' : 'opacity-20 pointer-events-none'}`}>
                             <button className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter hover:text-primary/80 dark:hover:text-white transition-colors">
                                 ¿Cómo escalamos esto?
                                 <span className="material-symbols-outlined text-sm">trending_up</span>
@@ -115,21 +138,20 @@ const GrowthEngine: React.FC = () => {
                         <div>
                             <h3 className="text-xl font-bold mb-3 dark:text-white">Datos que Deciden</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                                Del silencio operativo a la visibilidad total. Paneles en tiempo real que revelan oportunidades ocultas.
+                                {isEngineMode
+                                    ? "Del silencio operativo a la visibilidad total. Paneles en tiempo real que revelan oportunidades ocultas."
+                                    : "Intuición sin fundamentos técnicos. Decisiones basadas en suposiciones al no tener recolección de datos activa."}
                             </p>
-                            {/* Visual representation of dynamic chart */}
                             <div className="relative h-24 w-full bg-slate-100 dark:bg-black/40 rounded-lg flex items-end justify-between p-4 gap-1">
-                                <div className="w-full h-[20%] bg-primary/20 rounded-t-sm group-hover:h-[60%] transition-all duration-700"></div>
-                                <div className="w-full h-[35%] bg-primary/20 rounded-t-sm group-hover:h-[45%] transition-all duration-700 delay-75"></div>
-                                <div className="w-full h-[15%] bg-primary/20 rounded-t-sm group-hover:h-[80%] transition-all duration-700 delay-150"></div>
-                                <div className="w-full h-[40%] bg-primary/20 rounded-t-sm group-hover:h-[95%] transition-all duration-700 delay-200"></div>
-                                <div className="w-full h-[25%] bg-primary/20 rounded-t-sm group-hover:h-[70%] transition-all duration-700 delay-300"></div>
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span className="px-2 py-1 bg-primary text-[10px] font-bold text-white rounded">VISIBILIDAD TOTAL</span>
+                                <div className={`w-full h-[20%] rounded-t-sm transition-all duration-700 ${isEngineMode ? 'bg-primary/20 group-hover:h-[60%]' : 'bg-slate-300 h-[10%]'}`}></div>
+                                <div className={`w-full h-[35%] rounded-t-sm transition-all duration-700 delay-75 ${isEngineMode ? 'bg-primary/20 group-hover:h-[45%]' : 'bg-slate-300 h-[10%]'}`}></div>
+                                <div className={`w-full h-[15%] rounded-t-sm transition-all duration-700 delay-150 ${isEngineMode ? 'bg-primary/20 group-hover:h-[80%]' : 'bg-slate-300 h-[10%]'}`}></div>
+                                <div className={`absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity ${isEngineMode ? '' : 'hidden'}`}>
+                                    <span className="px-2 py-1 bg-primary text-[10px] font-bold text-white rounded">VISIBILIDAD</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-auto relative group/popover">
+                        <div className={`mt-auto relative group/popover transition-opacity duration-300 ${isEngineMode ? 'opacity-100' : 'opacity-20 pointer-events-none'}`}>
                             <button className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter hover:text-primary/80 dark:hover:text-white transition-colors">
                                 ¿Cómo escalamos esto?
                                 <span className="material-symbols-outlined text-sm">insights</span>
@@ -158,18 +180,17 @@ const GrowthEngine: React.FC = () => {
                         <div>
                             <h3 className="text-xl font-bold mb-3 dark:text-white">Escalabilidad Infinita</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                                Arquitecturas que crecen con su demanda. Soporte para miles de usuarios simultáneos sin degradación.
+                                {isEngineMode
+                                    ? "Arquitecturas que crecen con su demanda. Soporte para miles de usuarios simultáneos sin degradación."
+                                    : "Infraestructura rígida. El sistema colapsa ante picos de tráfico o nuevos requerimientos de negocio."}
                             </p>
-                            {/* Geometric expanding structure visual */}
                             <div className="relative h-24 w-full bg-slate-100 dark:bg-black/40 rounded-lg flex items-center justify-center p-4">
-                                <div className="relative w-12 h-12 border-2 border-primary/40 rotate-45 flex items-center justify-center group-hover:w-16 group-hover:h-16 transition-all duration-500">
-                                    <div className="w-6 h-6 bg-primary/60 group-hover:scale-150 transition-all duration-500"></div>
-                                    <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary"></div>
-                                    <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-primary"></div>
+                                <div className={`relative w-12 h-12 border-2 rotate-45 flex items-center justify-center transition-all duration-500 ${isEngineMode ? 'border-primary/40 group-hover:w-16 group-hover:h-16' : 'border-slate-300'}`}>
+                                    <div className={`w-6 h-6 transition-all duration-500 ${isEngineMode ? 'bg-primary/60 group-hover:scale-150' : 'bg-slate-300'}`}></div>
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-auto relative group/popover">
+                        <div className={`mt-auto relative group/popover transition-opacity duration-300 ${isEngineMode ? 'opacity-100' : 'opacity-20 pointer-events-none'}`}>
                             <button className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter hover:text-primary/80 dark:hover:text-white transition-colors">
                                 ¿Cómo escalamos esto?
                                 <span className="material-symbols-outlined text-sm">cloud_upload</span>
@@ -194,19 +215,74 @@ const GrowthEngine: React.FC = () => {
                 {/* Decorative Bottom Element */}
                 <div className="mt-24 py-8 px-12 glass-panel rounded-2xl w-full flex flex-col md:flex-row items-center justify-between gap-6 border-l-4 border-l-primary">
                     <div className="flex items-center gap-6">
-                        <div className="text-4xl font-bold dark:text-white">40%</div>
-                        <div className="text-slate-500 dark:text-slate-400 text-sm max-w-[200px]">Promedio de reducción en costos operativos tras la migración.</div>
+                        <div className="text-4xl font-bold dark:text-white">{isEngineMode ? '40%' : '0%'}</div>
+                        <div className="text-slate-500 dark:text-slate-400 text-sm max-w-[200px]">
+                            {isEngineMode ? 'Reducción en costos operativos tras la migración.' : 'Ahorro operativo en el estado tradicional.'}
+                        </div>
                     </div>
                     <div className="h-10 w-[1px] bg-slate-300 dark:bg-white/10 hidden md:block"></div>
                     <div className="flex items-center gap-6">
-                        <div className="text-4xl font-bold dark:text-white">2.5x</div>
-                        <div className="text-slate-500 dark:text-slate-400 text-sm max-w-[200px]">Aumento en la velocidad de despliegue de nuevas funciones.</div>
+                        <div className="text-4xl font-bold dark:text-white">{isEngineMode ? '2.5x' : '1x'}</div>
+                        <div className="text-slate-500 dark:text-slate-400 text-sm max-w-[200px]">
+                            {isEngineMode ? 'Aumento en la velocidad de despliegue de funciones.' : 'Velocidad de desarrollo base.'}
+                        </div>
                     </div>
-                    <button className="w-full md:w-auto px-8 py-3 bg-primary text-white font-bold rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all">
+                    <a href="#contacto" className="w-full md:w-auto px-8 py-3 bg-primary text-white font-bold rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all text-center">
                         Iniciar Consultoría
-                    </button>
+                    </a>
                 </div>
             </main>
+
+            {/* Educational Modal */}
+            {showModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 animate-in fade-in duration-300">
+                    <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onClick={() => setShowModal(false)}></div>
+                    <div className="relative bg-white dark:bg-slate-900 w-full max-w-lg rounded-[2rem] border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+                        {/* High-Contrast Blueprint Grid for Modal */}
+                        <div className="absolute inset-0 pointer-events-none blueprint-grid opacity-[0.07]"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-500/10 pointer-events-none"></div>
+
+                        {/* Large Ghost Icon Background */}
+                        <div className="absolute -bottom-10 -right-10 opacity-[0.05] dark:opacity-[0.07] pointer-events-none select-none">
+                            <span className="material-symbols-outlined text-[300px] leading-none text-slate-900 dark:text-white">
+                                {modalContent.icon}
+                            </span>
+                        </div>
+
+                        <div className="relative p-8">
+                            <div className="flex items-center justify-between mb-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="size-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                        <span className="material-symbols-outlined text-2xl">{modalContent.icon}</span>
+                                    </div>
+                                    <h3 className={`text-xl font-black uppercase tracking-tight ${isEngineMode ? 'text-primary' : 'text-slate-900 dark:text-white'}`}>
+                                        {isEngineMode ? 'Motor Activado' : 'Visión Estática'}
+                                    </h3>
+                                </div>
+                                <button onClick={() => setShowModal(false)} className="size-10 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 flex items-center justify-center transition-colors">
+                                    <span className="material-symbols-outlined text-slate-400">close</span>
+                                </button>
+                            </div>
+
+                            <h4 className="text-2xl font-bold mb-4 dark:text-white leading-tight">{modalContent.title}</h4>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium mb-8">
+                                {modalContent.desc}
+                            </p>
+
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 active:scale-95 transition-all"
+                            >
+                                ENTENDIDO
+                            </button>
+                        </div>
+                        <div className="h-1.5 w-full bg-primary/20 relative">
+                            <div className="h-full bg-primary animate-[loading_2s_ease-in-out]"></div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Dynamic Background Canvas Decoration */}
             <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none"></div>
         </section>

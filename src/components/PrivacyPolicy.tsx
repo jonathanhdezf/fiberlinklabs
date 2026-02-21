@@ -7,7 +7,7 @@ const PrivacyPolicy: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-slate-50 dark:bg-slate-950 min-h-screen font-display selection:bg-primary/30">
+        <div className="bg-background text-foreground min-h-screen font-display selection:bg-primary/30 transition-colors duration-500">
             <Navbar />
 
             <main className="relative pt-32 pb-20 px-6">
@@ -22,7 +22,7 @@ const PrivacyPolicy: React.FC = () => {
                             <span className="material-symbols-outlined">arrow_back</span>
                             Volver al Inicio
                         </button>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+                        <h1 id="privacidad-titulo" className="text-4xl md:text-5xl font-black tracking-tight text-foreground mb-4">
                             Política de <span className="text-primary">Privacidad</span>
                         </h1>
                         <p className="text-slate-500 dark:text-slate-400">Última actualización: 20 de Febrero, 2026</p>
@@ -30,7 +30,7 @@ const PrivacyPolicy: React.FC = () => {
 
                     <div className="prose prose-slate dark:prose-invert max-w-none space-y-12 text-slate-600 dark:text-slate-300">
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">security</span>
                                 1. Compromiso de Transparencia
                             </h2>
@@ -40,7 +40,7 @@ const PrivacyPolicy: React.FC = () => {
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">analytics</span>
                                 2. Recolección de Datos Analíticos
                             </h2>
@@ -55,7 +55,7 @@ const PrivacyPolicy: React.FC = () => {
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">shield_lock</span>
                                 3. Protocolos de Seguridad
                             </h2>
@@ -65,7 +65,7 @@ const PrivacyPolicy: React.FC = () => {
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">gavel</span>
                                 4. Derechos de Privacidad
                             </h2>
@@ -76,7 +76,7 @@ const PrivacyPolicy: React.FC = () => {
                     </div>
 
                     <div className="mt-20 p-8 bg-primary/5 border border-primary/20 rounded-2xl">
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">¿Tiene dudas sobre su privacidad?</h3>
+                        <h3 className="text-xl font-bold text-foreground mb-4">¿Tiene dudas sobre su privacidad?</h3>
                         <p className="text-slate-600 dark:text-slate-400 mb-6">
                             Nuestro Oficial de Protección de Datos (DPO) está disponible para auditorías técnicas y consultas específicas.
                         </p>

@@ -60,21 +60,20 @@ const Navbar = () => {
                             className="absolute inset-0 h-full w-auto object-contain transition-opacity duration-700 opacity-0 group-hover:opacity-100"
                         />
                     </div>
-                    <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                    <span className="text-xl font-bold tracking-tight text-foreground">
                         FiberLink <span className="text-primary">Labs</span>
                     </span>
                 </Link>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
-                    <a href="#soluciones" className="hover:text-primary transition-colors">Soluciones</a>
-                    <a href="#metodologia" className="hover:text-primary transition-colors">Metodología</a>
-                    <a href="#casos" className="hover:text-primary transition-colors">Casos de Éxito</a>
-                    <Link to="/faq" className="hover:text-primary transition-colors">FAQ</Link>
-                    <a href="#blog" className="hover:text-primary transition-colors">Blog</a>
-                    <button className="px-5 py-2.5 bg-primary text-white font-semibold rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all">
+                    <a href="#soluciones" className="hover:text-primary transition-colors dark:text-slate-300">Soluciones</a>
+                    <a href="#metodologia" className="hover:text-primary transition-colors dark:text-slate-300">Metodología</a>
+                    <a href="#casos" className="hover:text-primary transition-colors dark:text-slate-300">Casos de Éxito</a>
+                    <a href="#blog" className="hover:text-primary transition-colors dark:text-slate-300">Blog</a>
+                    <a href="#contacto" className="px-5 py-2.5 bg-primary text-white font-semibold rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all">
                         Contacto
-                    </button>
+                    </a>
                     <button
                         onClick={() => setIsDarkMode(!isDarkMode)}
                         className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center group"
@@ -110,11 +109,10 @@ const Navbar = () => {
                     <a href="#soluciones" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Soluciones</a>
                     <a href="#metodologia" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Metodología</a>
                     <a href="#casos" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Casos de Éxito</a>
-                    <Link to="/faq" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>FAQ</Link>
                     <a href="#blog" className="text-lg font-medium" onClick={() => setIsMobileMenuOpen(false)}>Blog</a>
-                    <button className="w-full py-3 bg-primary text-white font-semibold rounded-xl">
+                    <a href="#contacto" className="w-full py-3 bg-primary text-white font-semibold rounded-xl text-center" onClick={() => setIsMobileMenuOpen(false)}>
                         Contacto
-                    </button>
+                    </a>
                 </div>
             )}
         </nav>

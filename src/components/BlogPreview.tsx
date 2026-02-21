@@ -21,12 +21,18 @@ const BlogPreview = () => {
     ];
 
     return (
-        <section id="blog" className="py-24 px-6 bg-slate-50 dark:bg-slate-950">
+        <section id="blog" className="py-24 px-6 bg-background transition-colors duration-500">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-6">
                     <div className="text-center md:text-left">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">Blog Tech</h2>
-                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            Blog Tech
+                        </div>
+                        <h1 className="text-3xl md:text-5xl font-black text-foreground tracking-tight">
                             Perspectivas sobre <span className="text-gradient">el futuro digital.</span>
                         </h1>
                     </div>
@@ -38,14 +44,14 @@ const BlogPreview = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {posts.map((post, idx) => (
-                        <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl hover:border-primary/50 transition-all group">
+                        <div key={idx} className="bg-white dark:bg-slate-50 border border-slate-200 dark:border-slate-300 p-8 rounded-3xl hover:border-primary/50 transition-all group">
                             <div className="flex items-center justify-between mb-6">
                                 <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full">
                                     {post.category}
                                 </span>
                                 <span className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">{post.readTime} lectura</span>
                             </div>
-                            <h3 className="text-xl font-bold mb-6 group-hover:text-primary transition-colors leading-snug">
+                            <h3 className="text-xl font-bold mb-6 text-slate-900 group-hover:text-primary transition-colors leading-snug">
                                 {post.title}
                             </h3>
                             <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-100 dark:border-slate-800">

@@ -45,7 +45,7 @@ const projects = [
 
 const RecentProjects = () => {
     return (
-        <section id="proyectos-recientes" className="py-24 px-6 bg-slate-50 dark:bg-[#060810] relative overflow-hidden">
+        <section id="proyectos-recientes" className="py-24 px-6 bg-background transition-colors duration-500 relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute inset-0 pointer-events-none recent-projects-bg" aria-hidden="true" />
 
@@ -53,10 +53,14 @@ const RecentProjects = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
                     <div className="max-w-2xl">
-                        <p className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
                             Últimos Proyectos
-                        </p>
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
                             Lo que hemos{" "}
                             <span className="text-gradient">construido.</span>
                         </h2>
@@ -66,7 +70,7 @@ const RecentProjects = () => {
                     </div>
                     <a
                         href="mailto:contacto@fiberlinklabs.com"
-                        className="shrink-0 px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-bold hover:border-primary transition-all text-sm dark:text-white hover:text-primary"
+                        className="shrink-0 px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-bold hover:border-primary transition-all text-sm text-foreground hover:text-primary"
                     >
                         Iniciar un proyecto →
                     </a>
@@ -81,7 +85,7 @@ const RecentProjects = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`Ver proyecto ${project.name}`}
-                            className={`project-card ${CARD_DELAY_CLASSES[idx] ?? ''} group flex flex-col rounded-[2rem] overflow-hidden border border-transparent hover:border-primary/20 transition-all duration-500 bg-white dark:bg-slate-900/60 hover:shadow-[0_0_60px_-15px_rgba(59,130,246,0.35)] focus:outline-none focus:ring-2 focus:ring-primary`}
+                            className={`project-card ${CARD_DELAY_CLASSES[idx] ?? ''} group flex flex-col rounded-[2rem] overflow-hidden border border-transparent hover:border-primary/20 transition-all duration-500 bg-white dark:bg-slate-50 hover:shadow-[0_0_60px_-15px_rgba(59,130,246,0.35)] focus:outline-none focus:ring-2 focus:ring-primary`}
                         >
                             {/* Image */}
                             <div className="relative aspect-[16/9] overflow-hidden">
@@ -113,12 +117,12 @@ const RecentProjects = () => {
                                 </span>
 
                                 {/* Title */}
-                                <h3 className="text-xl font-extrabold text-slate-900 dark:text-white group-hover:text-primary transition-colors duration-300">
+                                <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-primary transition-colors duration-300">
                                     {project.name}
                                 </h3>
 
                                 {/* Description */}
-                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed flex-1">
+                                <p className="text-slate-500 text-sm leading-relaxed flex-1">
                                     {project.description}
                                 </p>
 
@@ -127,7 +131,7 @@ const RecentProjects = () => {
                                     {project.tags.map((tag) => (
                                         <span
                                             key={tag}
-                                            className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                                            className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600"
                                         >
                                             {tag}
                                         </span>

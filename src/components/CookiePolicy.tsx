@@ -7,7 +7,7 @@ const CookiePolicy: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-slate-50 dark:bg-slate-950 min-h-screen font-display selection:bg-primary/30">
+        <div className="bg-background text-foreground min-h-screen font-display selection:bg-primary/30 transition-colors duration-500">
             <Navbar />
 
             <main className="relative pt-32 pb-20 px-6">
@@ -22,7 +22,7 @@ const CookiePolicy: React.FC = () => {
                             <span className="material-symbols-outlined">arrow_back</span>
                             Volver al Inicio
                         </button>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+                        <h1 id="cookies-titulo" className="text-4xl md:text-5xl font-black tracking-tight text-foreground mb-4">
                             Política de <span className="text-primary">Cookies</span>
                         </h1>
                         <p className="text-slate-500 dark:text-slate-400">Estado del ecosistema de rastreo: Optimizado</p>
@@ -30,7 +30,7 @@ const CookiePolicy: React.FC = () => {
 
                     <div className="prose prose-slate dark:prose-invert max-w-none space-y-12 text-slate-600 dark:text-slate-300">
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">cookie</span>
                                 1. Fragmentación de Memoria Local
                             </h2>
@@ -40,28 +40,28 @@ const CookiePolicy: React.FC = () => {
                         </section>
 
                         <section className="space-y-6">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">category</span>
                                 2. Clasificación de Datos Persistentes
                             </h2>
 
                             <div className="grid gap-6">
                                 <div className="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                    <h3 className="font-bold text-foreground mb-2 flex items-center gap-2">
                                         <span className="material-symbols-outlined text-blue-500">memory</span>
                                         Escenciales
                                     </h3>
                                     <p className="text-sm">Necesarias para el funcionamiento técnico de la plataforma, como la gestión de sesiones y el guardado de sus preferencias de modo oscuro.</p>
                                 </div>
                                 <div className="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                    <h3 className="font-bold text-foreground mb-2 flex items-center gap-2">
                                         <span className="material-symbols-outlined text-green-500">settings</span>
                                         Funcionales
                                     </h3>
                                     <p className="text-sm">Permiten que el sitio recuerde elecciones que usted hace (como su nombre de usuario o los datos de diagnóstico parciales).</p>
                                 </div>
                                 <div className="p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
-                                    <h3 className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                    <h3 className="font-bold text-foreground mb-2 flex items-center gap-2">
                                         <span className="material-symbols-outlined text-purple-500">monitoring</span>
                                         Analíticas
                                     </h3>
@@ -71,7 +71,7 @@ const CookiePolicy: React.FC = () => {
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
                                 <span className="material-symbols-outlined text-primary">settings_applications</span>
                                 3. Gestión de Configuración
                             </h2>
