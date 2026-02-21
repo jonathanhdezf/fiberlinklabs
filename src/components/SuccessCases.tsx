@@ -4,22 +4,22 @@ const SuccessCases = () => {
     const navigate = useNavigate();
     const cases = [
         {
-            title: "OmniChannel POS Transformation",
-            client: "Retail Logistics Group",
+            title: "Control Total de Ventas",
+            client: "Grupo Comercial de la Región",
             metric: "+45% Eficiencia",
-            desc: "Rediseño completo de la infraestructura de punto de venta, conectando 15 sedes físicas con un core digital único en la nube.",
+            desc: "Conectamos múltiples sucursales con un sistema moderno que permite controlar inventarios y ventas en tiempo real desde cualquier lugar.",
             image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=1000&auto=format&fit=crop",
-            tag: "Retail Tech",
+            tag: "Ventas & Retail",
             url: "#"
         },
         {
-            title: "Restaurant Digital Transformation",
-            client: "Gastronomy Systems V2",
+            title: "Especialización para Restaurantes",
+            client: "Sector Gastronómico Local",
             metric: "+35% Eficiencia",
-            desc: "Ecosistema de alto rendimiento para hostelería moderna mediante sincronización personalizada de ERP y POS.",
-            image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAuHLjynk_OHnmeFj65R_xGD7udlJc-gX6FRcoQpUqRvOr-c_47XjlU83VpdRaCO2TWCY8Xi9uVeSuqW1FRtM8L-8siPsqBv40QbaTZejx2md5H6CLk6q71Ub6b5Qyr3jPx9rpOsaVdPSN0K4pz3_ghYCCZ6dKkHdJ0a99LgXtDx9I_TvZvKtVAWbam-wqZLrD3rDi49u1G1lUUzRE5C7rPxnNOImWT3lj3tlDZ0wsWg8Hz6M8pUgjIf2dTpPICgMotsmqjifpiYuor",
-            tag: "Food & Beverage",
-            url: "/casos/restaurante"
+            desc: "Mejoramos la operación de negocios de comida con sistemas que agilizan pedidos y controlan costos de forma automática.",
+            image: "/elbuenservir.jpg",
+            tag: "Gastronomía Digital",
+            url: "/iniciativas/elbuenservir"
         }
     ];
 
@@ -36,7 +36,7 @@ const SuccessCases = () => {
                             Casos de Éxito
                         </div>
                         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
-                            Arquitecturas que <span className="text-gradient">redefinen industrias.</span>
+                            Soluciones que <span className="text-gradient">impulsan negocios reales.</span>
                         </h1>
                     </div>
                     <button className="px-8 py-4 border-2 border-slate-200 dark:border-slate-800 rounded-2xl font-bold hover:border-primary transition-all text-sm text-foreground">

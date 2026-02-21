@@ -12,7 +12,7 @@ const Hero = () => {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        Inovaciónes Web
+                        Innovaciones Web
                     </div>
 
                     <h1 className="text-4xl md:text-6xl xl:text-7xl font-extrabold leading-[1.1] mb-8 tracking-tight text-foreground">
@@ -23,7 +23,7 @@ const Hero = () => {
                     </h1>
 
                     <p className="text-lg md:text-xl text-slate-600 dark:text-white max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-10 font-normal">
-                        FiberLink Labs es la división de innovación web de Fiberlink Servicios TIC. Desarrollamos plataformas, sistemas y automatizaciones para empresas que están listas para escalar.
+                        FiberLink Labs es la división de innovación de Fiberlink Servicios TIC. Desarrollamos sitios web profesionales e infraestructura digital para empresas listas para crecer.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">

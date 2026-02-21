@@ -2,30 +2,30 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const steps = [
     {
-        title: "Interactive Diagnosis Step 1",
-        question: "Interactive Diagnosis Step 1",
-        desc: "¿Cuál es el principal cuello de botella de tu empresa hoy?",
+        title: "Paso 1: Situación Actual",
+        question: "Paso 1: Situación Actual",
+        desc: "¿Qué es lo que más te quita tiempo o te preocupa hoy?",
         options: [
-            { id: "manual", title: "Procesos Manuales", desc: "Tareas repetitivas y errores operativos.", icon: "history_toggle_off" },
-            { id: "data", title: "Falta de Visibilidad", desc: "Dificultad para obtener reportes en real-time.", icon: "visibility_off" },
-            { id: "sales", title: "Ventas Estancadas", desc: "Crecimiento limitado por falta de CRM.", icon: "trending_down" },
-            { id: "silos", title: "Sistemas Desconectados", desc: "Herramientas que no se integran entre sí.", icon: "link_off" }
+            { id: "manual", title: "Mucho Trabajo Manual", desc: "Tareas repetitivas que se podrían automatizar.", icon: "history_toggle_off" },
+            { id: "data", title: "Sin Control Claro", desc: "Es difícil saber exactamente cuánto se vende o gasta.", icon: "visibility_off" },
+            { id: "sales", title: "Pocos Clientes Nuevos", desc: "Crecimiento frenado por no tener presencia web clara.", icon: "trending_down" },
+            { id: "silos", title: "Herramientas Lentas", desc: "Sistemas viejos o desconectados que nos retrasan.", icon: "link_off" }
         ]
     },
     {
-        title: "Diagnóstico Digital Paso 2",
-        question: "Diagnóstico Digital Paso 2",
-        desc: "¿A qué escala proyectas tu crecimiento en los próximos 12 meses?",
+        title: "Paso 2: Metas de Crecimiento",
+        question: "Paso 2: Metas de Crecimiento",
+        desc: "¿Qué quieres lograr en los próximos 12 meses?",
         options: [
-            { id: "optimize", title: "Optimizar lo actual", desc: "Maximizar la eficiencia operativa existente.", icon: "trending_up" },
-            { id: "regional", title: "Escalar regionalmente", desc: "Expansión geográfica y nuevos mercados.", icon: "public" },
-            { id: "transformation", title: "Transformación total", desc: "Innovación disruptiva y modelos digitales.", icon: "rocket_launch" }
+            { id: "optimize", title: "Hacer el negocio más eficiente", desc: "Ahorrar tiempo y reducir errores diarios.", icon: "trending_up" },
+            { id: "regional", title: "Crecer a nuevas ciudades", desc: "Llegar a más clientes en la región o el país.", icon: "public" },
+            { id: "transformation", title: "Renovación Digital Total", desc: "Convertir el negocio en un referente tecnológico.", icon: "rocket_launch" }
         ]
     },
     {
-        title: "Interactive diagnosis final step 3",
-        question: "Interactive diagnosis final step 3",
-        desc: "Para entregarte tu hoja de ruta personalizada, necesitamos los datos de liderazgo.",
+        title: "Paso 3: Contacto",
+        question: "Paso 3: Contacto",
+        desc: "Dinos dónde enviarte tu plan de crecimiento personalizado.",
         options: []
     }
 ];
@@ -82,16 +82,16 @@ const Diagnosis = () => {
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                     </span>
-                    Inteligencia Operativa
+                    Mejora tu Negocio
                 </div>
 
                 <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8 text-foreground leading-[1.1]">
-                    ¿Tu infraestructura soporta tus <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500 italic block mt-2">objetivos de crecimiento?</span>
+                    ¿Tu tecnología actual te ayuda a <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500 italic block mt-2">crecer o te está frenando?</span>
                 </h2>
 
                 <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-                    En menos de 2 minutos, identifica los cuellos de botella técnicos y recibe una hoja de ruta personalizada diseñada por nuestros arquitectos Senior.
+                    En menos de 2 minutos, identifica qué está frenando tu crecimiento y recibe un plan de acción diseñado por nuestros expertos.
                 </p>
 
                 <button

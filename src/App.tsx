@@ -57,7 +57,7 @@ function App() {
         <Route path="/quienes-somos" element={<AboutUs />} />
         <Route path="/iniciativas/teziutlan" element={<Teziutlan />} />
         <Route path="/educacion-digital" element={<YouCanLearnAnything />} />
-        <Route path="/iniciativas/el-buen-servir" element={<ElBuenServir />} />
+        <Route path="/iniciativas/elbuenservir" element={<ElBuenServir />} />
         <Route path="/casos/restaurante" element={<RestaurantCaseStudy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

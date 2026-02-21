@@ -7,14 +7,14 @@ const GrowthEngine: React.FC = () => {
 
     const stateDetails = {
         static: {
-            title: "Estado Estático (Legacy)",
+            title: "Página Tradicional (Inactiva)",
             icon: "history",
-            desc: "Representa el modelo tradicional de presencia digital: sitios web que funcionan como folletos binarios. Son pasivos, requieren intervención manual constante, carecen de inteligencia de datos y tienen un techo de escalabilidad muy bajo. Es una infraestructura que consume recursos sin generar un ROI medible."
+            desc: "Representa el modelo básico: una página web que solo sirve como tarjeta de presentación. Es difícil de actualizar, no genera clientes automáticamente y no ayuda a que el negocio crezca realmente. Es un sitio que está ahí, pero que no trabaja para ti."
         },
         engine: {
-            title: "Motor de Crecimiento",
+            title: "Sistema de Crecimiento Activo",
             icon: "bolt",
-            desc: "La evolución hacia una infraestructura de alto rendimiento. Es un sistema autónomo que integra automatización profunda, centralización de datos y arquitectura cloud elástica. Opera como un motor 24/7 que prospecta, califica y procesa oportunidades de negocio sin fricción, permitiendo un crecimiento exponencial."
+            desc: "Una página web que trabaja 24/7. Integra herramientas que automatizan tus ventas y organizan tu información de manera inteligente. Funciona como un empleado experto que nunca duerme, captando clientes y ahorrándote tiempo valioso."
         }
     };
 
@@ -44,11 +44,11 @@ const GrowthEngine: React.FC = () => {
                         Metodología Labs
                     </div>
                     <h2 className="text-4xl md:text-6xl font-bold leading-[1.1] mb-6 tracking-tight dark:text-white">
-                        De Página Estática a <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Motor de Crecimiento</span>
+                        De una Página Simple a un <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Sistema que Vende</span>
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl font-light max-w-2xl mx-auto">
-                        Transformamos la presencia digital en infraestructura de alto rendimiento que automatiza ventas, centraliza datos y escala sin límites.
+                        Transformamos tu presencia en línea en una herramienta de alto rendimiento que atrae clientes y organiza tu negocio automáticamente.
                     </p>
                 </div>
 
@@ -85,11 +85,11 @@ const GrowthEngine: React.FC = () => {
                             <span className="material-symbols-outlined text-3xl">account_tree</span>
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold mb-3 dark:text-white">Automatización 24/7</h3>
+                            <h3 className="text-xl font-bold mb-3 dark:text-white">Ahorro de Tiempo</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
                                 {isEngineMode
-                                    ? "Elimine cuellos de botella manuales. Orquestamos flujos de datos que operan mientras su equipo descansa."
-                                    : "Procesos manuales propensos a errores. Cada acción requiere intervención humana y tiempo del equipo."}
+                                    ? "Olvídate de tareas repetitivas. Creamos sistemas que atienden clientes y procesan pedidos automáticamente, ahorrándote horas de trabajo manual."
+                                    : "Procesos manuales lentos. Cada acción requiere que tú o alguien de tu equipo dedique tiempo valioso para hacerlo a mano."}
                             </p>
                             {/* Visual representation of flowlines */}
                             <div className="relative h-24 w-full bg-slate-100 dark:bg-black/40 rounded-lg overflow-hidden p-4">
@@ -111,15 +111,15 @@ const GrowthEngine: React.FC = () => {
                         {/* Tooltip/Metric Toggle Area */}
                         <div className={`mt-auto relative group/popover transition-opacity duration-300 ${isEngineMode ? 'opacity-100' : 'opacity-20 pointer-events-none'}`}>
                             <button className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter hover:text-primary/80 dark:hover:text-white transition-colors">
-                                ¿Cómo escalamos esto?
+                                ¿Qué gano con esto?
                                 <span className="material-symbols-outlined text-sm">trending_up</span>
                             </button>
                             {/* Mini Popover */}
                             <div className="absolute bottom-full left-0 mb-4 w-64 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl opacity-0 group-hover/popover:opacity-100 translate-y-2 group-hover/popover:translate-y-0 transition-all pointer-events-none z-20">
-                                <p className="text-xs font-bold text-slate-900 dark:text-white mb-2 uppercase">ROI Técnico</p>
+                                <p className="text-xs font-bold text-slate-900 dark:text-white mb-2 uppercase">Beneficio Directo</p>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-[10px] text-slate-500">Eficiencia Operativa</span>
+                                        <span className="text-[10px] text-slate-500">Tiempo de trabajo ahorrado</span>
                                         <span className="text-xs font-bold text-primary">+340%</span>
                                     </div>
                                     <div className="w-full bg-slate-100 dark:bg-white/5 h-1 rounded-full overflow-hidden">
@@ -136,33 +136,33 @@ const GrowthEngine: React.FC = () => {
                             <span className="material-symbols-outlined text-3xl">query_stats</span>
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold mb-3 dark:text-white">Datos que Deciden</h3>
+                            <h3 className="text-xl font-bold mb-3 dark:text-white">Información Clara</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
                                 {isEngineMode
-                                    ? "Del silencio operativo a la visibilidad total. Paneles en tiempo real que revelan oportunidades ocultas."
-                                    : "Intuición sin fundamentos técnicos. Decisiones basadas en suposiciones al no tener recolección de datos activa."}
+                                    ? "Pasa de la duda a la certeza. Entiende qué buscan tus clientes y qué productos funcionan mejor mediante reportes fáciles de entender."
+                                    : "Decisiones a ciegas. Sin saber qué prefieren tus clientes, es difícil saber dónde invertir para mejorar tu negocio."}
                             </p>
                             <div className="relative h-24 w-full bg-slate-100 dark:bg-black/40 rounded-lg flex items-end justify-between p-4 gap-1">
                                 <div className={`w-full h-[20%] rounded-t-sm transition-all duration-700 ${isEngineMode ? 'bg-primary/20 group-hover:h-[60%]' : 'bg-slate-300 h-[10%]'}`}></div>
                                 <div className={`w-full h-[35%] rounded-t-sm transition-all duration-700 delay-75 ${isEngineMode ? 'bg-primary/20 group-hover:h-[45%]' : 'bg-slate-300 h-[10%]'}`}></div>
                                 <div className={`w-full h-[15%] rounded-t-sm transition-all duration-700 delay-150 ${isEngineMode ? 'bg-primary/20 group-hover:h-[80%]' : 'bg-slate-300 h-[10%]'}`}></div>
                                 <div className={`absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity ${isEngineMode ? '' : 'hidden'}`}>
-                                    <span className="px-2 py-1 bg-primary text-[10px] font-bold text-white rounded">VISIBILIDAD</span>
+                                    <span className="px-2 py-1 bg-primary text-[10px] font-bold text-white rounded">CONTROL TOTAL</span>
                                 </div>
                             </div>
                         </div>
                         <div className={`mt-auto relative group/popover transition-opacity duration-300 ${isEngineMode ? 'opacity-100' : 'opacity-20 pointer-events-none'}`}>
                             <button className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter hover:text-primary/80 dark:hover:text-white transition-colors">
-                                ¿Cómo escalamos esto?
+                                ¿Qué gano con esto?
                                 <span className="material-symbols-outlined text-sm">insights</span>
                             </button>
                             {/* Mini Popover */}
                             <div className="absolute bottom-full left-0 mb-4 w-64 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl opacity-0 group-hover/popover:opacity-100 translate-y-2 group-hover/popover:translate-y-0 transition-all pointer-events-none z-20">
-                                <p className="text-xs font-bold text-slate-900 dark:text-white mb-2 uppercase">Decisión de Negocio</p>
+                                <p className="text-xs font-bold text-slate-900 dark:text-white mb-2 uppercase">Control de Negocio</p>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-[10px] text-slate-500">Predicción de Churn</span>
-                                        <span className="text-xs font-bold text-primary">Precisión 92%</span>
+                                        <span className="text-[10px] text-slate-500">Retención de Clientes</span>
+                                        <span className="text-xs font-bold text-primary">Aumento del 92%</span>
                                     </div>
                                     <div className="w-full bg-slate-100 dark:bg-white/5 h-1 rounded-full overflow-hidden">
                                         <div className="bg-primary h-full w-[92%]"></div>
@@ -178,11 +178,11 @@ const GrowthEngine: React.FC = () => {
                             <span className="material-symbols-outlined text-3xl">grid_view</span>
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold mb-3 dark:text-white">Escalabilidad Infinita</h3>
+                            <h3 className="text-xl font-bold mb-3 dark:text-white">Preparado para Crecer</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
                                 {isEngineMode
-                                    ? "Arquitecturas que crecen con su demanda. Soporte para miles de usuarios simultáneos sin degradación."
-                                    : "Infraestructura rígida. El sistema colapsa ante picos de tráfico o nuevos requerimientos de negocio."}
+                                    ? "Tecnología que no te limita. Si tu negocio crece y recibes miles de visitas al día, tu página responderá rápido y sin problemas."
+                                    : "Sistemas frágiles. Las páginas básicas suelen fallar o volverse muy lentas cuando muchos clientes intentan entrar al mismo tiempo."}
                             </p>
                             <div className="relative h-24 w-full bg-slate-100 dark:bg-black/40 rounded-lg flex items-center justify-center p-4">
                                 <div className={`relative w-12 h-12 border-2 rotate-45 flex items-center justify-center transition-all duration-500 ${isEngineMode ? 'border-primary/40 group-hover:w-16 group-hover:h-16' : 'border-slate-300'}`}>
@@ -192,16 +192,16 @@ const GrowthEngine: React.FC = () => {
                         </div>
                         <div className={`mt-auto relative group/popover transition-opacity duration-300 ${isEngineMode ? 'opacity-100' : 'opacity-20 pointer-events-none'}`}>
                             <button className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-tighter hover:text-primary/80 dark:hover:text-white transition-colors">
-                                ¿Cómo escalamos esto?
+                                ¿Qué gano con esto?
                                 <span className="material-symbols-outlined text-sm">cloud_upload</span>
                             </button>
                             {/* Mini Popover */}
                             <div className="absolute bottom-full left-0 mb-4 w-64 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl opacity-0 group-hover/popover:opacity-100 translate-y-2 group-hover/popover:translate-y-0 transition-all pointer-events-none z-20">
-                                <p className="text-xs font-bold text-slate-900 dark:text-white mb-2 uppercase">Infraestructura</p>
+                                <p className="text-xs font-bold text-slate-900 dark:text-white mb-2 uppercase">Calidad de Servicio</p>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-[10px] text-slate-500">Tiempo de respuesta</span>
-                                        <span className="text-xs font-bold text-primary">&lt; 100ms</span>
+                                        <span className="text-[10px] text-slate-500">Velocidad de Carga</span>
+                                        <span className="text-xs font-bold text-primary">Instantánea</span>
                                     </div>
                                     <div className="w-full bg-slate-100 dark:bg-white/5 h-1 rounded-full overflow-hidden">
                                         <div className="bg-primary h-full w-[98%]"></div>

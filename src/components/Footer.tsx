@@ -59,7 +59,7 @@ const Footer = () => {
                         <ul className="space-y-4 text-sm font-medium text-slate-600 dark:text-slate-400">
                             <li><Link to="/iniciativas/teziutlan" className="hover:text-primary transition-colors dark:text-white flex items-center gap-1.5">Teziutlán: Piedra &amp; Niebla</Link></li>
                             <li><Link to="/educacion-digital" className="hover:text-primary transition-colors dark:text-white">#YouCanLearnAnything</Link></li>
-                            <li><Link to="/iniciativas/el-buen-servir" className="hover:text-primary transition-colors dark:text-white">El Buen Servir · Web App</Link></li>
+                            <li><Link to="/iniciativas/elbuenservir" className="hover:text-primary transition-colors dark:text-white">El Buen Servir · Web App</Link></li>
                         </ul>
                     </div>
                 </div>

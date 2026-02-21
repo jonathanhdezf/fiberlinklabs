@@ -5,36 +5,36 @@ const Manifesto: React.FC = () => {
         {
             id: "dna-1",
             number: "01 / 05",
-            title: "Funcionalidad",
-            desc: "El diseño no es solo estética; es rendimiento. En FiberLink Labs, cada bit de infraestructura está optimizado para la máxima eficiencia operativa. Resolvemos problemas complejos con soluciones directas.",
+            title: "Resultados",
+            desc: "Un sitio web debe ser una herramienta de ventas, no un gasto. En FiberLink Labs optimizamos cada proyecto para que cargue rápido y se vea perfecto en cualquier celular, asegurando que tus clientes siempre te encuentren.",
             image: "/manifesto_functionality.png"
         },
         {
             id: "dna-2",
             number: "02 / 05",
-            title: "Ingeniería",
-            desc: "La precisión es nuestra métrica de éxito. Aplicamos rigor científico en el despliegue de redes, asegurando que la latencia sea un concepto del pasado y la estabilidad una garantía del presente.",
+            title: "Infraestructura",
+            desc: "Construimos el sistema nervioso de tu negocio. Desde redes estables hasta servidores locales, aplicamos ingeniería de alta precisión para que tu conexión nunca falle y tus datos estén siempre seguros.",
             image: "/manifesto_ingenieria.png"
         },
         {
             id: "dna-3",
             number: "03 / 05",
-            title: "Mentalidad",
-            desc: "Innovación constante. No nos conformamos con lo establecido. Nuestra mentalidad es de constante iteración, buscando siempre la próxima frontera tecnológica antes de que sea tendencia.",
+            title: "Innovación",
+            desc: "Traemos la tecnología de las grandes ciudades a nuestra región. No nos conformamos con lo básico; usamos herramientas de última generación para que tu negocio local compita al nivel de los mejores del país.",
             image: "/manifesto_mentalidad.png"
         },
         {
             id: "dna-4",
             number: "04 / 05",
-            title: "Escalabilidad",
-            desc: "Construimos para el mañana. Nuestras infraestructuras están diseñadas de forma modular, permitiendo un crecimiento exponencial sin fricción técnica ni obsolescencia programada.",
+            title: "Crecimiento",
+            desc: "Sistemas hechos para escalar. Si tu negocio crece mañana, tu tecnología crece con él. Diseñamos nuestras webs y redes de forma modular para que puedas expandirte sin fricciones ni gastos innecesarios.",
             image: "/manifesto_escalabilidad.png"
         },
         {
             id: "dna-5",
             number: "05 / 05",
-            title: "Integridad",
-            desc: "Transparencia técnica absoluta. Somos custodios de la confianza de nuestros clientes, manteniendo estándares éticos que superan las normativas industriales más exigentes.",
+            title: "Confianza",
+            desc: "Trato directo y honesto. Hablamos claro y sin tecnicismos complicados. Somos tu socio local de confianza, cuidando tu infraestructura digital como si fuera la nuestra.",
             image: "/manifesto_integridad.png"
         }
     ];
@@ -71,8 +71,8 @@ const Manifesto: React.FC = () => {
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 tracking-tighter leading-none text-glow uppercase text-foreground">
                             Nuestra <span className="text-primary italic">Misión</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
-                            Redefinir la conectividad global mediante la convergencia de infraestructura física de vanguardia y arquitectura digital inteligente.
+                        <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                            Impulsar el éxito de los negocios de la región mediante infraestructura digital sólida y un desarrollo web que realmente vende.
                         </p>
                         <div className="mt-12 flex justify-center">
                             <span className="material-symbols-outlined text-primary text-4xl animate-bounce">expand_more</span>
@@ -117,13 +117,13 @@ const Manifesto: React.FC = () => {
                     <div className="container mx-auto px-8 text-center relative z-10">
                         <span className="text-xs font-bold tracking-[0.5em] text-primary uppercase mb-12 block">Futuro Proyectado</span>
                         <h2 className="text-5xl md:text-7xl font-bold mb-12 tracking-tighter max-w-4xl mx-auto">
-                            Ser el sistema nervioso de la nueva <span className="text-primary">civilización digital.</span>
+                            Digitalizar por completo la Sierra Norte y <span className="text-primary">liderar el futuro tecnológico local.</span>
                         </h2>
                         <div className="flex flex-col items-center gap-12">
                             <div className="horizon-line w-full max-w-2xl"></div>
                             <p className="text-slate-500 font-medium tracking-widest uppercase text-sm">FiberLink Labs © 2026</p>
                             <button className="group relative px-8 py-4 overflow-hidden rounded bg-transparent border border-primary text-primary transition-all hover:text-white">
-                                <span className="relative z-10 font-bold tracking-widest text-sm uppercase">Únete a la Revolución</span>
+                                <span className="relative z-10 font-bold tracking-widest text-sm uppercase">Empieza tu Proyecto</span>
                                 <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                             </button>
                         </div>

@@ -1,38 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-/* ── Animated Counter ── */
-const useCounter = (end: number, duration = 2000, start = false) => {
-    const [count, setCount] = useState(0);
-    useEffect(() => {
-        if (!start) return;
-        let startTime: number | null = null;
-        const step = (ts: number) => {
-            if (!startTime) startTime = ts;
-            const p = Math.min((ts - startTime) / duration, 1);
-            setCount(Math.floor(p * end));
-            if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-    }, [end, duration, start]);
-    return count;
-};
+/* ── Glyph Block ── */
+const Glyph = ({ symbol, label }: { symbol: string; label: string }) => (
+    <div className="group flex flex-col items-center gap-3">
+        <div className="size-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-amber-500/20 transition-all duration-500">
+            {symbol}
+        </div>
+        <span className="text-xs font-black uppercase tracking-[0.2em] text-amber-700/60 dark:text-amber-400/50">{label}</span>
+    </div>
+);
 
-/* ── Phase Card ── */
-const PhaseCard = ({ num, title, period, items, accent }: { num: string; title: string; period: string; items: string[]; accent: string }) => (
-    <div className={`relative p-8 rounded-3xl border bg-white/60 dark:bg-stone-900/60 backdrop-blur-sm hover:-translate-y-1 transition-all duration-500 group overflow-hidden border-stone-200 dark:border-stone-700/50`}>
-        <div className={`absolute top-0 left-0 w-1 h-full ${accent} rounded-l-3xl`}></div>
-        <div className="absolute -top-6 -right-6 text-[8rem] font-black opacity-[0.04] text-stone-900 dark:text-white select-none leading-none">{num}</div>
-        <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 ${accent.replace('bg-', 'bg-').replace('-500', '-100')} ${accent.replace('bg-', 'text-').replace('-500', '-700')}`}>{period}</span>
-        <h3 className="text-xl font-black text-stone-900 dark:text-white mb-4">{title}</h3>
-        <ul className="space-y-2">
-            {items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-stone-600 dark:text-stone-400">
-                    <span className={`mt-1.5 size-1.5 rounded-full shrink-0 ${accent}`}></span>
-                    {item}
-                </li>
-            ))}
-        </ul>
+/* ── Objective Card ── */
+const ObjCard = ({ num, icon, title, desc, accent }: {
+    num: string; icon: string; title: string; desc: string; accent: string;
+}) => (
+    <div className={`group relative p-7 rounded-3xl border bg-white/60 dark:bg-stone-900/60 backdrop-blur-sm hover:-translate-y-2 transition-all duration-500 overflow-hidden ${accent}`}>
+        <div className="absolute top-7 right-7 text-5xl font-black text-stone-100 dark:text-stone-800 select-none">{num}</div>
+        <div className="text-3xl mb-4">{icon}</div>
+        <h3 className="text-lg font-black text-stone-900 dark:text-stone-100 mb-3 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">{title}</h3>
+        <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">{desc}</p>
+    </div>
+);
+
+/* ── Impact Stat ── */
+const ImpactStat = ({ icon, val, label, sub }: { icon: string; val: string; label: string; sub: string }) => (
+    <div className="text-center group">
+        <div className="text-4xl mb-3 group-hover:scale-125 transition-transform duration-500">{icon}</div>
+        <p className="text-4xl font-black text-amber-600 dark:text-amber-400 mb-1">{val}</p>
+        <p className="font-black text-stone-900 dark:text-stone-100 text-sm mb-1">{label}</p>
+        <p className="text-xs text-stone-500 dark:text-stone-500">{sub}</p>
     </div>
 );
 
@@ -40,193 +37,241 @@ const PhaseCard = ({ num, title, period, items, accent }: { num: string; title: 
    MAIN COMPONENT
 ══════════════════════════════════════════════════ */
 const Teziutlan = () => {
-    const [impactVisible, setImpactVisible] = useState(false);
-    const impactRef = useRef<HTMLDivElement>(null);
-
-    const visitors = useCounter(80000, 2200, impactVisible);
-    const jobs = useCounter(1200, 2000, impactVisible);
-    const families = useCounter(450, 1800, impactVisible);
-    const roi = useCounter(35, 1500, impactVisible);
+    const [conceptVisible, setConceptVisible] = useState(false);
+    const conceptRef = useRef<HTMLDivElement>(null);
+    const backLayerRef = useRef<HTMLDivElement>(null);
+    const frontLayerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        document.title = 'Teziutlán: Piedra y Niebla | Iniciativas Locales · FiberLink Labs';
-        const setMeta = (name: string, content: string, property = false) => {
-            const attr = property ? 'property' : 'name';
-            let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
-            if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
+        document.title = 'Teziutlán: Piedra y Niebla · Pueblo Mágico · FiberLink Labs';
+        const setMeta = (name: string, content: string) => {
+            let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
+            if (!el) { el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
             el.setAttribute('content', content);
         };
-        setMeta('description', 'Teziutlán: Piedra y Niebla es un proyecto de desarrollo cultural, turístico y económico para transformar Teziutlán, Puebla en un destino de referencia nacional.');
-        setMeta('keywords', 'Teziutlán, Puebla, turismo cultural, inversión social, desarrollo local, Piedra y Niebla, iniciativas locales');
+        setMeta('description', 'Teziutlán: Piedra y Niebla — iniciativa de desarrollo cultural, turístico y económico para el Pueblo Mágico de Teziutlán, Puebla. Inversión, tecnología e identidad.');
+        setMeta('keywords', 'Teziutlán, Pueblo Mágico, inversión cultural, turismo sostenible, desarrollo local, Piedra y Niebla, FiberLink Labs');
         return () => { document.title = 'FiberLink Labs · Diseño Web & Sistemas que Escalan'; };
     }, []);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setImpactVisible(true); observer.disconnect(); } }, { threshold: 0.3 });
-        if (impactRef.current) observer.observe(impactRef.current);
+        const onScroll = () => {
+            const currentY = window.scrollY;
+            const offset = Math.min(currentY * 0.3, 120);
+            if (backLayerRef.current) {
+                backLayerRef.current.style.transform = `translateY(${offset * 0.4}px)`;
+            }
+            if (frontLayerRef.current) {
+                frontLayerRef.current.style.transform = `translateY(${offset * 0.6}px)`;
+            }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    useEffect(() => {
+        // Set background images via style direct to avoid lint
+        const backSvg = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 400'%3E%3Cpath fill='%2378716c' d='M0,400 L0,280 L120,180 L260,240 L380,140 L500,200 L600,100 L720,160 L840,80 L960,150 L1080,90 L1200,170 L1320,110 L1440,200 L1440,400 Z'/%3E%3C/svg%3E\")";
+        const frontSvg = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%2357534e' d='M0,320 L0,240 L180,160 L320,200 L440,120 L580,180 L700,80 L820,140 L940,60 L1060,130 L1180,70 L1300,150 L1440,100 L1440,320 Z'/%3E%3C/svg%3E\")";
+        if (backLayerRef.current) backLayerRef.current.style.backgroundImage = backSvg;
+        if (frontLayerRef.current) frontLayerRef.current.style.backgroundImage = frontSvg;
+    }, []);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(([e]) => {
+            if (e.isIntersecting) { setConceptVisible(true); observer.disconnect(); }
+        }, { threshold: 0.15 });
+        if (conceptRef.current) observer.observe(conceptRef.current);
         return () => observer.disconnect();
     }, []);
 
-    const phases = [
+    const objectives = [
         {
-            num: '01', title: 'Diagnóstico y Diseño Estratégico', period: '2025 · Meses 1–4',
-            accent: 'bg-amber-500',
-            items: ['Mapeo cultural y patrimonial del territorio', 'Consulta comunitaria y asambleas participativas', 'Diseño arquitectónico de nodos turísticos', 'Plan maestro de imagen urbana'],
+            num: '01', icon: '💎', title: 'Atracción de Inversión',
+            desc: 'Canalizar recursos privados, institucionales y gubernamentales hacia proyectos locales con alto impacto social y económico verificable.',
+            accent: 'border-amber-200 dark:border-amber-800/40 hover:border-amber-400 dark:hover:border-amber-500/60',
         },
         {
-            num: '02', title: 'Infraestructura y Habilitación', period: '2025–2026 · Meses 5–14',
-            accent: 'bg-emerald-500',
-            items: ['Rehabilitación del centro histórico y miradores', 'Construcción del Centro Cultural "La Niebla"', 'Red de señalización turística bilingüe', 'Habilitación de rutas de senderismo certificadas'],
+            num: '02', icon: '🏛️', title: 'Rescate Histórico',
+            desc: 'Documentar, digitalizar y difundir el patrimonio arquitectónico, gastronómico y cultural de la región para generaciones futuras.',
+            accent: 'border-stone-200 dark:border-stone-700/40 hover:border-stone-400 dark:hover:border-stone-500/60',
         },
         {
-            num: '03', title: 'Activación Económica', period: '2026 · Meses 15–22',
-            accent: 'bg-sky-500',
-            items: ['Incubación de 50+ micronegocios artesanales', 'Festival inaugural "Piedra y Niebla" (proyección 20K visitantes)', 'Plataforma digital de turismo experiencial', 'Alianzas con operadores turísticos nacionales'],
+            num: '03', icon: '🌿', title: 'Turismo Sostenible',
+            desc: 'Diseñar rutas eco-culturales que beneficien a productores locales, artesanos y guías nativos, preservando el entorno natural de la Sierra.',
+            accent: 'border-emerald-200 dark:border-emerald-800/40 hover:border-emerald-400 dark:hover:border-emerald-500/60',
         },
         {
-            num: '04', title: 'Consolidación y Escala', period: '2027+ · Expansión',
-            accent: 'bg-violet-500',
-            items: ['Registro como Pueblo Mágico (en trámite)', 'Modelo exportable a 3 municipios vecinos', 'Fondo de reinversión comunitaria perpetuo', 'Certificación internacional de turismo sostenible'],
+            num: '04', icon: '🤖', title: 'Inteligencia Artificial',
+            desc: 'Usar IA para categorizar experiencias turísticas, personalizar itinerarios, analizar flujos de visitantes y predecir temporadas de alta demanda.',
+            accent: 'border-sky-200 dark:border-sky-800/40 hover:border-sky-400 dark:hover:border-sky-500/60',
         },
     ];
 
-    const values = [
-        { icon: 'museum', title: 'Patrimonio Vivo', desc: 'Rescate y activación de 12+ sitios culturales con historia de más de 400 años en la región serrana.' },
-        { icon: 'groups', title: 'Empleo Local', desc: 'Generación de 1,200 empleos directos e indirectos con enfoque en comunidades indígenas y jóvenes.' },
-        { icon: 'eco', title: 'Sostenibilidad', desc: 'Modelo de turismo regenerativo con neutralidad de carbono certificada para 2028.' },
-        { icon: 'volunteer_activism', title: 'Impacto Inmediato', desc: 'Cada donación tiene destino específico y trazable: cultura, educación o infraestructura comunitaria.' },
-        { icon: 'public', title: 'Alcance Regional', desc: 'Tu apoyo detonara desarrollo para 8 municipios de la Sierra Norte de Puebla con 280,000 habitantes.' },
-        { icon: 'favorite', title: 'Legado Duradero', desc: 'Las obras e instituciones que construimos juntos perdurarán por generaciones en la comunidad.' },
+    const valueProps = [
+        {
+            icon: '🗺️',
+            title: 'Plataforma Central',
+            desc: 'Un ecosistema digital que unifica información turística, proyectos de inversión, agenda cultural y directorio de negocios locales en una sola interfaz moderna.',
+        },
+        {
+            icon: '🔄',
+            title: 'Escalable y Replicable',
+            desc: 'La arquitectura modular permite clonar y adaptar la plataforma a comunidades vecinas como Zacapoaxtla, Cuetzalan o Tlatlauquitepec con mínimo esfuerzo técnico.',
+        },
+        {
+            icon: '🌐',
+            title: 'Puente Glocal',
+            desc: 'Conecta la identidad local con marketplaces internacionales, fondos de turismo cultural y redes de inversión para amplificar el alcance más allá de la región.',
+        },
     ];
 
-    const gallery = [
-        { src: '/teziutlan-hero.jpg', label: 'Vista Panorámica · Sierra Norte', tall: true },
-        { src: '/teziutlan-1.jpg', label: 'Centro Histórico · Arquitectura Colonial' },
-        { src: '/teziutlan-2.jpg', label: 'Artesanías · Identidad Totonaca' },
-        { src: '/teziutlan-3.jpg', label: 'Niebla · Naturaleza y Mística' },
-        { src: '/teziutlan-4.jpg', label: 'Gastronomía · Sabor de la Sierra' },
+    const impacts = [
+        { icon: '👷', val: '200+', label: 'Empleos directos', sub: 'turismo, tech y cultura' },
+        { icon: '🎓', val: '500+', label: 'Jóvenes capacitados', sub: 'digital skills & emprendimiento' },
+        { icon: '🏘️', val: '5+', label: 'Comunidades', sub: 'beneficiadas en la Sierra' },
+        { icon: '📈', val: '×3', label: 'Flujo turístico', sub: 'proyección a 5 años' },
     ];
 
     return (
-        <div className="min-h-screen bg-[#f5f0e8] dark:bg-[#0d0b07] text-stone-900 dark:text-stone-100 overflow-x-hidden">
+        <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 overflow-x-hidden">
 
             {/* ── Floating Nav ── */}
             <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[200] w-[calc(100%-2rem)] max-w-3xl">
-                <div className="rounded-2xl px-5 py-3 flex items-center justify-between bg-stone-950/70 backdrop-blur-md border border-white/10">
-                    <Link to="/" className="flex items-center gap-2 text-sm font-bold text-stone-400 hover:text-amber-400 transition-colors">
+                <div className="rounded-2xl px-5 py-3 flex items-center justify-between bg-white/70 dark:bg-stone-900/70 backdrop-blur-xl border border-stone-200/60 dark:border-stone-700/40 shadow-lg shadow-stone-900/5">
+                    <Link to="/" className="flex items-center gap-2 text-sm font-bold text-stone-400 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                         <span className="material-symbols-outlined text-base">arrow_back</span>
                         <span className="hidden sm:block">FiberLink Labs</span>
                     </Link>
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-amber-400">Iniciativas Locales · Teziutlán</span>
-                    <a href="#donar" className="text-[10px] sm:text-xs font-black uppercase tracking-widest px-4 py-2 bg-amber-500 text-stone-950 rounded-xl hover:bg-amber-400 transition-all active:scale-95">
-                        Donar
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] text-amber-700 dark:text-amber-400 truncate px-2">Teziutlán · Piedra y Niebla</span>
+                    <a href="#invertir" className="text-[10px] sm:text-xs font-black uppercase tracking-widest px-4 py-2 bg-amber-600 text-white rounded-xl hover:bg-amber-500 transition-all active:scale-95 whitespace-nowrap shadow-md shadow-amber-600/20">
+                        Invertir
                     </a>
                 </div>
             </nav>
 
             {/* ══════════════════════════════════════════════════
-                HERO – Cinematic Full Screen
+                HERO — ENCABEZADO
             ══════════════════════════════════════════════════ */}
-            <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-20">
-                {/* Background image + overlays */}
-                <div className="absolute inset-0">
-                    <img src="/teziutlan-hero.jpeg" alt="Teziutlán panorama" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                    <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/50 to-[#0d0b07]"></div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-stone-950/40 to-transparent"></div>
+            <section className="relative min-h-screen flex flex-col items-center justify-end overflow-hidden pb-24 px-6 pt-32">
+
+                {/* Sky gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-400/30 via-stone-200/50 to-stone-50 dark:from-slate-900 dark:via-stone-900 dark:to-stone-950"></div>
+
+                {/* Mountain silhouette layer — back */}
+                <div
+                    ref={backLayerRef}
+                    className="absolute bottom-0 left-0 right-0 h-[70vh] bg-no-repeat bg-bottom bg-cover opacity-20 dark:opacity-10"
+                ></div>
+
+                {/* Mountain silhouette layer — front */}
+                <div
+                    ref={frontLayerRef}
+                    className="absolute bottom-0 left-0 right-0 h-[55vh] bg-no-repeat bg-bottom bg-cover opacity-30 dark:opacity-20"
+                ></div>
+
+                {/* Mist overlay */}
+                <div className="absolute bottom-0 left-0 right-0 h-72 bg-gradient-to-t from-stone-50 via-stone-50/80 to-transparent dark:from-stone-950 dark:via-stone-950/70 dark:to-transparent"></div>
+
+                {/* Floating fog particles */}
+                <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+                    {([
+                        { cls: 'left-[5%] top-[30%] w-[30vw] h-32 [animation:drift_18s_ease-in-out_0s_infinite]' },
+                        { cls: 'left-[35%] top-[45%] w-[25vw] h-24 [animation:drift_22s_ease-in-out_3s_infinite]' },
+                        { cls: 'left-[60%] top-[25%] w-[35vw] h-28 [animation:drift_16s_ease-in-out_6s_infinite]' },
+                        { cls: 'left-[10%] top-[60%] w-[20vw] h-20 [animation:drift_20s_ease-in-out_9s_infinite]' },
+                    ] as { cls: string }[]).map(({ cls }, i) => (
+                        <div key={i} className={`absolute rounded-full bg-white/20 dark:bg-white/5 blur-3xl ${cls}`}></div>
+                    ))}
                 </div>
 
-                {/* Mist effect layers */}
-                <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#f5f0e8] dark:from-[#0d0b07] to-transparent pointer-events-none"></div>
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
-
-                {/* Hero Content */}
+                {/* Hero content */}
                 <div className="relative z-10 text-center max-w-5xl mx-auto w-full">
-                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-[0.2em] mb-8 backdrop-blur-sm">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-                        </span>
-                        Iniciativa Local · Teziutlán, Puebla México
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-700 dark:text-amber-400 text-xs font-bold uppercase tracking-[0.25em] mb-10 backdrop-blur-sm">
+                        <span className="text-base">⛰️</span>
+                        Pueblo Mágico · Sierra Norte de Puebla
                     </div>
 
-                    <h1 className="text-6xl sm:text-7xl md:text-[8rem] lg:text-[10rem] font-black tracking-tighter leading-[0.85] mb-6 uppercase text-white">
-                        Teziutlán<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-stone-300 italic">
-                            Piedra & Niebla
+                    <h1 className="text-5xl sm:text-7xl md:text-[8rem] font-black tracking-tighter leading-[0.85] mb-6 uppercase">
+                        <span className="block text-stone-800 dark:text-stone-100">Teziutlán</span>
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-stone-500 dark:from-amber-400 dark:via-amber-300 dark:to-stone-400">
+                            Piedra
+                        </span>
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-slate-400 via-slate-300 to-stone-300 dark:from-slate-400 dark:via-slate-300 dark:to-slate-500 italic">
+                            &amp; Niebla&nbsp;
                         </span>
                     </h1>
 
-                    <p className="text-lg sm:text-xl md:text-2xl text-stone-300 max-w-3xl mx-auto leading-relaxed font-medium mb-10">
-                        Donde la piedra centenaria se funde con la niebla de la sierra. Un proyecto para convertir la riqueza cultural e histórica de Teziutlán en motor de desarrollo sostenible para su gente.
+                    <p className="text-lg sm:text-xl md:text-2xl text-stone-600 dark:text-stone-400 max-w-3xl mx-auto leading-relaxed font-medium mb-12">
+                        Donde la historia se talla en roca y el futuro flota entre nubes. Una plataforma que conecta la identidad más profunda de la Sierra con la visión de un desarrollo sostenible, tecnológico y humano.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#vision" className="group px-8 py-4 bg-amber-500 text-stone-950 font-black rounded-2xl shadow-2xl shadow-amber-500/30 hover:bg-amber-400 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2">
-                            Conoce el Proyecto
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                        <a href="#invertir" className="group px-8 py-4 bg-amber-600 text-white font-black rounded-2xl shadow-2xl shadow-amber-600/25 hover:bg-amber-500 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2">
+                            Invertir en Piedra y Niebla
                             <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </a>
-                        <a href="#donar" className="px-8 py-4 bg-white/10 backdrop-blur border border-white/20 text-white font-black rounded-2xl hover:bg-white/20 transition-all flex items-center justify-center gap-2">
-                            <span className="material-symbols-outlined">volunteer_activism</span>
-                            Cómo Donar
+                        <a href="#proyecto" className="px-8 py-4 bg-white/60 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 font-black rounded-2xl hover:bg-white dark:hover:bg-stone-800 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
+                            <span className="material-symbols-outlined">explore</span>
+                            Conocer el Proyecto
                         </a>
                     </div>
 
-                    {/* Scroll */}
-                    <div className="mt-16 flex flex-col items-center gap-2 text-stone-500">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Descubrir</span>
-                        <div className="w-px h-12 bg-gradient-to-b from-amber-400 to-transparent animate-pulse"></div>
+                    {/* Glyph strip */}
+                    <div className="flex flex-wrap justify-center gap-8 sm:gap-12 py-8 px-6 rounded-3xl bg-white/50 dark:bg-stone-900/50 border border-stone-200/60 dark:border-stone-800/40 backdrop-blur-md">
+                        <Glyph symbol="⛰️" label="Sierra Norte" />
+                        <Glyph symbol="🌫️" label="Pueblo Mágico" />
+                        <Glyph symbol="🏛️" label="Patrimonio" />
+                        <Glyph symbol="🌿" label="Naturaleza" />
+                        <Glyph symbol="💻" label="Tecnología" />
+                        <Glyph symbol="🤝" label="Comunidad" />
                     </div>
                 </div>
             </section>
 
             {/* ══════════════════════════════════════════════════
-                CONCEPTO – Descripción
+                01 · RESUMEN DEL PROYECTO
             ══════════════════════════════════════════════════ */}
-            <section id="vision" className="py-32 px-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 blur-[150px] rounded-full pointer-events-none"></div>
-                <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-                    <div>
-                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 mb-5">01 · El Concepto</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-8 uppercase leading-[0.9]">
-                            Una ciudad que <br />
-                            <span className="text-amber-500 italic">espera ser vista</span>
-                        </h2>
-                        <p className="text-stone-600 dark:text-stone-300 leading-relaxed mb-6 font-medium text-lg">
-                            Teziutlán es una joya escondida en la Sierra Norte de Puebla. Con más de 400 años de historia, arquitectura colonial intacta, tradiciones totonacas vivas y paisajes de montaña envueltos en niebla perpetua, la ciudad posee un potencial cultural y turístico extraordinario que aún no ha sido capitalizado.
-                        </p>
-                        <p className="text-stone-600 dark:text-stone-300 leading-relaxed font-medium">
-                            <strong className="text-stone-900 dark:text-white">"Piedra y Niebla"</strong> es el concepto identitario del proyecto: la piedra representa la solidez histórica, la arquitectura, las raíces; la niebla evoca lo místico, lo natural, lo que envuelve y transforma. Juntos, son la esencia de Teziutlán.
-                        </p>
+            <section id="proyecto" className="py-28 px-6 relative overflow-hidden">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-72 h-72 bg-amber-400/[0.06] blur-[100px] rounded-full pointer-events-none"></div>
+                <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-12 items-center">
 
-                        <div className="mt-10 grid grid-cols-3 gap-4">
-                            {[
-                                { icon: 'history_edu', label: 'Historia Viva', val: '400+', unit: 'años' },
-                                { icon: 'forest', label: 'Área Natural', val: '85', unit: 'km²' },
-                                { icon: 'people', label: 'Habitantes', val: '100K+', unit: 'personas' },
-                            ].map((s, i) => (
-                                <div key={i} className="p-4 rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-700/50 text-center">
-                                    <span className="material-symbols-outlined text-amber-500 text-2xl">{s.icon}</span>
-                                    <p className="text-xl font-black text-stone-900 dark:text-white mt-1">{s.val}</p>
-                                    <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400">{s.unit}</p>
-                                </div>
+                    {/* Text — 3 cols */}
+                    <div className="lg:col-span-3">
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-500 mb-5">01 · Resumen del Proyecto</p>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tight uppercase leading-[0.9] mb-8 text-stone-900 dark:text-stone-100">
+                            Una iniciativa que<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-stone-500 dark:from-amber-400 dark:to-stone-400 italic">construye futuro </span>
+                        </h2>
+                        <p className="text-stone-600 dark:text-stone-400 leading-relaxed mb-6 font-medium text-lg">
+                            <strong className="text-stone-900 dark:text-stone-100">"Teziutlán: Piedra y Niebla"</strong> es una iniciativa local que busca atraer inversión privada e institucional para impulsar el desarrollo <strong className="text-amber-700 dark:text-amber-400">cultural, turístico y económico</strong> de la región Sierra Norte de Puebla.
+                        </p>
+                        <p className="text-stone-500 dark:text-stone-500 leading-relaxed font-medium mb-6">
+                            Se construye sobre una <strong className="text-stone-800 dark:text-stone-300">plataforma digital de nueva generación</strong>: escalable, modular y replicable en comunidades vecinas con identidad y potencial similares. No solo es un sitio web; es la infraestructura básica para el desarrollo digital de toda la Sierra Norte.
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                            {['Pueblo Mágico', 'Sierra Norte de Puebla', 'Inversión Social', 'Desarrollo Digital', 'Turismo Cultural'].map((tag, i) => (
+                                <span key={i} className="px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 text-xs font-bold uppercase tracking-wide border border-stone-200 dark:border-stone-700">
+                                    {tag}
+                                </span>
                             ))}
                         </div>
                     </div>
 
-                    <div className="space-y-5">
-                        {[
-                            { icon: 'palette', color: 'text-amber-500 bg-amber-50 dark:bg-amber-900/20', title: 'Propósito Cultural', desc: 'Rescatar y activar el patrimonio histórico, artístico y gastronómico de Teziutlán como activo cultural de México.' },
-                            { icon: 'travel_explore', color: 'text-emerald-500 bg-emerald-50 dark:bg-emerald-900/20', title: 'Motor Turístico', desc: 'Posicionar a Teziutlán como destino turístico de referencia en la Sierra Norte, con 80,000 visitantes anuales en 3 años.' },
-                            { icon: 'account_balance', color: 'text-sky-500 bg-sky-50 dark:bg-sky-900/20', title: 'Desarrollo Económico', desc: 'Generar un ecosistema de micronegocios, artesanías y servicios turísticos que eleven el ingreso per cápita de la región.' },
-                            { icon: 'nature', color: 'text-violet-500 bg-violet-50 dark:bg-violet-900/20', title: 'Sostenibilidad', desc: 'Modelo de desarrollo que protege los ecosistemas de la sierra y garantiza que el progreso no destruya lo que lo inspira.' },
-                        ].map((item, i) => (
-                            <div key={i} className="flex gap-5 p-6 rounded-2xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-700/50 hover:border-amber-300 dark:hover:border-amber-700 transition-all group">
-                                <div className={`size-12 shrink-0 rounded-xl ${item.color} flex items-center justify-center`}>
-                                    <span className="material-symbols-outlined">{item.icon}</span>
-                                </div>
+                    {/* Stats card — 2 cols */}
+                    <div className="lg:col-span-2 space-y-4">
+                        {([
+                            { icon: '🗓️', label: 'Año de fundación', val: '2024', color: 'text-amber-600 dark:text-amber-400' },
+                            { icon: '🏙️', label: 'Ciudades de impacto', val: '5+ en Sierra Norte', color: 'text-emerald-700 dark:text-emerald-400' },
+                            { icon: '📡', label: 'Modelo tecnológico', val: 'SaaS Local replicable', color: 'text-sky-700 dark:text-sky-400' },
+                            { icon: '🌐', label: 'Alcance proyectado', val: 'Regional → Nacional', color: 'text-violet-700 dark:text-violet-400' },
+                        ] as { icon: string; label: string; val: string; color: string }[]).map((item, i) => (
+                            <div key={i} className="flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm hover:shadow-md transition-shadow">
+                                <span className="text-2xl shrink-0">{item.icon}</span>
                                 <div>
-                                    <h4 className="font-black text-stone-900 dark:text-white mb-1">{item.title}</h4>
-                                    <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">{item.desc}</p>
+                                    <p className="text-xs text-stone-400 font-bold uppercase tracking-wider mb-0.5">{item.label}</p>
+                                    <p className={`font-black text-sm ${item.color}`}>{item.val}</p>
                                 </div>
                             </div>
                         ))}
@@ -235,245 +280,285 @@ const Teziutlan = () => {
             </section>
 
             {/* ══════════════════════════════════════════════════
-                IMPACTO ESPERADO – Animated Counters
+                02 · CONCEPTO CENTRAL
             ══════════════════════════════════════════════════ */}
-            <section ref={impactRef} className="py-20 px-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-stone-950"></div>
-                <div className="absolute inset-0 bg-[url('/teziutlan-hero.jpg')] bg-cover bg-center opacity-15"></div>
-                <div className="absolute inset-0 blueprint-grid opacity-[0.04]"></div>
+            <section ref={conceptRef} className="py-28 px-6 relative overflow-hidden bg-stone-900 dark:bg-stone-950">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,251,235,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,251,235,0.02)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,rgba(217,119,6,0.06),transparent)]"></div>
 
-                <div className="relative z-10 max-w-5xl mx-auto text-center mb-14">
-                    <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-400 mb-4">03 · Impacto Proyectado</p>
-                    <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase">
-                        Números que <span className="text-amber-400 italic">transforman</span>
-                    </h2>
-                </div>
+                <div className="max-w-6xl mx-auto relative z-10">
+                    <div className="text-center mb-20">
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 mb-4">02 · Concepto Central</p>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase">
+                            Dos fuerzas,<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-stone-400 italic">una identidad&nbsp;</span>
+                        </h2>
+                    </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-                    {[
-                        { value: visitors, suffix: '+', label: 'Visitantes Anuales', unit: 'en 3 años', icon: 'travel_explore' },
-                        { value: jobs, suffix: '+', label: 'Empleos Creados', unit: 'directos e indirectos', icon: 'groups' },
-                        { value: families, suffix: '+', label: 'Familias Beneficiadas', unit: 'directamente', icon: 'family_restroom' },
-                        { value: roi, suffix: 'K', label: 'Donantes Meta', unit: 'para 2027', icon: 'volunteer_activism' },
-                    ].map((stat, i) => (
-                        <div key={i} className="text-center group p-4">
-                            <span className="material-symbols-outlined text-amber-400 text-3xl mb-3 block">{stat.icon}</span>
-                            <p className="text-4xl md:text-6xl font-black text-white tabular-nums group-hover:text-amber-400 transition-colors duration-300">
-                                {stat.value}{stat.suffix}
-                            </p>
-                            <p className="font-bold text-stone-300 mt-2 text-sm">{stat.label}</p>
-                            <p className="text-[10px] text-stone-500 uppercase tracking-wider mt-1">{stat.unit}</p>
+                    <div className="grid md:grid-cols-2 gap-8 mb-16">
+                        {/* La Piedra */}
+                        <div className={`relative p-10 rounded-3xl overflow-hidden border border-amber-800/30 bg-gradient-to-br from-amber-950/80 to-stone-950/90 transition-all duration-700 ${conceptVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+                            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M30%200L60%2030L30%2060L0%2030Z%22%20fill%3D%22none%22%20stroke%3D%22rgba(217%2C119%2C6%2C0.05)%22%20stroke-width%3D%221%22/%3E%3C/svg%3E')] opacity-60"></div>
+                            <div className="relative z-10">
+                                <p className="text-6xl mb-6">🪨</p>
+                                <h3 className="text-3xl font-black text-amber-400 uppercase tracking-tight mb-4">La Piedra</h3>
+                                <p className="text-stone-300 leading-relaxed mb-6 font-medium">
+                                    Símbolo de <strong className="text-amber-400">solidez, permanencia e historia</strong>. Las piedras de Teziutlán guardan siglos de civilización, arte y resistencia. Son la base sólida sobre la que se construye todo proyecto duradero.
+                                </p>
+                                <ul className="space-y-2">
+                                    {['Fundamentos históricos verificables', 'Patrimonio tangible y documentado', 'Confianza generada por resultados'].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-2 text-sm text-stone-400">
+                                            <span className="size-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
+
+                        {/* La Niebla */}
+                        <div className={`relative p-10 rounded-3xl overflow-hidden border border-slate-700/30 bg-gradient-to-br from-slate-900/80 to-stone-950/90 transition-all duration-700 delay-300 ${conceptVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+                            <div className="absolute inset-0">
+                                {([
+                                    'left-[-10%] top-[20%] w-[60%] h-24 [animation:drift_15s_ease-in-out_0s_infinite]',
+                                    'left-[30%] top-[50%] w-[50%] h-20 [animation:drift_20s_ease-in-out_5s_infinite]',
+                                    'left-[10%] top-[70%] w-[40%] h-16 [animation:drift_18s_ease-in-out_2s_infinite]',
+                                ] as string[]).map((cls, i) => (
+                                    <div key={i} className={`absolute rounded-full bg-white/[0.03] blur-3xl ${cls}`}></div>
+                                ))}
+                            </div>
+                            <div className="relative z-10">
+                                <p className="text-6xl mb-6">🌫️</p>
+                                <h3 className="text-3xl font-black text-slate-300 uppercase tracking-tight mb-4">La Niebla</h3>
+                                <p className="text-stone-400 leading-relaxed mb-6 font-medium">
+                                    Símbolo de <strong className="text-slate-300">misterio, inspiración y posibilidad</strong>. La niebla de la Sierra invita a explorar, descubrir y soñar. Es el futuro que no se ve con claridad todavía, pero que se siente con certeza.
+                                </p>
+                                <ul className="space-y-2">
+                                    {['Innovación y creatividad sin límites', 'Visión estratégica a largo plazo', 'Apertura a lo nuevo y lo posible'].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-2 text-sm text-stone-500">
+                                            <span className="size-1.5 rounded-full bg-slate-400 shrink-0"></span>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Union bar */}
+                    <div className={`p-8 rounded-3xl border border-white/10 bg-gradient-to-r from-amber-950/50 via-stone-900/60 to-slate-950/50 text-center transition-all duration-700 delay-500 ${conceptVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                        <p className="text-white/40 text-xs uppercase tracking-widest font-black mb-4">La síntesis</p>
+                        <p className="text-xl md:text-2xl font-black text-white leading-relaxed max-w-3xl mx-auto">
+                            <span className="text-amber-400">Tradición</span> con <span className="text-sky-400">innovación</span> · <span className="text-emerald-400">Turismo</span> con <span className="text-violet-400">tecnología</span> · <span className="text-rose-400">Cultura</span> con <span className="text-emerald-400">sostenibilidad</span>
+                        </p>
+                        <p className="text-stone-500 mt-4 font-medium">Teziutlán no olvida sus raíces. Las eleva.</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════════════
+                03 · OBJETIVOS
+            ══════════════════════════════════════════════════ */}
+            <section className="py-28 px-6 relative overflow-hidden">
+                <div className="absolute left-0 top-0 w-72 h-72 bg-emerald-400/[0.04] blur-[120px] rounded-full pointer-events-none"></div>
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-16">
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-500 mb-4">03 · Objetivos</p>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-stone-900 dark:text-stone-100 uppercase">
+                            Cuatro pilares,<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-emerald-600 dark:from-amber-400 dark:to-emerald-400 italic">un propósito </span>
+                        </h2>
+                        <p className="text-stone-500 dark:text-stone-500 mt-4 max-w-xl mx-auto font-medium">
+                            Cada objetivo está diseñado para generar impacto real, medible y sostenido en la comunidad de Teziutlán y la región Sierra Norte.
+                        </p>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-5">
+                        {objectives.map((o, i) => <ObjCard key={i} {...o} />)}
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════════════
+                04 · PROPUESTA DE VALOR
+            ══════════════════════════════════════════════════ */}
+            <section className="py-28 px-6 relative overflow-hidden border-y border-stone-200/60 dark:border-stone-800/40 bg-stone-100/50 dark:bg-stone-900/30">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-amber-400/[0.04] blur-[120px] rounded-full pointer-events-none"></div>
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-16">
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-500 mb-4">04 · Propuesta de Valor</p>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-stone-900 dark:text-stone-100 uppercase">
+                            Más que un sitio web,<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-sky-600 dark:from-amber-400 dark:to-sky-400 italic">un ecosistema&nbsp;</span>
+                        </h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6 mb-16">
+                        {valueProps.map((vp, i) => (
+                            <div key={i} className="group p-8 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-amber-300 dark:hover:border-amber-700/60 hover:shadow-xl hover:shadow-amber-500/5 transition-all duration-500 hover:-translate-y-2">
+                                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">{vp.icon}</div>
+                                <h3 className="font-black text-xl text-stone-900 dark:text-stone-100 mb-4 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">{vp.title}</h3>
+                                <p className="text-stone-500 dark:text-stone-500 text-sm leading-relaxed">{vp.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Expansion roadmap */}
+                    <div className="p-8 rounded-3xl bg-gradient-to-br from-amber-50 to-stone-100 dark:from-amber-950/30 dark:to-stone-900 border border-amber-200/60 dark:border-amber-800/20">
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-700 dark:text-amber-500 mb-6 text-center">Mapa de expansión · Sierra Norte de Puebla</p>
+                        <div className="flex flex-wrap items-center justify-center gap-2 text-sm font-bold">
+                            {([
+                                { name: 'Teziutlán', status: 'Activo', sc: 'bg-amber-500 text-white' },
+                                { name: '→', status: '', sc: 'text-stone-400' },
+                                { name: 'Zacapoaxtla', status: 'Próximo', sc: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' },
+                                { name: '→', status: '', sc: 'text-stone-400' },
+                                { name: 'Cuetzalan', status: 'Proyectado', sc: 'bg-stone-100 dark:bg-stone-800 text-stone-500' },
+                                { name: '→', status: '', sc: 'text-stone-400' },
+                                { name: 'Tlatlauqui', status: 'Proyectado', sc: 'bg-stone-100 dark:bg-stone-800 text-stone-500' },
+                                { name: '→', status: '', sc: 'text-stone-400' },
+                                { name: 'Sierra Norte', status: 'Visión', sc: 'bg-gradient-to-r from-amber-400 to-emerald-400 text-white' },
+                            ] as { name: string; status: string; sc: string }[]).map((node, i) => (
+                                node.status
+                                    ? <span key={i} className={`px-4 py-2 rounded-xl ${node.sc} text-xs uppercase tracking-wider`}>{node.name}<br /><span className="opacity-70 font-normal normal-case">{node.status}</span></span>
+                                    : <span key={i} className={`text-2xl ${node.sc}`}>{node.name}</span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════════════
+                05 · IMPACTO ESPERADO
+            ══════════════════════════════════════════════════ */}
+            <section className="py-28 px-6 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(217,119,6,0.04),transparent)]"></div>
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-20">
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-500 mb-4">05 · Impacto Esperado</p>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-stone-900 dark:text-stone-100 uppercase">
+                            Números que<br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-emerald-600 dark:from-amber-400 dark:to-emerald-400 italic">importan&nbsp;</span>
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+                        {impacts.map((imp, i) => <ImpactStat key={i} {...imp} />)}
+                    </div>
+
+                    {/* 3 pillars */}
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {([
+                            {
+                                gradient: 'from-amber-500 to-orange-600', icon: '💼',
+                                title: 'Empleo y Oportunidad',
+                                items: ['Guías turísticos certificados', 'Creadores de contenido local', 'Desarrolladores tech nativos', 'Artesanos con e-commerce propio'],
+                            },
+                            {
+                                gradient: 'from-emerald-500 to-teal-600', icon: '🏛️',
+                                title: 'Cultura y Patrimonio',
+                                items: ['Digitalización de archivos históricos', 'Mapa interactivo de sitios arqueológicos', 'Programas de rescate gastronómico', 'Red de museos comunitarios'],
+                            },
+                            {
+                                gradient: 'from-sky-500 to-blue-600', icon: '📈',
+                                title: 'Crecimiento Económico',
+                                items: ['Flujo turístico incrementado', 'Nuevos emprendimientos apoyados', 'Exportación de productos locales', 'Inversión externa atraída'],
+                            },
+                        ] as { gradient: string; icon: string; title: string; items: string[] }[]).map((card, i) => (
+                            <div key={i} className="relative overflow-hidden rounded-3xl">
+                                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-90`}></div>
+                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                                <div className="relative z-10 p-8">
+                                    <span className="text-4xl block mb-5">{card.icon}</span>
+                                    <h3 className="text-xl font-black text-white mb-5 uppercase">{card.title}</h3>
+                                    <ul className="space-y-2.5">
+                                        {card.items.map((item, j) => (
+                                            <li key={j} className="flex items-center gap-2 text-sm text-white/80">
+                                                <span className="size-1.5 rounded-full bg-white/60 shrink-0"></span>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════════════
+                06 · LLAMADO A LA ACCIÓN
+            ══════════════════════════════════════════════════ */}
+            <section id="invertir" className="py-32 px-6 relative overflow-hidden bg-stone-900 dark:bg-stone-950">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(217,119,6,0.08),transparent)]"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,251,235,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,251,235,0.015)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/40 to-transparent"></div>
+
+                {/* Mist */}
+                <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none select-none overflow-hidden">
+                    {([
+                        'left-[-5%] w-[40%] h-24 [animation:drift_20s_ease-in-out_0s_infinite]',
+                        'left-[30%] w-[35%] h-20 [animation:drift_16s_ease-in-out_4s_infinite]',
+                        'left-[60%] w-[45%] h-28 [animation:drift_24s_ease-in-out_2s_infinite]',
+                    ] as string[]).map((cls, i) => (
+                        <div key={i} className={`absolute bottom-0 rounded-full bg-white/[0.03] blur-3xl ${cls}`}></div>
                     ))}
                 </div>
-            </section>
-
-            {/* ══════════════════════════════════════════════════
-                INVERSORES – Value Proposition
-            ══════════════════════════════════════════════════ */}
-            <section id="por-que-donar" className="py-32 px-6 relative overflow-hidden">
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none"></div>
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-16">
-                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 mb-4">04 · Por Qué Donar</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-stone-900 dark:text-white">
-                            El poder de <span className="text-amber-500 italic">tu apoyo</span>
-                        </h2>
-                        <p className="text-stone-500 dark:text-stone-400 mt-4 max-w-2xl mx-auto font-medium">
-                            Teziutlán no necesita grandes capitales — necesita personas que crean en su potencial. Tu donación, cualquiera que sea, construye cultura, empleo y futuro para su gente.
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {values.map((v, i) => (
-                            <div key={i} className="p-8 rounded-3xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-700/50 hover:border-amber-300 dark:hover:border-amber-600 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-500 group relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <div className="size-14 rounded-2xl bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-6 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300 group-hover:scale-110">
-                                    <span className="material-symbols-outlined text-2xl">{v.icon}</span>
-                                </div>
-                                <h3 className="text-lg font-black text-stone-900 dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{v.title}</h3>
-                                <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">{v.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ══════════════════════════════════════════════════
-                GALERÍA VISUAL
-            ══════════════════════════════════════════════════ */}
-            <section className="py-24 px-6 bg-stone-950">
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-14">
-                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-400 mb-4">05 · Galería Conceptual</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-white">
-                            El alma de <span className="text-amber-400 italic">Teziutlán</span>
-                        </h2>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[220px] gap-4">
-                        {gallery.map((img, i) => (
-                            <div key={i} className={`relative overflow-hidden rounded-2xl group cursor-pointer ${img.tall ? 'row-span-2' : ''}`}>
-                                {/* Gradient placeholder */}
-                                <div className={`absolute inset-0 ${[
-                                    'bg-gradient-to-br from-amber-900 via-stone-800 to-emerald-900',
-                                    'bg-gradient-to-br from-stone-700 via-amber-800 to-stone-900',
-                                    'bg-gradient-to-br from-emerald-900 via-stone-800 to-amber-900',
-                                    'bg-gradient-to-br from-stone-800 via-emerald-900 to-stone-700',
-                                    'bg-gradient-to-br from-amber-800 via-stone-900 to-amber-700',
-                                ][i]}`}></div>
-                                <img
-                                    src={img.src}
-                                    alt={img.label}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0'; }}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-5 flex items-end">
-                                    <span className="text-white font-bold text-xs uppercase tracking-widest">{img.label}</span>
-                                </div>
-                                {/* Decorative corner */}
-                                <div className="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-amber-400/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <div className="absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 border-amber-400/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <p className="text-center text-stone-600 text-xs mt-5 font-medium">
-                        * Imágenes conceptuales. Fotografía final próximamente.
-                    </p>
-                </div>
-            </section>
-
-            {/* ══════════════════════════════════════════════════
-                PLAN DE DESARROLLO – Timeline Phases
-            ══════════════════════════════════════════════════ */}
-            <section className="py-32 px-6 relative overflow-hidden">
-                <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none"></div>
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-16">
-                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 mb-4">06 · Plan de Desarrollo</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-stone-900 dark:text-white">
-                            Hoja de <span className="text-amber-500 italic">ruta</span>
-                        </h2>
-                        <p className="text-stone-500 dark:text-stone-400 mt-4 max-w-xl mx-auto font-medium">
-                            Cuatro fases estratégicas para transformar Teziutlán en un referente cultural y turístico de México.
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {phases.map((phase, i) => (
-                            <PhaseCard key={i} {...phase} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ══════════════════════════════════════════════════
-                IMPACTO COMUNITARIO
-            ══════════════════════════════════════════════════ */}
-            <section className="py-24 px-6 bg-stone-100 dark:bg-stone-900/40 border-y border-stone-200 dark:border-stone-800">
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-14">
-                        <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 mb-4">07 · Impacto Comunitario</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-stone-900 dark:text-white">
-                            Quiénes <span className="text-amber-500 italic">se benefician</span>
-                        </h2>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {[
-                            {
-                                icon: 'person',
-                                color: 'from-amber-500 to-amber-600',
-                                title: 'Artesanos y Creadores',
-                                desc: 'Plataforma de comercialización directa y talleres de capacitación para que los artesanos locales accedan a mercados nacionales e internacionales.',
-                                tag: '200+ artesanos beneficiados',
-                            },
-                            {
-                                icon: 'school',
-                                color: 'from-emerald-500 to-emerald-600',
-                                title: 'Jóvenes y Estudiantes',
-                                desc: 'Programas de formación técnica en turismo, gastronomía, cultura digital y gestión de negocios para jóvenes de la Sierra Norte.',
-                                tag: '500+ becas proyectadas',
-                            },
-                            {
-                                icon: 'storefront',
-                                color: 'from-sky-500 to-sky-600',
-                                title: 'Microempresarios',
-                                desc: 'Incubación, financiamiento semilla y acompañamiento para negocios de hospedaje, alimentación, guías turísticos y servicios locales.',
-                                tag: '150+ negocios creados',
-                            },
-                        ].map((g, i) => (
-                            <div key={i} className="relative group overflow-hidden rounded-3xl">
-                                <div className={`absolute inset-0 bg-gradient-to-br ${g.color} opacity-90`}></div>
-                                <div className="absolute inset-0 blueprint-grid opacity-[0.06]"></div>
-                                <div className="relative z-10 p-8 h-full flex flex-col">
-                                    <span className="material-symbols-outlined text-white/80 text-4xl mb-5">{g.icon}</span>
-                                    <h3 className="text-xl font-black text-white mb-3">{g.title}</h3>
-                                    <p className="text-white/80 text-sm leading-relaxed flex-1">{g.desc}</p>
-                                    <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold">
-                                        <span className="size-1.5 rounded-full bg-white"></span>
-                                        {g.tag}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ══════════════════════════════════════════════════
-                CTA – Llamado a la Acción
-            ══════════════════════════════════════════════════ */}
-            <section id="donar" className="py-32 px-6 relative overflow-hidden bg-stone-950">
-                <div className="absolute inset-0 bg-[url('/teziutlan-hero.jpg')] bg-cover bg-center opacity-10"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/80 to-stone-950/60 pointer-events-none"></div>
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/60 to-transparent"></div>
 
                 <div className="relative z-10 max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-black uppercase tracking-widest mb-10">
-                        <span className="size-2 rounded-full bg-amber-400 animate-pulse"></span>
-                        Donaciones Abiertas · 2025–2026
-                    </div>
+                    <p className="text-xs font-black uppercase tracking-[0.3em] text-amber-500 mb-6">06 · Llamado a la Acción</p>
+
+                    <div className="text-7xl mb-8">⛰️</div>
 
                     <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-8 text-white">
-                        Tu donación <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
-                            cambia vidas
+                        Sé parte de<br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-stone-400 italic">
+                            la historia&nbsp;
                         </span>
                     </h2>
 
                     <p className="text-xl text-stone-400 font-medium mb-4 max-w-2xl mx-auto">
-                        Buscamos donantes, aliados y patrocinadores que compartan la visión de preservar la identidad cultural de Teziutlán y transformarla en motor de bienestar para su gente.
+                        Teziutlán lleva siglos de pie, tallado en piedra. Ahora construimos su siguiente capítulo con visión, datos y tecnología.
                     </p>
-                    <p className="text-stone-500 font-medium mb-12">
-                        Desde $200 MXN puedes contribuir · 100% trazable · Recibo de donativo disponible
+                    <p className="text-stone-600 font-medium mb-14 max-w-xl mx-auto">
+                        Inversionistas, instituciones educativas, organismos culturales y comunidad local: <strong className="text-amber-400">tu participación transforma.</strong>
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    {/* CTA options */}
+                    <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
+                        {([
+                            { icon: '💎', label: 'Inversionista', desc: 'Proyectos con retorno social y económico' },
+                            { icon: '🏛️', label: 'Institución', desc: 'Alianza cultural o educativa' },
+                            { icon: '🤝', label: 'Comunidad', desc: 'Participa como activo local' },
+                        ] as { icon: string; label: string; desc: string }[]).map((cta, i) => (
+                            <div key={i} className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-500/40 hover:bg-white/10 transition-all cursor-pointer text-center group">
+                                <span className="text-3xl block mb-3 group-hover:scale-110 transition-transform">{cta.icon}</span>
+                                <p className="font-black text-white text-sm mb-1">{cta.label}</p>
+                                <p className="text-[11px] text-stone-500 leading-snug">{cta.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
                         <a
-                            href="mailto:contacto@fiberlinklabs.com?subject=Donaci%C3%B3n%20Teziutl%C3%A1n%3A%20Piedra%20y%20Niebla"
-                            className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-amber-500 text-stone-950 font-black text-lg rounded-2xl overflow-hidden shadow-2xl shadow-amber-500/30 hover:bg-amber-400 hover:-translate-y-1 active:scale-95 transition-all duration-300"
+                            href="mailto:contacto@fiberlinklabs.com?subject=Inversión%20Teziutlán%3A%20Piedra%20y%20Niebla"
+                            className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-amber-600 text-white font-black text-lg rounded-2xl shadow-2xl shadow-amber-600/25 hover:bg-amber-500 hover:-translate-y-1 active:scale-95 transition-all"
                         >
-                            <span className="material-symbols-outlined">volunteer_activism</span>
-                            Quiero Donar
+                            <span className="material-symbols-outlined">diamond</span>
+                            Invierte en Piedra y Niebla
                         </a>
                         <a
-                            href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20donar%20al%20proyecto%20Teziutl%C3%A1n:%20Piedra%20y%20Niebla"
+                            href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20el%20proyecto%20Teziutlán:%20Piedra%20y%20Niebla"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl border border-stone-700 text-stone-300 font-black hover:border-amber-500 hover:text-amber-400 transition-all"
+                            className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl border border-white/15 text-white font-black hover:border-amber-500/40 hover:text-amber-400 transition-all"
                         >
                             <span className="material-symbols-outlined">chat</span>
-                            Hablar con el Equipo
+                            Hablar por WhatsApp
                         </a>
                     </div>
 
-                    {/* Project by */}
-                    <div className="border-t border-stone-800 pt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-stone-600 text-sm">
-                        <span>Una iniciativa desarrollada por</span>
-                        <Link to="/" className="text-amber-400 hover:text-amber-300 font-bold transition-colors flex items-center gap-2">
-                            <img src="/logo.jpg" alt="FiberLink Labs" className="h-6 invert opacity-60 hover:opacity-100 transition-opacity" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    <div className="border-t border-white/10 pt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-stone-600 text-sm">
+                        <span>Una iniciativa apoyada por</span>
+                        <Link to="/" className="text-amber-500 hover:text-amber-400 font-bold transition-colors">
                             FiberLink Labs · Fiberlink Servicios TIC
                         </Link>
                     </div>

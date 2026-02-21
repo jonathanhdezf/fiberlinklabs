@@ -23,27 +23,15 @@ const useCounter = (end: number, duration = 2000, start = false) => {
 /* ────────────────────────────────────────────────────────────────
    Floating Particle Component
 ──────────────────────────────────────────────────────────────── */
-const Particle = ({ delay, duration, x, y, size }: { delay: number; duration: number; x: number; y: number; size: number }) => (
-    <div
-        className="absolute rounded-full bg-primary/20 pointer-events-none blur-[1px]"
-        style={{
-            left: `${x}%`,
-            top: `${y}%`,
-            width: size,
-            height: size,
-            animation: `float ${duration}s ease-in-out ${delay}s infinite`,
-        }}
-    />
+const Particle = ({ cls }: { cls: string }) => (
+    <div className={`absolute rounded-full bg-primary/20 pointer-events-none blur-[1px] ${cls}`} />
 );
 
 /* ────────────────────────────────────────────────────────────────
    Skill Tag
 ──────────────────────────────────────────────────────────────── */
-const SkillTag = ({ label, delay }: { label: string; delay: number }) => (
-    <span
-        className="px-4 py-2 rounded-full bg-primary/10 text-primary text-xs font-black uppercase tracking-wider border border-primary/20 hover:bg-primary hover:text-white transition-all duration-300 cursor-default animate-in fade-in [animation-fill-mode:both]"
-        style={{ animationDelay: `${delay}ms` }}
-    >
+const SkillTag = ({ label, cls }: { label: string; cls: string }) => (
+    <span className={`px-4 py-2 rounded-full bg-primary/10 text-primary text-xs font-black uppercase tracking-wider border border-primary/20 hover:bg-primary hover:text-white transition-all duration-300 cursor-default animate-in fade-in [animation-fill-mode:both] ${cls}`}>
         {label}
     </span>
 );
@@ -53,7 +41,6 @@ const SkillTag = ({ label, delay }: { label: string; delay: number }) => (
 ──────────────────────────────────────────────────────────────── */
 const AboutUs = () => {
     const [statsVisible, setStatsVisible] = useState(false);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [isDarkMode, setIsDarkMode] = useState(() => {
         if (typeof window !== 'undefined') {
             return document.documentElement.classList.contains('dark');
@@ -112,10 +99,16 @@ const AboutUs = () => {
         return () => observer.disconnect();
     }, []);
 
+    const orb1Ref = useRef<HTMLDivElement>(null);
+    const orb2Ref = useRef<HTMLDivElement>(null);
+
     // Parallax mouse effect on hero
     useEffect(() => {
         const handleMouse = (e: MouseEvent) => {
-            setMousePos({ x: (e.clientX / window.innerWidth - 0.5) * 20, y: (e.clientY / window.innerHeight - 0.5) * 20 });
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            if (orb1Ref.current) orb1Ref.current.style.transform = `translate(${x}px, ${y}px)`;
+            if (orb2Ref.current) orb2Ref.current.style.transform = `translate(${-x}px, ${-y}px)`;
         };
         window.addEventListener('mousemove', handleMouse);
         return () => window.removeEventListener('mousemove', handleMouse);
@@ -135,11 +128,18 @@ const AboutUs = () => {
     // Dark mode toggle handler
     const toggleDark = () => setIsDarkMode(prev => !prev);
 
-    const particles = Array.from({ length: 18 }, () => ({
-        delay: Math.random() * 5, duration: 6 + Math.random() * 6,
-        x: Math.random() * 100, y: Math.random() * 100,
-        size: 4 + Math.random() * 8,
-    }));
+    const particles = [
+        { cls: 'left-[10%] top-[20%] w-2 h-2 [animation:float_6s_ease-in-out_0s_infinite]' },
+        { cls: 'left-[80%] top-[40%] w-3 h-3 [animation:float_7s_ease-in-out_1s_infinite]' },
+        { cls: 'left-[30%] top-[60%] w-2 h-2 [animation:float_8s_ease-in-out_2s_infinite]' },
+        { cls: 'left-[70%] top-[10%] w-4 h-4 [animation:float_9s_ease-in-out_3s_infinite]' },
+        { cls: 'left-[20%] top-[80%] w-2 h-2 [animation:float_10s_ease-in-out_4s_infinite]' },
+        { cls: 'left-[50%] top-[30%] w-3 h-3 [animation:float_6.5s_ease-in-out_0.5s_infinite]' },
+        { cls: 'left-[90%] top-[70%] w-2 h-2 [animation:float_7.5s_ease-in-out_1.5s_infinite]' },
+        { cls: 'left-[15%] top-[45%] w-4 h-4 [animation:float_8.5s_ease-in-out_2.5s_infinite]' },
+        { cls: 'left-[65%] top-[85%] w-2 h-2 [animation:float_9.5s_ease-in-out_3.5s_infinite]' },
+        { cls: 'left-[40%] top-[15%] w-3 h-3 [animation:float_10.5s_ease-in-out_4.5s_infinite]' },
+    ];
 
     const pillars = [
         { icon: 'rocket_launch', title: 'Diseño que Convierte', desc: 'Interfaces optimizadas para convertir visitantes en clientes de forma sistemática, 24/7.' },
@@ -189,17 +189,17 @@ const AboutUs = () => {
 
                 {/* Floating Particles - hidden on mobile for performance */}
                 <div className="hidden md:block">
-                    {particles.map((p, i) => <Particle key={i} {...p} />)}
+                    {particles.map((p, i) => <Particle key={i} cls={p.cls} />)}
                 </div>
 
                 {/* Glow Orbs – Parallax */}
                 <div
+                    ref={orb1Ref}
                     className="absolute top-[10%] -left-[10%] size-[400px] md:size-[600px] rounded-full bg-primary/10 blur-[120px] pointer-events-none transition-transform duration-200"
-                    style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}
                 />
                 <div
+                    ref={orb2Ref}
                     className="absolute bottom-[10%] -right-[10%] size-[300px] md:size-[400px] rounded-full bg-secondary/10 blur-[100px] pointer-events-none transition-transform duration-300"
-                    style={{ transform: `translate(${-mousePos.x}px, ${-mousePos.y}px)` }}
                 />
 
                 {/* Scan line */}
@@ -217,8 +217,8 @@ const AboutUs = () => {
 
                     <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-[0.85] mb-6 sm:mb-8 md:mb-10 uppercase">
                         <span className="block text-foreground">Quiénes</span>
-                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-[data-flow_6s_ease_infinite] bg-[length:200%_200%]">
-                            Somos
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-[data-flow_6s_ease_infinite] bg-[length:200%_200%] italic">
+                            Somos&nbsp;
                         </span>
                     </h1>
 
@@ -350,7 +350,7 @@ const AboutUs = () => {
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-20">
                         <p className="text-xs font-black uppercase tracking-[0.3em] text-primary mb-4">02 · Capacidades</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-foreground">Nuestros <span className="text-primary italic">6 Pilares</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-foreground">Nuestros <span className="text-primary italic">6 Pilares&nbsp;</span></h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -387,7 +387,7 @@ const AboutUs = () => {
                     <div className="text-center mb-20">
                         <p className="text-xs font-black uppercase tracking-[0.3em] text-primary mb-4">03 · Liderazgo</p>
                         <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">
-                            El Arquitecto <span className="text-primary italic">detrás</span> <br />de la Visión
+                            El Arquitecto <span className="text-primary italic">detrás&nbsp;</span> <br />de la Visión
                         </h2>
                     </div>
 
@@ -447,7 +447,7 @@ const AboutUs = () => {
                                         <div className="md:col-span-2">
                                             <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-5">Especialidades</p>
                                             <div className="flex flex-wrap gap-2">
-                                                {skills.map((s, i) => <SkillTag key={s} label={s} delay={i * 80} />)}
+                                                {skills.map((s, i) => <SkillTag key={s} label={s} cls={`[animation-delay:${i * 100}ms]`} />)}
                                             </div>
 
                                             <div className="mt-8 pt-8 border-t border-slate-200 dark:border-white/5 space-y-3">

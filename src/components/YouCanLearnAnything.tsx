@@ -151,7 +151,7 @@ const YouCanLearnAnything = () => {
                         </span>
                         <br />
                         <span className="text-white">Learn</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-violet-400">Anything</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-violet-400">Anything&nbsp;</span>
                     </h1>
 
                     <p className="text-base sm:text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium mb-4 px-2">
@@ -190,7 +190,7 @@ const YouCanLearnAnything = () => {
                         <p className="text-xs font-black uppercase tracking-[0.3em] text-violet-500 mb-5">01 · Introducción</p>
                         <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-8 uppercase leading-[0.9] text-slate-900 dark:text-white">
                             El conocimiento<br />
-                            <span className="text-violet-500 italic">sin fronteras</span>
+                            <span className="text-violet-500 italic">sin fronteras&nbsp;</span>
                         </h2>
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 font-medium text-lg">
                             Por siglos, el acceso a educación de calidad fue un privilegio. Las mejores universidades, los mejores profesores, los mejores recursos — reservados para quienes podían pagar o vivir cerca de ellos.
