@@ -41,17 +41,6 @@ const Manifesto: React.FC = () => {
 
     return (
         <div className="bg-background text-foreground font-display transition-colors duration-500">
-            {/* Progress Indicator */}
-            <nav className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-6 items-center">
-                <a className="w-1.5 h-1.5 rounded-full bg-primary ring-4 ring-primary/20" href="#mision" title="Nuestra Misión"></a>
-                <div className="w-px h-12 bg-primary/20"></div>
-                {dnaSections.map((section) => (
-                    <a key={section.id} className="w-1.5 h-1.5 rounded-full bg-slate-700 hover:bg-primary transition-colors" href={`#${section.id}`} title={section.title}></a>
-                ))}
-                <div className="w-px h-12 bg-primary/20"></div>
-                <a className="w-1.5 h-1.5 rounded-full bg-slate-700 hover:bg-primary transition-colors" href="#vision" title="La Visión"></a>
-            </nav>
-
             <main>
                 {/* Section 1: Nuestra Misión */}
                 <section className="relative h-screen flex items-center justify-center overflow-hidden" id="mision">

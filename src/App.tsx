@@ -24,6 +24,7 @@ import AboutUs from './components/AboutUs'
 import Teziutlan from './components/Teziutlan'
 import YouCanLearnAnything from './components/YouCanLearnAnything'
 import ElBuenServir from './components/ElBuenServir'
+import VerticalNav from './components/VerticalNav'
 
 function App() {
   return (
@@ -32,7 +33,6 @@ function App() {
       <Routes>
         <Route path="/" element={
           <div className="min-h-screen">
-            <Navbar />
             <main>
               <Hero />
               <Services />
@@ -46,6 +46,8 @@ function App() {
               <Diagnosis />
             </main>
             <Footer />
+            <Navbar />
+            <VerticalNav />
             <TechChatbot />
           </div>
         } />

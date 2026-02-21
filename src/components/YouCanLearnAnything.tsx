@@ -38,6 +38,7 @@ const PlatformCard = ({ icon, name, desc, tag, color }: {
 ══════════════════════════════════════════════════ */
 const YouCanLearnAnything = () => {
     const [statsVisible, setStatsVisible] = useState(false);
+    const [showVideo, setShowVideo] = useState(false);
     const statsRef = useRef<HTMLDivElement>(null);
 
     const learners = useCounter(140, 2000, statsVisible);
@@ -418,13 +419,13 @@ const YouCanLearnAnything = () => {
                     </div>
 
                     <div className="text-center mt-8">
-                        <Link
-                            to="/iniciativas/teziutlan"
-                            className="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 font-black hover:text-amber-500 transition-colors text-sm uppercase tracking-wider"
+                        <button
+                            onClick={() => setShowVideo(true)}
+                            className="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 font-black hover:text-amber-500 transition-colors text-sm uppercase tracking-wider cursor-pointer"
                         >
                             <span className="material-symbols-outlined text-base">link</span>
-                            Ver el proyecto Teziutlán: Piedra & Niebla
-                        </Link>
+                            Ver video: Tu puedes aprender cualquier cosa
+                        </button>
                     </div>
                 </div>
             </section>
@@ -479,10 +480,10 @@ const YouCanLearnAnything = () => {
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
                         <a
-                            href="mailto:contacto@fiberlinklabs.com?subject=Proyecto%20Educativo%20%23YouCanLearnAnything"
+                            href="https://www.khanacademy.org/"
                             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-violet-600 text-white font-black text-lg rounded-2xl shadow-2xl shadow-violet-500/30 hover:bg-violet-500 hover:-translate-y-1 active:scale-95 transition-all"
                         >
-                            <span className="material-symbols-outlined">volunteer_activism</span>
+                            <span className="material-symbols-outlined">book_4</span>
                             Comenzar aprender
                         </a>
                         <Link
@@ -503,6 +504,42 @@ const YouCanLearnAnything = () => {
                     </div>
                 </div>
             </section>
+
+            {/* ── Video Modal ── */}
+            {showVideo && (
+                <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 backdrop-blur-sm">
+                    <div
+                        className="absolute inset-0 bg-slate-950/80 backdrop-blur-xl transition-opacity animate-in fade-in duration-500"
+                        onClick={() => setShowVideo(false)}
+                    ></div>
+                    <div className="relative w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 animate-in zoom-in-95 duration-300">
+                        {/* Header controls style */}
+                        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black/60 to-transparent z-10 flex items-center justify-between px-6">
+                            <span className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
+                                <span className="size-2 rounded-full bg-red-500 animate-pulse"></span>
+                                Reproduciendo: You Can Learn Anything
+                            </span>
+                            <button
+                                onClick={() => setShowVideo(false)}
+                                className="text-white/60 hover:text-white transition-colors"
+                            >
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/jqNxN8ASZL4?autoplay=1&mute=0&rel=0"
+                            title="You Can Learn Anything"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                            className="w-full h-full"
+                        ></iframe>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
