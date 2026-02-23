@@ -606,7 +606,7 @@ const ElBuenServir = () => {
                             Quiero una Demo
                         </a>
                         <a
-                            href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20el%20sistema%20El%20Buen%20Servir"
+                            href="https://wa.me/522311024672?text=Hola,%20me%20interesa%20el%20sistema%20El%20Buen%20Servir"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl border border-white/15 text-white font-black hover:border-cyan-500/40 hover:text-cyan-400 transition-all"

@@ -546,7 +546,7 @@ const Teziutlan = () => {
                             Invierte en Piedra y Niebla
                         </a>
                         <a
-                            href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20el%20proyecto%20Teziutlán:%20Piedra%20y%20Niebla"
+                            href="https://wa.me/522311024672?text=Hola,%20me%20interesa%20el%20proyecto%20Teziutlán:%20Piedra%20y%20Niebla"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl border border-white/15 text-white font-black hover:border-amber-500/40 hover:text-amber-400 transition-all"
