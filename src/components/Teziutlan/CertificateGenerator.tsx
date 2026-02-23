@@ -19,12 +19,12 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
             const canvas = await html2canvas(certificateRef.current, {
                 scale: 2,
                 useCORS: true,
+                logging: true,
                 backgroundColor: '#0c0a09', // stone-950
-                windowWidth: 1200, // Ensure consistent sizing for capture
-                windowHeight: 850
+                allowTaint: true
             });
 
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/png', 1.0);
             const pdf = new jsPDF('l', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -52,10 +52,10 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
             <div className="w-full overflow-x-auto Charities-scrollbar pb-4">
                 <div
                     ref={certificateRef}
-                    className="relative min-w-[800px] aspect-[1.414/1] bg-stone-950 p-10 border-[10px] border-amber-900/30 overflow-hidden flex flex-col items-center justify-center text-center mx-auto"
+                    className="relative min-w-[1000px] aspect-[1.414/1] bg-stone-950 p-10 border-[10px] border-amber-900/30 overflow-hidden flex flex-col items-center justify-center text-center mx-auto"
                 >
                     {/* Artistic Background Elements */}
-                    <div className="absolute inset-0 bg-[url('/teziutlan-hero.jpeg')] bg-cover bg-center opacity-10 grayscale"></div>
+                    <div className="absolute inset-0 bg-stone-900 opacity-50"></div>
                     <div className="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-transparent to-stone-950/90"></div>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.1),transparent)]"></div>
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
@@ -71,11 +71,11 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
 
                         <div className="flex flex-col items-center gap-4">
                             <p className="text-stone-400 text-base">Se otorga el presente documento a:</p>
-                            <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-white to-amber-400 italic py-1">
+                            <p className="text-5xl font-black text-amber-400 italic py-1">
                                 {donorName}
                             </p>
-                            <div className="max-w-xl text-stone-300 text-xs leading-relaxed px-4">
-                                Por su valiosa contribución de <span className="text-amber-400 font-bold">${amount} MXN</span> a la iniciativa <strong>"Teziutlán: Piedra y Niebla"</strong>. Gracias a su apoyo, la preservación del patrimonio cultural y el desarrollo tecnológico de la Sierra Norte de Puebla hoy cuentan con un aliado estratégico.
+                            <div className="max-w-xl text-stone-300 text-sm leading-relaxed px-4">
+                                Por su valiosa contribución de <span className="text-white font-bold">${amount} MXN</span> a la iniciativa <strong>"Teziutlán: Piedra y Niebla"</strong>. Gracias a su apoyo, la preservación del patrimonio cultural y el desarrollo tecnológico de la Sierra Norte de Puebla hoy cuentan con un aliado estratégico.
                             </div>
                         </div>
 
