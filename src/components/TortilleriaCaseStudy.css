@@ -1,0 +1,248 @@
+/* ── TortilleriaCaseStudy Scoped Styles ── */
+
+.tcs-active-status {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--active-color);
+}
+
+.tcs-active-status[data-color="emerald"] {
+    --active-color: #10b981;
+}
+
+.tcs-active-status[data-color="amber"] {
+    --active-color: #f59e0b;
+}
+
+.tcs-active-status[data-color="indigo"] {
+    --active-color: #6366f1;
+}
+
+.tcs-pulse-bg {
+    position: absolute;
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 9999px;
+    opacity: 0.75;
+    background: var(--active-color);
+}
+
+.tcs-pulse-dot {
+    position: relative;
+    display: inline-flex;
+    border-radius: 9999px;
+    height: 0.375rem;
+    width: 0.375rem;
+    background: var(--active-color);
+}
+
+.tcs-product-icon-wrapper {
+    flex: 1;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    background: var(--prod-color-bg);
+}
+
+.tcs-product-card[data-color="#f59e0b"] {
+    --prod-color: #f59e0b;
+    --prod-color-bg: rgba(245, 158, 11, 0.15);
+}
+
+.tcs-product-card[data-color="#6366f1"] {
+    --prod-color: #6366f1;
+    --prod-color-bg: rgba(99, 102, 241, 0.15);
+}
+
+.tcs-product-card[data-color="#10b981"] {
+    --prod-color: #10b981;
+    --prod-color-bg: rgba(16, 185, 129, 0.15);
+}
+
+.tcs-product-icon {
+    font-size: 1.125rem;
+    color: var(--prod-color);
+}
+
+.tcs-stat-icon {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    color: var(--stat-color);
+}
+
+.tcs-stat-card[data-color="#10b981"] {
+    --stat-color: #10b981;
+}
+
+.tcs-stat-card[data-color="#f59e0b"] {
+    --stat-color: #f59e0b;
+}
+
+.tcs-order-status {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    border-radius: 9999px;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    border: 1px solid var(--status-border);
+    color: var(--status-color);
+    background: var(--status-bg);
+}
+
+.tcs-order-status[data-status="Vigente"] {
+    --status-color: #10b981;
+    --status-border: rgba(16, 185, 129, 0.25);
+    --status-bg: rgba(16, 185, 129, 0.08);
+}
+
+.tcs-order-status[data-status="En camino"] {
+    --status-color: #f59e0b;
+    --status-border: rgba(245, 158, 11, 0.25);
+    --status-bg: rgba(245, 158, 11, 0.08);
+}
+
+.tcs-status-dot-pulse {
+    background: var(--status-color);
+}
+
+.tcs-public-product-icon-wrapper {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--prod-color-bg);
+}
+
+/* Modules */
+.tcs-module-bg-text {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 3.75rem;
+    font-weight: 900;
+    opacity: 0.05;
+    -webkit-user-select: none;
+    user-select: none;
+    color: var(--mod-color);
+}
+
+.tcs-module-card[data-type="pos"] {
+    --mod-color: #f59e0b;
+    --mod-color-bg: rgba(245, 158, 11, 0.1);
+    --mod-color-border: rgba(245, 158, 11, 0.3);
+}
+
+.tcs-module-card[data-type="distribucion"] {
+    --mod-color: #10b981;
+    --mod-color-bg: rgba(16, 185, 129, 0.1);
+    --mod-color-border: rgba(16, 185, 129, 0.3);
+}
+
+.tcs-module-card[data-type="marca"] {
+    --mod-color: #6366f1;
+    --mod-color-bg: rgba(99, 102, 241, 0.1);
+    --mod-color-border: rgba(99, 102, 241, 0.3);
+}
+
+.tcs-module-icon-wrapper {
+    padding: 0.625rem;
+    border-radius: 0.75rem;
+    background: var(--mod-color-bg);
+    border: 1px solid var(--mod-color-border);
+}
+
+.tcs-module-icon {
+    font-size: 1.5rem;
+    color: var(--mod-color);
+}
+
+.tcs-module-badge {
+    font-size: 0.625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mod-color);
+}
+
+.tcs-feature-icon {
+    font-size: 0.875rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    color: var(--mod-color);
+}
+
+/* Flows */
+.tcs-flow-icon-wrapper {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    background: var(--flow-bg);
+    border: 1px solid var(--flow-border);
+}
+
+.tcs-flow-icon {
+    color: var(--flow-color);
+}
+
+.tcs-flow-line {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 1px;
+    background: var(--flow-gradient);
+}
+
+.tcs-step-icon-wrapper {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    flex-shrink: 0;
+    background: var(--flow-bg);
+    border: 1px solid var(--flow-step-border);
+}
+
+.tcs-step-icon {
+    font-size: 0.875rem;
+    color: var(--flow-color);
+}
+
+.tcs-step-number {
+    font-size: 0.5625rem;
+    font-weight: 900;
+    color: var(--flow-color);
+}
+
+.tcs-flow-section[data-flow="#f59e0b"] {
+    --flow-color: #f59e0b;
+    --flow-bg: rgba(245, 158, 11, 0.08);
+    --flow-border: rgba(245, 158, 11, 0.2);
+    --flow-step-border: rgba(245, 158, 11, 0.15);
+    --flow-gradient: linear-gradient(to bottom, rgba(245, 158, 11, 0.4), transparent);
+}
+
+.tcs-flow-section[data-flow="#10b981"] {
+    --flow-color: #10b981;
+    --flow-bg: rgba(16, 185, 129, 0.08);
+    --flow-border: rgba(16, 185, 129, 0.2);
+    --flow-step-border: rgba(16, 185, 129, 0.15);
+    --flow-gradient: linear-gradient(to bottom, rgba(16, 185, 129, 0.4), transparent);
+}

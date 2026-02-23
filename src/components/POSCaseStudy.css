@@ -1,0 +1,122 @@
+/* ── POSCaseStudy Scoped Styles ── */
+
+.pcs-product-icon-wrapper {
+    flex: 1;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    background: var(--prod-color-bg);
+}
+
+.pcs-product-icon {
+    font-size: 1.125rem;
+    color: var(--prod-color);
+}
+
+/* Product dynamic colors */
+.pcs-product-card[data-color="#ef4444"] {
+    --prod-color: #ef4444;
+    --prod-color-bg: rgba(239, 68, 68, 0.15);
+}
+
+.pcs-product-card[data-color="#3b82f6"] {
+    --prod-color: #3b82f6;
+    --prod-color-bg: rgba(59, 130, 246, 0.15);
+}
+
+.pcs-product-card[data-color="#f59e0b"] {
+    --prod-color: #f59e0b;
+    --prod-color-bg: rgba(245, 158, 11, 0.15);
+}
+
+.pcs-product-card[data-color="#10b981"] {
+    --prod-color: #10b981;
+    --prod-color-bg: rgba(16, 185, 129, 0.15);
+}
+
+.pcs-product-card[data-color="#8b5cf6"] {
+    --prod-color: #8b5cf6;
+    --prod-color-bg: rgba(139, 92, 246, 0.15);
+}
+
+.pcs-product-card[data-color="#ec4899"] {
+    --prod-color: #ec4899;
+    --prod-color-bg: rgba(236, 72, 153, 0.15);
+}
+
+.pcs-product-card[data-color="#f97316"] {
+    --prod-color: #f97316;
+    --prod-color-bg: rgba(249, 115, 22, 0.15);
+}
+
+.pcs-product-card[data-color="#6366f1"] {
+    --prod-color: #6366f1;
+    --prod-color-bg: rgba(99, 102, 241, 0.15);
+}
+
+/* Features */
+.pcs-feat-bg-text {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 3.75rem;
+    font-weight: 900;
+    opacity: 0.05;
+    -webkit-user-select: none;
+    user-select: none;
+    color: var(--feat-color);
+}
+
+.pcs-feat-card[data-type="pos"] {
+    --feat-color: #3b82f6;
+    --feat-color-bg: rgba(59, 130, 246, 0.1);
+    --feat-color-border: rgba(59, 130, 246, 0.3);
+}
+
+.pcs-feat-card[data-type="inventario"] {
+    --feat-color: #10b981;
+    --feat-color-bg: rgba(16, 185, 129, 0.1);
+    --feat-color-border: rgba(16, 185, 129, 0.3);
+}
+
+.pcs-feat-card[data-type="reportes"] {
+    --feat-color: #f59e0b;
+    --feat-color-bg: rgba(245, 158, 11, 0.1);
+    --feat-color-border: rgba(245, 158, 11, 0.3);
+}
+
+.pcs-feat-card[data-type="admin"] {
+    --feat-color: #6366f1;
+    --feat-color-bg: rgba(99, 102, 241, 0.1);
+    --feat-color-border: rgba(99, 102, 241, 0.3);
+}
+
+.pcs-feat-icon-wrapper {
+    padding: 0.625rem;
+    border-radius: 0.75rem;
+    background: var(--feat-color-bg);
+    border: 1px solid var(--feat-color-border);
+}
+
+.pcs-feat-icon {
+    font-size: 1.5rem;
+    color: var(--feat-color);
+}
+
+.pcs-feat-badge {
+    font-size: 0.625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--feat-color);
+}
+
+.pcs-feat-bullet-icon {
+    font-size: 0.875rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    color: var(--feat-color);
+}

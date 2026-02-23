@@ -1,4 +1,12 @@
+import { useState } from 'react'
+import WebDevPlansModal from './WebDevPlansModal'
+import SmartSolutionsModal from './SmartSolutionsModal'
+import DigitalConsultingModal from './DigitalConsultingModal'
+
 const Services = () => {
+    const [webDevModalOpen, setWebDevModalOpen] = useState(false)
+    const [smartSolutionsModalOpen, setSmartSolutionsModalOpen] = useState(false)
+    const [digitalConsultingModalOpen, setDigitalConsultingModalOpen] = useState(false)
     const services = [
         {
             title: "Desarrollo Web Empresarial",
@@ -129,10 +137,34 @@ const Services = () => {
                                         </li>
                                     ))}
                                 </ul>
-                                <a href="#" className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all">
-                                    Explorar soluciones
-                                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                                </a>
+                                {idx === 0 ? (
+                                    <button
+                                        id="open-web-dev-plans-modal"
+                                        onClick={() => setWebDevModalOpen(true)}
+                                        className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all bg-transparent border-none p-0 cursor-pointer"
+                                    >
+                                        Ver planes y precios
+                                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                    </button>
+                                ) : idx === 1 ? (
+                                    <button
+                                        id="open-smart-solutions-modal"
+                                        onClick={() => setSmartSolutionsModalOpen(true)}
+                                        className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all bg-transparent border-none p-0 cursor-pointer"
+                                    >
+                                        Ver planes y precios
+                                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                    </button>
+                                ) : (
+                                    <button
+                                        id="open-digital-consulting-modal"
+                                        onClick={() => setDigitalConsultingModalOpen(true)}
+                                        className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all bg-transparent border-none p-0 cursor-pointer"
+                                    >
+                                        Ver planes y precios
+                                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                    </button>
+                                )}
                             </div>
                         );
                     })}
@@ -152,6 +184,10 @@ const Services = () => {
                     </div>
                 </div>
             </div>
+
+            <WebDevPlansModal isOpen={webDevModalOpen} onClose={() => setWebDevModalOpen(false)} />
+            <SmartSolutionsModal isOpen={smartSolutionsModalOpen} onClose={() => setSmartSolutionsModalOpen(false)} />
+            <DigitalConsultingModal isOpen={digitalConsultingModalOpen} onClose={() => setDigitalConsultingModalOpen(false)} />
 
             <style>{`
                 .engine-node-0 { transform: rotate(0deg) translateY(-140px) rotate(0deg); animation-delay: 0s; }

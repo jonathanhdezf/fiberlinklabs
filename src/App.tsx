@@ -25,6 +25,11 @@ import Teziutlan from './components/Teziutlan'
 import YouCanLearnAnything from './components/YouCanLearnAnything'
 import ElBuenServir from './components/ElBuenServir'
 import VerticalNav from './components/VerticalNav'
+import AcademicPortalCaseStudy from './components/AcademicPortalCaseStudy'
+import POSCaseStudy from './components/POSCaseStudy'
+import TortilleriaCaseStudy from './components/TortilleriaCaseStudy'
+import ArrendadorCaseStudy from './components/ArrendadorCaseStudy'
+import NominaCaseStudy from './components/NominaCaseStudy'
 
 function App() {
   return (
@@ -61,6 +66,11 @@ function App() {
         <Route path="/educacion-digital" element={<YouCanLearnAnything />} />
         <Route path="/iniciativas/elbuenservir" element={<ElBuenServir />} />
         <Route path="/casos/restaurante" element={<RestaurantCaseStudy />} />
+        <Route path="/casos/portal-academico" element={<AcademicPortalCaseStudy />} />
+        <Route path="/casos/punto-de-venta" element={<POSCaseStudy />} />
+        <Route path="/casos/tortilleria" element={<TortilleriaCaseStudy />} />
+        <Route path="/casos/arrendador" element={<ArrendadorCaseStudy />} />
+        <Route path="/casos/nomina" element={<NominaCaseStudy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

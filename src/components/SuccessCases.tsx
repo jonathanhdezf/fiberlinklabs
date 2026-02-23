@@ -4,15 +4,6 @@ const SuccessCases = () => {
     const navigate = useNavigate();
     const cases = [
         {
-            title: "Control Total de Ventas",
-            client: "Grupo Comercial de la Región",
-            metric: "+45% Eficiencia",
-            desc: "Conectamos múltiples sucursales con un sistema moderno que permite controlar inventarios y ventas en tiempo real desde cualquier lugar.",
-            image: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=1000&auto=format&fit=crop",
-            tag: "Ventas & Retail",
-            url: "#"
-        },
-        {
             title: "Especialización para Restaurantes",
             client: "Sector Gastronómico Local",
             metric: "+35% Eficiencia",
@@ -20,6 +11,51 @@ const SuccessCases = () => {
             image: "/elbuenservir.jpg",
             tag: "Gastronomía Digital",
             url: "/iniciativas/elbuenservir"
+        },
+        {
+            title: "Portal Académico MVP",
+            client: "Institución Educativa",
+            metric: "+60% Eficiencia",
+            desc: "Construimos en 12 semanas una plataforma que unifica SGE, LMS y portal institucional: inscripciones, cursos, pagos y expedientes digitales en un solo lugar.",
+            image: "/portal-educativo.jpg",
+            tag: "EdTech · Plataforma Académica",
+            url: "/casos/portal-academico"
+        },
+        {
+            title: "Punto de Venta Web MVP",
+            client: "Tienda de Conveniencia Local",
+            metric: "↓ 80% Errores de Caja",
+            desc: "POS web estilo OXXO: carrito de compras, control de inventario, registro de caja, roles de usuario y reportes diarios. Sin instalar nada.",
+            image: "https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=1000&auto=format&fit=crop",
+            tag: "Retail · Punto de Venta",
+            url: "/casos/punto-de-venta"
+        },
+        {
+            title: "Tortillería Digital MVP",
+            client: "Tortillería Familiar Regional",
+            metric: "5× más rápido pedidos",
+            desc: "POS en mostrador + portal de reabastecimiento para distribuidores + página de identidad de marca. Tres módulos en una sola web app.",
+            image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=1000&auto=format&fit=crop",
+            tag: "Alimentos · POS + Distribuidores",
+            url: "/casos/tortilleria"
+        },
+        {
+            title: "Plataforma de Arrendamiento MVP",
+            client: "Arrendador Independiente",
+            metric: "↓ 95% tiempo en gestión",
+            desc: "Panel admin de residentes, control de pagos y alertas automáticas unificado con portal público de catálogo de departamentos y solicitudes de renta.",
+            image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop",
+            tag: "PropTech · Gestión de Rentas",
+            url: "/casos/arrendador"
+        },
+        {
+            title: "RRHH y Nómina MVP",
+            client: "Empresa Industrial Regional",
+            metric: "↓ 90% errores de nómina",
+            desc: "Del Excel a la nómina digital: gestión de empleados, cálculo automático, préstamos con descuento integrado y portal de reclutamiento. Todo sin instalar nada.",
+            image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=1000&auto=format&fit=crop",
+            tag: "HRTech · Nómina Digital",
+            url: "/casos/nomina"
         }
     ];
 

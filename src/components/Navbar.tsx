@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 
 const navSections = [
     { href: '#inicio', label: 'Innovaciones', icon: 'home', badge: '01', color: 'from-blue-500 to-cyan-400' },
@@ -142,9 +143,7 @@ const Navbar = () => {
             {/* ── Premium Glass Mobile Menu ── */}
             {(isMobileMenuOpen || isClosing) && (
                 <div
-                    className={`fixed inset-0 z-[200000] md:hidden flex transition-all duration-400 will-change-transform ${isClosing ? 'opacity-0' : 'opacity-100'
-                        }`}
-                    style={{ transition: 'opacity 0.4s cubic-bezier(0.4,0,0.2,1)' }}
+                    className={`fixed inset-0 z-[200000] md:hidden flex mobile-menu-overlay ${isClosing ? 'opacity-0' : 'opacity-100'}`}
                 >
                     {/* Ultra-blurred backdrop — tapping it closes the menu */}
                     <div
@@ -190,12 +189,11 @@ const Navbar = () => {
                                     <button
                                         key={i}
                                         onClick={() => handleNavClick(item.href)}
-                                        className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-left transition-all duration-300 group active:scale-[0.97]
+                                        className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl text-left transition-all duration-300 group active:scale-[0.97] nav-item-animated
                                         ${isActive
                                                 ? 'bg-white/25 backdrop-blur-md scale-[0.98]'
                                                 : 'hover:bg-white/10 active:bg-white/20'
                                             }`}
-                                        style={{ animationDelay: `${i * 40}ms` }}
                                     >
                                         {/* Gradient icon badge */}
                                         <div className={`size-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg flex-shrink-0 transition-transform duration-300 group-hover:scale-110`}>

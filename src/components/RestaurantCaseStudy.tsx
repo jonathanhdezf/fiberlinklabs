@@ -41,11 +41,7 @@ const RestaurantCaseStudy: React.FC = () => {
                         <h2 className="text-xl font-bold tracking-tight">FiberLink <span className="text-primary">Labs</span></h2>
                     </Link>
 
-                    <nav className="hidden md:flex items-center gap-10">
-                        <Link to="/#soluciones" className="text-sm font-medium hover:text-primary transition-colors">Soluciones</Link>
-                        <Link to="/#metodologia" className="text-sm font-medium hover:text-primary transition-colors">Metodología</Link>
-                        <Link to="/#casos" className="text-sm font-medium hover:text-primary transition-colors text-primary">Casos de Éxito</Link>
-                    </nav>
+
 
                     <div className="flex items-center gap-4">
                         <button
@@ -56,12 +52,20 @@ const RestaurantCaseStudy: React.FC = () => {
                             <span className="material-symbols-outlined dark:hidden text-slate-600 group-hover:text-primary transition-colors">dark_mode</span>
                             <span className="material-symbols-outlined hidden dark:block text-slate-400 group-hover:text-primary transition-colors">light_mode</span>
                         </button>
-                        <button className="hidden sm:block px-5 py-2 rounded-lg bg-primary text-white text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">
-                            Iniciar Blueprint
-                        </button>
+
                     </div>
                 </div>
             </header>
+
+
+            {/* ── Regresar Flotante ── */}
+            <Link
+                to="/#casos"
+                className="fixed top-24 left-6 z-[60] flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 dark:bg-slate-900/40 backdrop-blur-md border border-primary/20 text-slate-900 dark:text-white text-sm font-bold hover:bg-primary hover:text-white transition-all shadow-xl group"
+            >
+                <span className="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                <span>Regresar</span>
+            </Link>
 
             <main className="flex-1 flex flex-col items-center justify-start pt-32 pb-24 px-6 relative z-10">
                 {/* Hero Title Section */}

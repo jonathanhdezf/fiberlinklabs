@@ -1,0 +1,233 @@
+/* ── NominaCaseStudy Scoped Styles ── */
+
+.ncs-stat-icon {
+    font-size: 0.875rem;
+    color: var(--stat-color);
+}
+
+.ncs-stat-card[data-color="indigo"] {
+    --stat-color: #6366f1;
+}
+
+.ncs-stat-card[data-color="emerald"] {
+    --stat-color: #10b981;
+}
+
+.ncs-stat-card[data-color="amber"] {
+    --stat-color: #f59e0b;
+}
+
+.ncs-stat-card[data-color="blue"] {
+    --stat-color: #3b82f6;
+}
+
+.ncs-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    border-radius: 9999px;
+    font-size: 0.5rem;
+    font-weight: 700;
+    width: fit-content;
+    border: 1px solid var(--status-border);
+    color: var(--status-color);
+    background: var(--status-bg);
+}
+
+.ncs-status-badge[data-status="Vigente"] {
+    --status-color: #10b981;
+    --status-border: rgba(16, 185, 129, 0.25);
+    --status-bg: rgba(16, 185, 129, 0.08);
+}
+
+.ncs-status-badge[data-status="Vacante"] {
+    --status-color: #f59e0b;
+    --status-border: rgba(245, 158, 11, 0.25);
+    --status-bg: rgba(245, 158, 11, 0.08);
+}
+
+.ncs-status-badge[data-status="Inactivo"] {
+    --status-color: #ef4444;
+    --status-border: rgba(239, 68, 68, 0.25);
+    --status-bg: rgba(239, 68, 68, 0.08);
+}
+
+.ncs-status-dot-pulse {
+    position: absolute;
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 9999px;
+    opacity: 0.75;
+    background: var(--status-color);
+}
+
+.ncs-status-dot {
+    position: relative;
+    display: inline-flex;
+    border-radius: 9999px;
+    height: 0.25rem;
+    width: 0.25rem;
+    background: var(--status-color);
+}
+
+.ncs-vacancy-icon-wrapper {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--v-icon-bg);
+}
+
+.ncs-vacancy-icon {
+    font-size: 0.75rem;
+    color: var(--v-color);
+}
+
+/* Vacancy data colors */
+.ncs-vacancy-icon-wrapper[data-color="#6366f1"] {
+    --v-icon-bg: rgba(99, 102, 241, 0.2);
+    --v-color: #6366f1;
+}
+
+.ncs-vacancy-icon-wrapper[data-color="#10b981"] {
+    --v-icon-bg: rgba(16, 185, 129, 0.2);
+    --v-color: #10b981;
+}
+
+.ncs-vacancy-icon-wrapper[data-color="#f59e0b"] {
+    --v-icon-bg: rgba(245, 158, 11, 0.2);
+    --v-color: #f59e0b;
+}
+
+/* Modules */
+.ncs-module-bg-text {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.25rem;
+    font-weight: 900;
+    opacity: 0.05;
+    -webkit-user-select: none;
+    user-select: none;
+    color: var(--mod-color);
+}
+
+.ncs-module-card[data-type="reclutamiento"] {
+    --mod-color: #6366f1;
+    --mod-color-bg: rgba(99, 102, 241, 0.1);
+    --mod-color-border: rgba(99, 102, 241, 0.3);
+}
+
+.ncs-module-card[data-type="nominas"] {
+    --mod-color: #10b981;
+    --mod-color-bg: rgba(16, 185, 129, 0.1);
+    --mod-color-border: rgba(16, 185, 129, 0.3);
+}
+
+.ncs-module-card[data-type="prestamos"] {
+    --mod-color: #f59e0b;
+    --mod-color-bg: rgba(245, 158, 11, 0.1);
+    --mod-color-border: rgba(245, 158, 11, 0.3);
+}
+
+.ncs-module-card[data-type="portal"] {
+    --mod-color: #3b82f6;
+    --mod-color-bg: rgba(59, 130, 246, 0.1);
+    --mod-color-border: rgba(59, 130, 246, 0.3);
+}
+
+.ncs-module-icon-wrapper {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    background: var(--mod-color-bg);
+    border: 1px solid var(--mod-color-border);
+}
+
+.ncs-module-icon {
+    font-size: 1.25rem;
+    color: var(--mod-color);
+}
+
+.ncs-module-badge {
+    font-size: 0.5625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mod-color);
+}
+
+.ncs-feature-icon {
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    color: var(--mod-color);
+}
+
+/* Flows */
+.ncs-flow-icon-wrapper {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    background: var(--flow-bg);
+    border: 1px solid var(--flow-border);
+}
+
+.ncs-flow-icon {
+    color: var(--flow-color);
+}
+
+.ncs-flow-line {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 1px;
+    background: var(--flow-gradient);
+}
+
+.ncs-step-icon-wrapper {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    flex-shrink: 0;
+    background: var(--flow-bg);
+    border: 1px solid var(--flow-step-border);
+}
+
+.ncs-step-icon {
+    font-size: 0.875rem;
+    color: var(--flow-color);
+}
+
+.ncs-step-number {
+    font-size: 0.5625rem;
+    font-weight: 900;
+    color: var(--flow-color);
+}
+
+.ncs-flow-section[data-flow="Administrador"] {
+    --flow-color: #10b981;
+    --flow-bg: rgba(16, 185, 129, 0.08);
+    --flow-border: rgba(16, 185, 129, 0.2);
+    --flow-step-border: rgba(16, 185, 129, 0.15);
+    --flow-gradient: linear-gradient(to bottom, rgba(16, 185, 129, 0.4), transparent);
+}
+
+.ncs-flow-section[data-flow="Empleado"] {
+    --flow-color: #6366f1;
+    --flow-bg: rgba(99, 102, 241, 0.08);
+    --flow-border: rgba(99, 102, 241, 0.2);
+    --flow-step-border: rgba(99, 102, 241, 0.15);
+    --flow-gradient: linear-gradient(to bottom, rgba(99, 102, 241, 0.4), transparent);
+}

@@ -1,0 +1,287 @@
+/* ── ArrendadorCaseStudy Scoped Styles ── */
+
+.acs-stat-icon {
+    font-size: 0.875rem;
+    color: var(--stat-color);
+}
+
+.acs-stat-card[data-color="#10b981"] {
+    --stat-color: #10b981;
+}
+
+.acs-stat-card[data-color="#6366f1"] {
+    --stat-color: #6366f1;
+}
+
+.acs-stat-card[data-color="#f59e0b"] {
+    --stat-color: #f59e0b;
+}
+
+.acs-stat-card[data-color="#3b82f6"] {
+    --stat-color: #3b82f6;
+}
+
+.acs-unit-status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    border-radius: 9999px;
+    font-size: 0.5rem;
+    font-weight: 700;
+    border: 1px solid var(--status-border);
+    color: var(--status-color);
+    background: var(--status-bg);
+}
+
+.acs-unit-status[data-status="Vigente"] {
+    --status-color: #10b981;
+    --status-border: rgba(16, 185, 129, 0.25);
+    --status-bg: rgba(16, 185, 129, 0.08);
+}
+
+.acs-unit-status[data-status="Próximo Venc."] {
+    --status-color: #f59e0b;
+    --status-border: rgba(245, 158, 11, 0.25);
+    --status-bg: rgba(245, 158, 11, 0.08);
+}
+
+.acs-unit-status[data-status="Vencido"] {
+    --status-color: #ef4444;
+    --status-border: rgba(239, 68, 68, 0.25);
+    --status-bg: rgba(239, 68, 68, 0.08);
+}
+
+.acs-unit-status[data-status="Disponible"] {
+    --status-color: #10b981;
+    --status-border: rgba(16, 185, 129, 0.25);
+    --status-bg: rgba(16, 185, 129, 0.08);
+}
+
+.acs-status-dot-pulse {
+    position: absolute;
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 9999px;
+    opacity: 0.75;
+    background: var(--status-color);
+}
+
+.acs-status-dot {
+    position: relative;
+    display: inline-flex;
+    border-radius: 9999px;
+    height: 0.25rem;
+    width: 0.25rem;
+    background: var(--status-color);
+}
+
+.acs-payment-status {
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--p-status-color);
+}
+
+.acs-payment-status[data-status="Pendiente"] {
+    --p-status-color: #f59e0b;
+}
+
+.acs-payment-status[data-status="Pagado"] {
+    --p-status-color: #10b981;
+}
+
+.acs-listing-card {
+    position: relative;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.acs-listing-img-placeholder {
+    height: 3.5rem;
+    background: var(--l-color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acs-listing-icon {
+    font-size: 1.5rem;
+    color: var(--l-color);
+}
+
+.acs-listing-badge {
+    position: absolute;
+    top: 0.375rem;
+    right: 0.375rem;
+    padding-left: 0.375rem;
+    padding-right: 0.375rem;
+    padding-top: 0.0625rem;
+    padding-bottom: 0.0625rem;
+    background: var(--l-badge-bg);
+    border: 1px solid var(--l-badge-border);
+    border-radius: 9999px;
+    font-size: 0.4375rem;
+    font-weight: 800;
+    color: var(--l-color);
+}
+
+.acs-listing-card[data-color="#6366f1"] {
+    --l-color: #6366f1;
+    --l-color-bg: rgba(99, 102, 241, 0.12);
+    --l-badge-border: rgba(99, 102, 241, 0.25);
+    --l-badge-bg: rgba(99, 102, 241, 0.08);
+}
+
+.acs-listing-card[data-color="#10b981"] {
+    --l-color: #10b981;
+    --l-color-bg: rgba(16, 185, 129, 0.12);
+    --l-badge-border: rgba(16, 185, 129, 0.25);
+    --l-badge-bg: rgba(16, 185, 129, 0.08);
+}
+
+/* Modules */
+.acs-module-bg-text {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 3.75rem;
+    font-weight: 900;
+    opacity: 0.05;
+    -webkit-user-select: none;
+    user-select: none;
+    color: var(--mod-color);
+}
+
+.acs-module-card[data-type="admin"] {
+    --mod-color: #6366f1;
+    --mod-color-bg: rgba(99, 102, 241, 0.1);
+    --mod-color-border: rgba(99, 102, 241, 0.3);
+}
+
+.acs-module-card[data-type="residentes"] {
+    --mod-color: #10b981;
+    --mod-color-bg: rgba(16, 185, 129, 0.1);
+    --mod-color-border: rgba(16, 185, 129, 0.3);
+}
+
+.acs-module-card[data-type="publico"] {
+    --mod-color: #3b82f6;
+    --mod-color-bg: rgba(59, 130, 246, 0.1);
+    --mod-color-border: rgba(59, 130, 246, 0.3);
+}
+
+.acs-module-icon-wrapper {
+    padding: 0.625rem;
+    border-radius: 0.75rem;
+    background: var(--mod-color-bg);
+    border: 1px solid var(--mod-color-border);
+}
+
+.acs-module-icon {
+    font-size: 1.5rem;
+    color: var(--mod-color);
+}
+
+.acs-module-badge {
+    font-size: 0.625rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mod-color);
+}
+
+.acs-feature-icon {
+    font-size: 0.875rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    color: var(--mod-color);
+}
+
+/* Flows */
+.acs-flow-icon-wrapper {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    background: var(--flow-bg);
+    border: 1px solid var(--flow-border);
+}
+
+.acs-flow-icon {
+    color: var(--flow-color);
+}
+
+.acs-flow-line {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 1px;
+    background: var(--flow-gradient);
+}
+
+.acs-step-icon-wrapper {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    flex-shrink: 0;
+    background: var(--flow-bg);
+    border: 1px solid var(--flow-step-border);
+}
+
+.acs-step-icon {
+    font-size: 0.875rem;
+    color: var(--flow-color);
+}
+
+.acs-step-number {
+    font-size: 0.5625rem;
+    font-weight: 900;
+    color: var(--flow-color);
+}
+
+.acs-flow-section[data-flow="#10b981"] {
+    --flow-color: #10b981;
+    --flow-bg: rgba(16, 185, 129, 0.08);
+    --flow-border: rgba(16, 185, 129, 0.2);
+    --flow-step-border: rgba(16, 185, 129, 0.15);
+    --flow-gradient: linear-gradient(to bottom, rgba(16, 185, 129, 0.4), transparent);
+}
+
+.acs-flow-section[data-flow="#6366f1"] {
+    --flow-color: #6366f1;
+    --flow-bg: rgba(99, 102, 241, 0.08);
+    --flow-border: rgba(99, 102, 241, 0.2);
+    --flow-step-border: rgba(99, 102, 241, 0.15);
+    --flow-gradient: linear-gradient(to bottom, rgba(99, 102, 241, 0.4), transparent);
+}
+
+.acs-request-status {
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--r-color);
+}
+
+.acs-request-status[data-color="#6366f1"] {
+    --r-color: #6366f1;
+}
+
+.acs-request-status[data-color="#f59e0b"] {
+    --r-color: #f59e0b;
+}
+
+.acs-request-status[data-color="#10b981"] {
+    --r-color: #10b981;
+}

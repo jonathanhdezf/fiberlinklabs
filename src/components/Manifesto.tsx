@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Manifesto: React.FC = () => {
+const Manifesto = () => {
     const dnaSections = [
         {
             id: "dna-1",
