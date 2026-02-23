@@ -9,7 +9,7 @@ const Footer = () => {
                         <div className="flex items-center gap-3 mb-6">
                             <div className="h-10">
                                 <img
-                                    src="/logo.jpg"
+                                    src="/logo-footer.png"
                                     alt="FiberLink Labs"
                                     className="h-full w-auto object-contain dark:invert"
                                 />
