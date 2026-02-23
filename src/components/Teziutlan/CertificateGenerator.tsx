@@ -98,18 +98,26 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
                     ref={certificateRef}
                     className="relative min-w-[1120px] aspect-[1.414/1] bg-stone-950 flex flex-col items-center justify-center text-center p-16 border-[16px] border-stone-900/50 shadow-inner"
                 >
-                    {/* Background Img */}
+                    {/* Background Img - Layer 0 */}
                     <img
                         src="/teziutlan-hero.jpg"
                         alt="Teziutlán"
-                        className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale brightness-110"
+                        className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale brightness-90"
                         crossOrigin="anonymous"
                     />
 
-                    {/* Artistic Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-950/90 via-transparent to-stone-950/50"></div>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.1),transparent)]"></div>
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M30%200L60%2030L30%2060L0%2030Z%22%20fill%3D%22none%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.03)%22%20stroke-width%3D%221%22/%3E%3C/svg%3E')] opacity-50"></div>
+                    {/* Artistic Overlays - Layer 1 (Darkening) */}
+                    <div className="absolute inset-0 bg-stone-950/40"></div>
+
+                    {/* Layer 2 (Gradient) */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-950 via-transparent to-stone-950/90"></div>
+
+                    {/* Layer 3 (Radial glow) */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.15),transparent)]"></div>
+
+                    {/* Layer 4 (The Grid/Pattern) */}
+                    <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: '40px 40px' }}></div>
+                    <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`, backgroundSize: '20px 20px' }}></div>
 
                     {/* Inner Frame */}
                     <div className="relative z-10 w-full h-full border-4 border-double border-amber-600/30 p-12 flex flex-col items-center justify-between">
