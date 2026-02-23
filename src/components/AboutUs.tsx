@@ -264,7 +264,7 @@ const AboutUs = () => {
                             <p className="text-4xl md:text-6xl font-black text-primary tabular-nums group-hover:scale-110 transition-transform duration-300 origin-center">
                                 {stat.value}{stat.suffix}
                             </p>
-                            <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 mt-2">{stat.label}</p>
+                            <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mt-2">{stat.label}</p>
                         </div>
                     ))}
                 </div>
@@ -386,7 +386,7 @@ const AboutUs = () => {
                 <div className="max-w-6xl mx-auto relative z-10">
                     <div className="text-center mb-20">
                         <p className="text-xs font-black uppercase tracking-[0.3em] text-primary mb-4">03 · Liderazgo</p>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-foreground dark:text-white">
                             El Arquitecto <span className="text-primary italic">detrás&nbsp;</span> <br />de la Visión
                         </h2>
                     </div>
@@ -484,7 +484,7 @@ const AboutUs = () => {
                         Disponible Ahora · 24/7
                     </div>
 
-                    <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-8">
+                    <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-8 text-foreground dark:text-white">
                         ¿Construimos <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                             tu futuro?
