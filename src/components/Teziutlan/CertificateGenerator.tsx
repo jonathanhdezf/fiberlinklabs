@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -11,97 +11,128 @@ interface CertificateProps {
 
 const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateProps) => {
     const certificateRef = useRef<HTMLDivElement>(null);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const downloadPDF = async () => {
-        if (!certificateRef.current) return;
+        if (!certificateRef.current || isGenerating) return;
 
+        setIsGenerating(true);
         try {
+            // Give the browser a moment to ensure all styles/images are rendered
+            await new Promise(resolve => setTimeout(resolve, 500));
+
             const canvas = await html2canvas(certificateRef.current, {
-                scale: 2,
+                scale: 3, // Higher quality
                 useCORS: true,
-                logging: true,
-                backgroundColor: '#0c0a09', // stone-950
-                allowTaint: true
+                allowTaint: false,
+                backgroundColor: '#0c0a09',
+                logging: false,
+                // Ensure the capture happens at the full size of the certificate
+                width: 1000,
+                height: 707,
+                onclone: (doc) => {
+                    // Force display of elements that might be hidden or problematic
+                    const el = doc.getElementById('capture-certificate');
+                    if (el) el.style.display = 'flex';
+                }
             });
 
             const imgData = canvas.toDataURL('image/png', 1.0);
-            const pdf = new jsPDF('l', 'mm', 'a4');
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a4'
+            });
+
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            pdf.save(`Guardian_de_la_Historia_${donorName.replace(/\s+/g, '_')}.pdf`);
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+            pdf.save(`Certificado_Teziutlan_${donorName.replace(/\s+/g, '_')}.pdf`);
         } catch (error) {
             console.error('Error generating PDF:', error);
-            alert('Hubo un error al generar tu certificado. Por favor intenta de nuevo.');
+            alert('Error al generar PDF. Prueba usando un navegador moderno como Chrome o Edge.');
+        } finally {
+            setIsGenerating(false);
         }
     };
 
     return (
         <div className="flex flex-col items-center gap-8 p-6 md:p-10 bg-stone-900 rounded-[2rem]">
-            {/* Header */}
             <div className="text-center">
-                <div className="size-16 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4 animate-bounce">
-                    <span className="material-symbols-outlined text-4xl">check_circle</span>
+                <div className="size-16 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4">
+                    <span className="material-symbols-outlined text-4xl">verified_user</span>
                 </div>
-                <h2 className="text-2xl font-black text-white uppercase tracking-tight">¡Gracias, Guardián!</h2>
-                <p className="text-stone-400 text-sm mt-2">Tu contribución ha sido procesada con éxito.</p>
+                <h2 className="text-2xl font-black text-white uppercase">Donación Exitosa</h2>
+                <p className="text-stone-400 text-sm mt-2">Tu apoyo a Teziutlán ha sido registrado.</p>
             </div>
 
-            {/* Visual Certificate (The thing to capture) - Wrap in a scale container for desktop/mobile view */}
+            {/* Visual Certificate */}
             <div className="w-full overflow-x-auto Charities-scrollbar pb-4">
                 <div
+                    id="capture-certificate"
                     ref={certificateRef}
-                    className="relative min-w-[1000px] aspect-[1.414/1] bg-stone-950 p-10 border-[10px] border-amber-900/30 overflow-hidden flex flex-col items-center justify-center text-center mx-auto"
+                    className="relative min-w-[1000px] aspect-[1.414/1] bg-stone-950 overflow-hidden flex flex-col items-center justify-center shadow-2xl"
                 >
-                    {/* Artistic Background Elements */}
-                    <div className="absolute inset-0 bg-[url('/teziutlan-hero.jpeg')] bg-cover bg-center opacity-20 grayscale"></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-transparent to-stone-950/90"></div>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.15),transparent)]"></div>
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+                    {/* Background Image - Using img tag for better html2canvas support */}
+                    <img
+                        src="/teziutlan-hero.jpeg"
+                        alt="Background"
+                        className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale"
+                        crossOrigin="anonymous"
+                    />
 
-                    {/* Content */}
-                    <div className="relative z-10 border-2 border-amber-500/20 p-8 w-full h-full flex flex-col items-center justify-between">
+                    {/* Artistic Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-stone-950/80"></div>
+                    <div className="absolute inset-0 border-[12px] border-amber-900/20"></div>
+
+                    {/* Main Content Box */}
+                    <div className="relative z-10 w-[90%] h-[85%] border-2 border-amber-500/10 p-10 flex flex-col items-center justify-between text-center">
+
+                        {/* Header */}
                         <div className="flex flex-col items-center">
-                            <img src="/logo-footer.png" alt="FiberLink Labs" className="h-10 w-auto mb-4 grayscale brightness-200" />
-                            <p className="text-amber-500 font-black uppercase tracking-[0.4em] text-[10px] mb-2">Certificado de Reconocimiento</p>
-                            <h1 className="text-4xl font-black text-white uppercase tracking-tighter">Guardián de la Historia</h1>
-                            <div className="w-20 h-1 bg-amber-500 mt-3 shadow-[0_0_15px_rgba(245,158,11,0.5)]"></div>
+                            <img src="/logo-footer.png" alt="Logo" className="h-12 w-auto mb-4 brightness-200" crossOrigin="anonymous" />
+                            <p className="text-amber-500 font-bold uppercase tracking-[0.5em] text-[10px] mb-2 font-serif">Reconocimiento Oficial</p>
+                            <h1 className="text-5xl font-black text-white uppercase tracking-tighter">Guardián de la Historia</h1>
+                            <div className="w-24 h-1 bg-amber-500 mt-4"></div>
                         </div>
 
+                        {/* Body */}
                         <div className="flex flex-col items-center gap-4">
-                            <p className="text-stone-400 text-base">Se otorga el presente documento a:</p>
-                            <p className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-white to-amber-400 italic py-1">
+                            <p className="text-stone-400 text-lg">Por la presente se reconoce a:</p>
+                            {/* Gradient text replacement for canvas compatibility if needed, but trying high scale first */}
+                            <h2 className="text-6xl font-black text-amber-500 italic py-2">
                                 {donorName}
+                            </h2>
+                            <p className="max-w-xl text-stone-300 text-sm leading-relaxed">
+                                Por su contribución de <span className="text-amber-500 font-bold">${amount} MXN</span> a la iniciativa <strong className="text-stone-100">"Teziutlán: Piedra y Niebla"</strong>. Su compromiso con el patrimonio y el futuro tecnológico de la Sierra Norte de Puebla lo acredita como aliado distinguido de FiberLink Labs.
                             </p>
-                            <div className="max-w-xl text-stone-300 text-sm leading-relaxed px-4">
-                                Por su valiosa contribución de <span className="text-amber-400 font-bold">${amount} MXN</span> a la iniciativa <strong>"Teziutlán: Piedra y Niebla"</strong>. Gracias a su apoyo, la preservación del patrimonio cultural y el desarrollo tecnológico de la Sierra Norte de Puebla hoy cuentan con un aliado estratégico.
-                            </div>
                         </div>
 
-                        <div className="w-full flex justify-between items-end px-8">
+                        {/* Footer Info */}
+                        <div className="w-full flex justify-between items-end px-10">
                             <div className="text-left">
-                                <p className="text-stone-500 text-[8px] uppercase font-bold tracking-widest mb-1">Fecha de expedición</p>
-                                <p className="text-white font-bold text-xs">{date}</p>
+                                <span className="block text-stone-500 text-[8px] uppercase font-serif tracking-widest mb-1">Fecha de Emisión</span>
+                                <span className="text-white font-bold text-xs">{date}</span>
                             </div>
+
                             <div className="flex flex-col items-center">
-                                <div className="size-16 border-2 border-amber-500/20 rounded-full flex items-center justify-center text-amber-500 opacity-50 mb-1">
-                                    <span className="material-symbols-outlined text-3xl">verified</span>
+                                <div className="size-12 border-2 border-amber-500/20 rounded-full flex items-center justify-center text-amber-500/50 mb-1">
+                                    <span className="material-symbols-outlined text-2xl">security</span>
                                 </div>
-                                <p className="text-stone-500 text-[7px] uppercase font-bold tracking-[0.3em]">Autenticado por FiberLink Labs</p>
+                                <span className="text-stone-500 text-[7px] uppercase tracking-widest">Validado por Fiberlink Labs</span>
                             </div>
+
                             <div className="text-right">
-                                <p className="text-stone-500 text-[8px] uppercase font-bold tracking-widest mb-1">ID Transacción</p>
-                                <p className="text-white font-mono text-[9px]">FL-TEZ-{Math.random().toString(36).substring(7).toUpperCase()}</p>
+                                <span className="block text-stone-500 text-[8px] uppercase font-serif tracking-widest mb-1">ID Transacción</span>
+                                <span className="text-white font-mono text-[9px]">FL-CERT-{Math.random().toString(36).substring(7).toUpperCase()}</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Decorative Corners */}
-                    <div className="absolute top-0 left-0 size-16 border-t-4 border-l-4 border-amber-500/40"></div>
-                    <div className="absolute top-0 right-0 size-16 border-t-4 border-r-4 border-amber-500/40"></div>
-                    <div className="absolute bottom-0 left-0 size-16 border-b-4 border-l-4 border-amber-500/40"></div>
-                    <div className="absolute bottom-0 right-0 size-16 border-b-4 border-r-4 border-amber-500/40"></div>
+                    {/* Corner accents */}
+                    <div className="absolute top-0 left-0 size-24 border-t-2 border-l-2 border-amber-500/30"></div>
+                    <div className="absolute bottom-0 right-0 size-24 border-b-2 border-r-2 border-amber-500/30"></div>
                 </div>
             </div>
 
@@ -109,14 +140,24 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
             <div className="flex flex-col sm:flex-row gap-4 w-full">
                 <button
                     onClick={downloadPDF}
-                    className="flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-amber-600 text-white font-black rounded-2xl shadow-xl hover:bg-amber-500 transition-all hover:scale-[1.02] active:scale-98"
+                    disabled={isGenerating}
+                    className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-amber-600 text-white font-black rounded-2xl shadow-xl hover:bg-amber-500 transition-all disabled:opacity-50"
                 >
-                    <span className="material-symbols-outlined">download</span>
-                    Descargar Certificado (PDF)
+                    {isGenerating ? (
+                        <>
+                            <span className="size-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                            Generando PDF...
+                        </>
+                    ) : (
+                        <>
+                            <span className="material-symbols-outlined">download</span>
+                            Descargar Certificado Original
+                        </>
+                    )}
                 </button>
                 <button
                     onClick={onClose}
-                    className="px-8 py-4 bg-stone-800 text-white font-black rounded-2xl hover:bg-stone-700 transition-all"
+                    className="px-8 py-5 bg-stone-800 text-white font-black rounded-2xl hover:bg-stone-700 transition-all"
                 >
                     Finalizar
                 </button>
