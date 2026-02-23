@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import jsPDF from 'jspdf';
+import './Certificate.css';
 
 interface CertificateProps {
     donorName: string;
@@ -159,10 +160,10 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
                 <div className="absolute inset-0 bg-gradient-to-tr from-stone-950 via-transparent to-stone-900/40"></div>
 
                 {/* Cuadrícula visual */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(245,158,11,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,0.2) 1px, transparent 1px)`, backgroundSize: '30px 30px' }}></div>
+                <div className="absolute inset-0 opacity-10 pointer-events-none preview-grid"></div>
 
                 <div className="relative z-10 border-2 border-double border-amber-600/30 w-full h-full p-6 flex flex-col items-center justify-between text-center">
-                    <img src="/logo-footer.png" className="h-6 opacity-50 brightness-200" />
+                    <img src="/logo-footer.png" alt="FiberLink Logo" className="h-6 opacity-50 brightness-200" />
                     <div className="space-y-2">
                         <p className="text-[8px] text-amber-500 font-black tracking-[0.4em] uppercase">Patrimonio Histórico</p>
                         <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter">Guardián de la Historia</h3>
