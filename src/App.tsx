@@ -35,6 +35,7 @@ import BlogPOSWebTradicional from './components/BlogPOSWebTradicional'
 import BlogDashboardErrores from './components/BlogDashboardErrores'
 import DesarrolloWebPage from './components/DesarrolloWebPage'
 import AutomatizacionPage from './components/AutomatizacionPage'
+import SistemaPOSPage from './components/SistemaPOSPage'
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
         <Route path="/blog/dashboard-errores-operativos" element={<BlogDashboardErrores />} />
         <Route path="/servicios/desarrollo-web" element={<DesarrolloWebPage />} />
         <Route path="/servicios/automatizacion" element={<AutomatizacionPage />} />
+        <Route path="/servicios/sistema-pos" element={<SistemaPOSPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

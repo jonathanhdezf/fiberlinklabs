@@ -37,7 +37,7 @@ const Footer = () => {
                         <h4 className="font-bold mb-6 uppercase text-xs tracking-widest text-slate-400">Soluciones</h4>
                         <ul className="space-y-4 text-sm font-medium text-slate-600 dark:text-slate-400">
                             <li><a href="/servicios/desarrollo-web" className="hover:text-primary transition-colors dark:text-white">Desarrollo Web</a></li>
-                            <li><a href="/blog/pos-web-vs-tradicional" className="hover:text-primary transition-colors dark:text-white">Sistemas POS</a></li>
+                            <li><Link to="/servicios/sistema-pos" className="hover:text-primary transition-colors dark:text-white">Sistemas POS</Link></li>
                             <li><Link to="/servicios/automatizacion" className="hover:text-primary transition-colors dark:text-white">Automatización</Link></li>
                             <li><a href="#" className="hover:text-primary transition-colors dark:text-white">Infraestructura Cloud</a></li>
                         </ul>
