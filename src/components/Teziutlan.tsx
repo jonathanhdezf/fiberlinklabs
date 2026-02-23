@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import DonationModal from './Teziutlan/DonationModal';
 
 /* ── Glyph Block ── */
 const Glyph = ({ symbol, label }: { symbol: string; label: string }) => (
@@ -35,12 +36,13 @@ const ImpactStat = ({ icon, val, label, sub }: { icon: string; val: string; labe
 
 /* ══════════════════════════════════════════════════
    MAIN COMPONENT
-══════════════════════════════════════════════════ */
+ ══════════════════════════════════════════════════ */
 const Teziutlan = () => {
     const [conceptVisible, setConceptVisible] = useState(false);
     const conceptRef = useRef<HTMLDivElement>(null);
     const backLayerRef = useRef<HTMLDivElement>(null);
     const frontLayerRef = useRef<HTMLDivElement>(null);
+    const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
     useEffect(() => {
         document.title = 'Teziutlán: Piedra y Niebla · Pueblo Mágico · FiberLink Labs';
@@ -248,7 +250,7 @@ const Teziutlan = () => {
                             <strong className="text-stone-900 dark:text-stone-100">"Teziutlán: Piedra y Niebla"</strong> es una iniciativa local que busca atraer inversión privada e institucional para impulsar el desarrollo <strong className="text-amber-700 dark:text-amber-400">cultural, turístico y económico</strong> de la región Sierra Norte de Puebla.
                         </p>
                         <p className="text-stone-500 dark:text-stone-500 leading-relaxed font-medium mb-6">
-                            Se construye sobre una <strong className="text-stone-800 dark:text-stone-300">plataforma digital de nueva generación</strong>: escalable, modular y replicable en comunidades vecinas con identidad y potencial similares. No solo es un sitio web; es la infraestructura básica para el desarrollo digital de toda la Sierra Norte.
+                            Se construye sobre una <strong className="text-stone-800 dark:text-stone-300">plataforma digital de nueva generación</strong>: escalable, modular e replicable en comunidades vecinas con identidad y potencial similares. No solo es un sitio web; es la infraestructura básica para el desarrollo digital de toda la Sierra Norte.
                         </p>
                         <div className="flex flex-wrap gap-3">
                             {['Pueblo Mágico', 'Sierra Norte de Puebla', 'Inversión Social', 'Desarrollo Digital', 'Turismo Cultural'].map((tag, i) => (
@@ -538,12 +540,19 @@ const Teziutlan = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
+                        <button
+                            onClick={() => setIsDonationModalOpen(true)}
+                            className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-stone-950 font-black text-lg rounded-2xl shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                        >
+                            <span className="material-symbols-outlined text-rose-500">favorite</span>
+                            Donar a la Iniciativa
+                        </button>
                         <a
                             href="mailto:contacto@fiberlinklabs.com?subject=Inversión%20Teziutlán%3A%20Piedra%20y%20Niebla"
                             className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-amber-600 text-white font-black text-lg rounded-2xl shadow-2xl shadow-amber-600/25 hover:bg-amber-500 hover:-translate-y-1 active:scale-95 transition-all"
                         >
                             <span className="material-symbols-outlined">diamond</span>
-                            Invierte en Piedra y Niebla
+                            Invierte en la Sierra
                         </a>
                         <a
                             href="https://wa.me/522311024672?text=Hola,%20me%20interesa%20el%20proyecto%20Teziutlán:%20Piedra%20y%20Niebla"
@@ -552,7 +561,7 @@ const Teziutlan = () => {
                             className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl border border-white/15 text-white font-black hover:border-amber-500/40 hover:text-amber-400 transition-all"
                         >
                             <span className="material-symbols-outlined">chat</span>
-                            Hablar por WhatsApp
+                            WhatsApp
                         </a>
                     </div>
 
@@ -564,6 +573,8 @@ const Teziutlan = () => {
                     </div>
                 </div>
             </section>
+
+            <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)} />
         </div>
     );
 };
