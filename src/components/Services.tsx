@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import WebDevPlansModal from './WebDevPlansModal'
 import SmartSolutionsModal from './SmartSolutionsModal'
 import DigitalConsultingModal from './DigitalConsultingModal'
@@ -138,14 +139,23 @@ const Services = () => {
                                     ))}
                                 </ul>
                                 {idx === 0 ? (
-                                    <button
-                                        id="open-web-dev-plans-modal"
-                                        onClick={() => setWebDevModalOpen(true)}
-                                        className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all bg-transparent border-none p-0 cursor-pointer"
-                                    >
-                                        Ver planes y precios
-                                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                                    </button>
+                                    <div className="flex flex-col gap-3">
+                                        <button
+                                            id="open-web-dev-plans-modal"
+                                            onClick={() => setWebDevModalOpen(true)}
+                                            className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all bg-transparent border-none p-0 cursor-pointer"
+                                        >
+                                            Ver planes y precios
+                                            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                        </button>
+                                        <Link
+                                            to="/servicios/desarrollo-web"
+                                            className="inline-flex items-center gap-1.5 text-slate-400 hover:text-primary font-semibold text-xs transition-colors"
+                                        >
+                                            <span className="material-symbols-outlined text-xs">open_in_new</span>
+                                            Conoce nuestra filosofía
+                                        </Link>
+                                    </div>
                                 ) : idx === 1 ? (
                                     <button
                                         id="open-smart-solutions-modal"

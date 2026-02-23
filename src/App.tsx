@@ -33,6 +33,7 @@ import NominaCaseStudy from './components/NominaCaseStudy'
 import BlogExcelPlatforma from './components/BlogExcelPlatforma'
 import BlogPOSWebTradicional from './components/BlogPOSWebTradicional'
 import BlogDashboardErrores from './components/BlogDashboardErrores'
+import DesarrolloWebPage from './components/DesarrolloWebPage'
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         <Route path="/blog/excel-a-plataforma" element={<BlogExcelPlatforma />} />
         <Route path="/blog/pos-web-vs-tradicional" element={<BlogPOSWebTradicional />} />
         <Route path="/blog/dashboard-errores-operativos" element={<BlogDashboardErrores />} />
+        <Route path="/servicios/desarrollo-web" element={<DesarrolloWebPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
