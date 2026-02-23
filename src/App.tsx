@@ -30,6 +30,9 @@ import POSCaseStudy from './components/POSCaseStudy'
 import TortilleriaCaseStudy from './components/TortilleriaCaseStudy'
 import ArrendadorCaseStudy from './components/ArrendadorCaseStudy'
 import NominaCaseStudy from './components/NominaCaseStudy'
+import BlogExcelPlatforma from './components/BlogExcelPlatforma'
+import BlogPOSWebTradicional from './components/BlogPOSWebTradicional'
+import BlogDashboardErrores from './components/BlogDashboardErrores'
 
 function App() {
   return (
@@ -71,6 +74,9 @@ function App() {
         <Route path="/casos/tortilleria" element={<TortilleriaCaseStudy />} />
         <Route path="/casos/arrendador" element={<ArrendadorCaseStudy />} />
         <Route path="/casos/nomina" element={<NominaCaseStudy />} />
+        <Route path="/blog/excel-a-plataforma" element={<BlogExcelPlatforma />} />
+        <Route path="/blog/pos-web-vs-tradicional" element={<BlogPOSWebTradicional />} />
+        <Route path="/blog/dashboard-errores-operativos" element={<BlogDashboardErrores />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

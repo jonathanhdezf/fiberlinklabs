@@ -35,7 +35,7 @@ const SuccessCases = () => {
             client: "Tortillería Familiar Regional",
             metric: "5× más rápido pedidos",
             desc: "POS en mostrador + portal de reabastecimiento para distribuidores + página de identidad de marca. Tres módulos en una sola web app.",
-            image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=1000&auto=format&fit=crop",
+            image: "/tortilleria-digital.jpg",
             tag: "Alimentos · POS + Distribuidores",
             url: "/casos/tortilleria"
         },
