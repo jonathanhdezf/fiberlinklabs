@@ -421,7 +421,7 @@ const AboutUs = () => {
                                             <h3 className="text-2xl md:text-4xl font-black tracking-tight leading-tight">
                                                 Jonathan Filiberto<br />Hernández Flores
                                             </h3>
-                                            <p className="text-white/70 mt-2 font-medium">Fiberlink Servicios TIC · FiberLink Labs</p>
+                                            <p className="text-white/90 mt-2 font-medium">Fiberlink Servicios TIC · FiberLink Labs</p>
                                         </div>
                                     </div>
                                 </div>
@@ -431,7 +431,7 @@ const AboutUs = () => {
                                     <div className="grid md:grid-cols-5 gap-10">
                                         <div className="md:col-span-3 space-y-4">
                                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-                                                Jonathan Filiberto Hernández Flores es el Director General y fundador de <strong className="text-foreground">Fiberlink Servicios TIC</strong> y la división de innovación <strong className="text-foreground">FiberLink Labs</strong>.
+                                                Jonathan Filiberto Hernández Flores es el Director General y fundador de <strong className="text-primary">Fiberlink Servicios TIC</strong> y la división de innovación <strong className="text-primary">FiberLink Labs</strong>.
                                             </p>
                                             <p className="text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
                                                 Con una filosofía centrada en el impacto empresarial real, ha liderado proyectos de transformación digital para empresas de múltiples industrias en México, ayudando a organizaciones a duplicar sus ingresos mediante tecnología estratégica.
@@ -456,9 +456,9 @@ const AboutUs = () => {
                                                     { icon: 'work', label: 'Fiberlink Servicios TIC' },
                                                     { icon: 'hub', label: 'FiberLink Labs' },
                                                 ].map(item => (
-                                                    <div key={item.label} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                                    <div key={item.label} className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
                                                         <span className="material-symbols-outlined text-base text-primary">{item.icon}</span>
-                                                        <span className="font-medium">{item.label}</span>
+                                                        <span className="font-bold">{item.label}</span>
                                                     </div>
                                                 ))}
                                             </div>
