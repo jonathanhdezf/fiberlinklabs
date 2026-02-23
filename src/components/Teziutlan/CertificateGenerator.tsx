@@ -15,45 +15,37 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
     const [isGenerating, setIsGenerating] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-    // Preload image to ensure it's in cache and ready for capture
+    // Preload image to ensure it's in cache
     useEffect(() => {
+        console.log('Preloading certificate background...');
         const img = new Image();
         img.src = '/teziutlan-hero.jpg';
-        img.onload = () => setIsImageLoaded(true);
-        img.onerror = () => setIsImageLoaded(true); // Proceed even if fails
+        img.onload = () => {
+            console.log('Background ready.');
+            setIsImageLoaded(true);
+        };
+        img.onerror = () => {
+            console.warn('Background preload failed.');
+            setIsImageLoaded(true);
+        };
     }, []);
 
     const downloadPDF = async () => {
         if (!certificateRef.current || isGenerating) return;
 
+        console.log('Generating premium PDF...');
         setIsGenerating(true);
         try {
-            // Re-check capture element visibility
             const element = certificateRef.current;
 
-            // Wait a bit for everything to be ultra-ready
-            await new Promise(resolve => setTimeout(resolve, 800));
+            // Wait for any final rendering
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             const canvas = await html2canvas(element, {
-                scale: 2, // Sweet spot for quality vs memory
+                scale: 2,
                 useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#0c0a09',
-                logging: false,
-                width: 1120, // Specific width for capture consistency
-                height: 792,
-                scrollX: -window.scrollX,
-                scrollY: -window.scrollY,
-                windowWidth: 1200,
-                onclone: (clonedDoc) => {
-                    // Ensure the cloned element is perfectly visible
-                    const clonedEl = clonedDoc.getElementById('premium-cert-capture');
-                    if (clonedEl) {
-                        clonedEl.style.transform = 'none';
-                        clonedEl.style.position = 'relative';
-                        clonedEl.style.display = 'flex';
-                    }
-                }
+                logging: true,
+                backgroundColor: '#0c0a09'
             });
 
             const imgData = canvas.toDataURL('image/png', 1.0);
@@ -69,9 +61,10 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
             pdf.save(`Guardian_de_la_Historia_${donorName.replace(/\s+/g, '_')}.pdf`);
+            console.log('PDF download complete.');
         } catch (error) {
-            console.error('Premium PDF Generation Error:', error);
-            alert('Error al generar el diseño premium. Por favor intenta de nuevo.');
+            console.error('PDF Generation Error:', error);
+            alert('No se pudo descargar el certificado. Por favor intenta de nuevo.');
         } finally {
             setIsGenerating(false);
         }
@@ -187,18 +180,18 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
             <div className="flex flex-col sm:flex-row gap-5 w-full">
                 <button
                     onClick={downloadPDF}
-                    disabled={isGenerating || !isImageLoaded}
+                    disabled={isGenerating}
                     className="flex-1 flex items-center justify-center gap-3 px-10 py-6 bg-amber-600 text-white font-black text-lg rounded-2xl shadow-[0_20px_40px_rgba(217,119,6,0.3)] hover:bg-amber-500 hover:scale-[1.02] active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
                 >
                     {isGenerating ? (
                         <>
                             <span className="size-6 border-3 border-white/20 border-t-white rounded-full animate-spin"></span>
-                            Forjando Certificado Premium...
+                            Forjando PDF...
                         </>
                     ) : (
                         <>
                             <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">workspace_premium</span>
-                            Descargar Certificado Premium (PDF)
+                            {isImageLoaded ? 'Descargar Certificado Premium (PDF)' : 'Preparando Motor...'}
                         </>
                     )}
                 </button>
