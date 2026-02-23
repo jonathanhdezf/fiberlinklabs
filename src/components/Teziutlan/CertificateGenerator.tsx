@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import './Certificate.css';
 
 interface CertificateProps {
     donorName: string;
@@ -113,16 +114,7 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
                     <div className="absolute inset-0 bg-gradient-to-tr from-stone-950 via-stone-950/40 to-stone-950/80"></div>
 
                     {/* Layer 3 (The Grid - REINFORCED) */}
-                    <div
-                        className="absolute inset-0 opacity-20 pointer-events-none"
-                        style={{
-                            backgroundImage: `
-                                linear-gradient(to right, rgba(251, 191, 36, 0.1) 1px, transparent 1px),
-                                linear-gradient(to bottom, rgba(251, 191, 36, 0.1) 1px, transparent 1px)
-                            `,
-                            backgroundSize: '40px 40px'
-                        }}
-                    ></div>
+                    <div className="absolute inset-0 opacity-20 pointer-events-none certificate-grid"></div>
 
                     {/* Layer 4 (Radial glow) */}
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.2),transparent)]"></div>
