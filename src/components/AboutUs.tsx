@@ -350,7 +350,7 @@ const AboutUs = () => {
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-20">
                         <p className="text-xs font-black uppercase tracking-[0.3em] text-primary mb-4">02 · Capacidades</p>
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-foreground">Nuestros <span className="text-primary italic">6 Pilares&nbsp;</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-slate-900 dark:text-slate-900">Nuestros <span className="text-primary italic">6 Pilares&nbsp;</span></h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
