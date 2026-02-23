@@ -89,12 +89,12 @@ const Hero = () => {
 
                             <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/10 backdrop-blur-xl rounded-full flex items-center justify-center border border-primary/20 group-hover:scale-125 transition-transform duration-700 overflow-hidden">
                                 <img
-                                    src="/logo.jpg"
+                                    src="/logo-footer.png"
                                     alt="FiberLink Visual"
                                     className="w-16 h-16 object-contain opacity-80 transition-opacity duration-700 group-hover:opacity-0"
                                 />
                                 <img
-                                    src="/logo.webp"
+                                    src="/logo-footer.png"
                                     alt="FiberLink Visual"
                                     className="absolute inset-0 m-auto w-16 h-16 object-contain opacity-0 transition-opacity duration-700 group-hover:opacity-80"
                                 />
