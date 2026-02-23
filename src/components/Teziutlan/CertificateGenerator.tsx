@@ -1,7 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
-import html2canvas from 'html2canvas';
+import { useState } from 'react';
 import jsPDF from 'jspdf';
-import './Certificate.css';
 
 interface CertificateProps {
     donorName: string;
@@ -11,91 +9,129 @@ interface CertificateProps {
 }
 
 const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateProps) => {
-    const certificateRef = useRef<HTMLDivElement>(null);
     const [isGenerating, setIsGenerating] = useState(false);
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-    // Preload image to ensure it's in cache
-    useEffect(() => {
-        console.log('Preloading certificate background...');
-        const img = new Image();
-        img.src = '/teziutlan-hero.jpg';
-        img.onload = () => {
-            console.log('Background ready.');
-            setIsImageLoaded(true);
-        };
-        img.onerror = () => {
-            console.warn('Background preload failed.');
-            setIsImageLoaded(true);
-        };
-    }, []);
 
     const downloadPDF = async () => {
-        if (!certificateRef.current || isGenerating) return;
-
-        console.log('Initiating Premium PDF Engine...');
         setIsGenerating(true);
         try {
-            const element = certificateRef.current;
-
-            // Wait for any pending font/image renders
-            await new Promise(resolve => setTimeout(resolve, 600));
-
-            const canvas = await html2canvas(element, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#0c0a09',
-                // This is the CRITICAL fix: simplify the clone for the capture
-                onclone: (clonedDoc) => {
-                    const clonedEl = clonedDoc.getElementById('premium-cert-capture');
-                    if (clonedEl) {
-                        // 1. Ensure it's fully visible and not clipped
-                        clonedEl.style.transform = 'none';
-                        clonedEl.style.position = 'relative';
-
-                        // 2. Fix the "Name" - html2canvas hates bg-clip-text
-                        const nameEl = clonedEl.querySelector('h2');
-                        if (nameEl) {
-                            nameEl.style.backgroundImage = 'none';
-                            nameEl.style.background = 'none';
-                            nameEl.style.color = '#f59e0b'; // Solid Amber for capture
-                            (nameEl.style as any).webkitTextFillColor = '#f59e0b';
-                            nameEl.style.padding = '10px 0';
-                        }
-
-                        // 3. Ensure the frame is visible
-                        const frameEl = clonedEl.querySelector('.border-double');
-                        if (frameEl) {
-                            (frameEl as HTMLElement).style.borderColor = 'rgba(217, 119, 6, 0.4)';
-                        }
-                    }
-                }
-            });
-
-            console.log('Capture successful, encoding PDF...');
-            const imgData = canvas.toDataURL('image/png', 1.0);
-
-            if (!imgData || imgData === 'data:,') {
-                throw new Error('Canvas conversion failed (Empty Data)');
-            }
-
+            // Documento en Horizontal (Landscape)
             const pdf = new jsPDF({
                 orientation: 'landscape',
                 unit: 'mm',
                 format: 'a4',
-                compress: true
+                putOnlyUsedFonts: true
             });
 
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const w = pdf.internal.pageSize.getWidth();
+            const h = pdf.internal.pageSize.getHeight();
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            // 1. Fondos y Capas Base
+            pdf.setFillColor(12, 10, 9); // stone-950
+            pdf.rect(0, 0, w, h, 'F');
+
+            // 2. Imagen de Fondo (Con manejo de opacidad nativo)
+            try {
+                const img = new Image();
+                img.src = '/teziutlan-hero.jpg';
+                await new Promise((resolve) => {
+                    img.onload = resolve;
+                    img.onerror = resolve; // Continuar aunque falle
+                });
+                if (img.complete && img.naturalWidth > 0) {
+                    // Simular opacidad bajando el GState si el navegador lo soporta
+                    // o simplemente dibujando con color de fondo oscuro
+                    pdf.setGState(new (pdf as any).GState({ opacity: 0.25 }));
+                    pdf.addImage(img, 'JPEG', 0, 0, w, h, undefined, 'FAST');
+                    pdf.setGState(new (pdf as any).GState({ opacity: 1.0 }));
+                }
+            } catch (e) {
+                console.warn('BG image skip');
+            }
+
+            // 3. Cuadrícula Premium (Dibujada vectorialmente)
+            pdf.setDrawColor(251, 191, 36); // amber-400
+            pdf.setLineWidth(0.05);
+            const gridSize = 10;
+            for (let x = 0; x <= w; x += gridSize) {
+                pdf.setGState(new (pdf as any).GState({ opacity: 0.1 }));
+                pdf.line(x, 0, x, h);
+            }
+            for (let y = 0; y <= h; y += gridSize) {
+                pdf.setGState(new (pdf as any).GState({ opacity: 0.1 }));
+                pdf.line(0, y, w, y);
+            }
+
+            // 4. Bordes Ornamentales
+            pdf.setGState(new (pdf as any).GState({ opacity: 1.0 }));
+            pdf.setDrawColor(180, 83, 9); // amber-700
+            pdf.setLineWidth(1.5);
+            pdf.rect(10, 10, w - 20, h - 20, 'D'); // Marco principal
+
+            pdf.setDrawColor(245, 158, 11); // amber-500
+            pdf.setLineWidth(0.3);
+            pdf.rect(12, 12, w - 24, h - 24, 'D'); // Línea fina interior
+
+            // 5. Encabezado - Logo y Títulos
+            pdf.setTextColor(245, 158, 11);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(8);
+            pdf.text('DOCUMENTO DE HONOR · FIBERLINK LABS', w / 2, 30, { align: 'center', charSpace: 2 });
+
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(42);
+            pdf.text('GUARDIÁN DE LA HISTORIA', w / 2, 55, { align: 'center' });
+
+            // Divisor Dorado
+            pdf.setDrawColor(245, 158, 11);
+            pdf.setLineWidth(1);
+            pdf.line(w / 2 - 15, 62, w / 2 + 15, 62);
+
+            // 6. Cuerpo - El Donante (TOQUE ENCANTADOR)
+            pdf.setTextColor(168, 162, 158); // stone-400
+            pdf.setFontSize(16);
+            pdf.setFont('helvetica', 'italic');
+            pdf.text('Se otorga con distinción el presente a:', w / 2, 85, { align: 'center' });
+
+            // NOMBRE DEL DONANTE (Grande y en el centro)
+            pdf.setTextColor(251, 191, 36); // amber-400 (un amarillo dorado brillante)
+            pdf.setFontSize(50);
+            pdf.setFont('helvetica', 'bolditalic');
+            // Simulamos un pequeño "brillo" con una sombra muy sutil o duplicando
+            pdf.text(donorName.toUpperCase(), w / 2, 115, { align: 'center' });
+
+            // 7. Texto de Agradecimiento
+            pdf.setTextColor(214, 211, 209); // stone-300
+            pdf.setFontSize(12);
+            pdf.setFont('helvetica', 'normal');
+            const msg = `Por su invaluable contribución de $${amount} MXN a la iniciativa de preservación cultural "Teziutlán: Piedra y Niebla". Gracias a su apoyo, el patrimonio y la tecnología de la Sierra Norte hoy cuentan con un aliado estratégico.`;
+            const splitMsg = pdf.splitTextToSize(msg, 180);
+            pdf.text(splitMsg, w / 2, 135, { align: 'center', lineHeightFactor: 1.5 });
+
+            // 8. Footer - Fecha y Firma Digital
+            pdf.setFontSize(9);
+            pdf.setTextColor(120, 113, 108);
+
+            // Izquierda: Fecha
+            pdf.text('FECHA DE EXPEDICIÓN', 30, h - 30);
+            pdf.setTextColor(255, 255, 255);
+            pdf.text(date, 30, h - 23);
+
+            // Derecha: Folio
+            pdf.setTextColor(120, 113, 108);
+            pdf.text('FOLIO DE SEGURIDAD', w - 30, h - 30, { align: 'right' });
+            pdf.setTextColor(255, 255, 255);
+            const folio = 'FL-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+            pdf.text(folio, w - 30, h - 23, { align: 'right' });
+
+            // Centro: Icono verificado (Simulado con texto)
+            pdf.setTextColor(245, 158, 11);
+            pdf.text('VERIFICADO POR FIBERLINK LABS', w / 2, h - 23, { align: 'center' });
+
+            // GUARDAR
             pdf.save(`Guardian_de_la_Historia_${donorName.replace(/\s+/g, '_')}.pdf`);
-            console.log('PDF Document Handed Over.');
         } catch (error) {
-            console.error('PDF Engine Critical Error:', error);
-            alert('El navegador bloqueó la generación del PDF. Por favor, intenta de nuevo o usa Chrome/Edge.');
+            console.error('Direct PDF Error:', error);
+            alert('Error crítico al generar el PDF. Verifica los permisos de descarga de tu navegador.');
         } finally {
             setIsGenerating(false);
         }
@@ -103,139 +139,68 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
 
     return (
         <div className="flex flex-col items-center gap-10 p-8 md:p-12 bg-stone-950 rounded-[3rem] border border-white/5 shadow-3xl">
-            {/* Header / Success State */}
-            <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* Cabecera visual */}
+            <div className="text-center">
                 <div className="size-20 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-500 mx-auto mb-6 shadow-[0_0_30px_rgba(245,158,11,0.2)]">
                     <span className="material-symbols-outlined text-5xl">verified</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight leading-none mb-4">
+                <h2 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight mb-4">
                     ¡Certificado Listo!
                 </h2>
                 <p className="text-stone-400 max-w-md mx-auto text-sm md:text-base">
-                    Has sido reconocido como parte de la historia. Descarga tu certificado premium para conservarlo.
+                    Hemos forjado tu reconocimiento. Descarga ahora la versión de alta fidelidad para conservar como Guardián.
                 </p>
             </div>
 
-            {/* PREVIEW CONTAINER - This is what humans see */}
-            <div className="w-full overflow-x-auto Charities-scrollbar pb-6 rounded-3xl">
-                <div
-                    id="premium-cert-capture"
-                    ref={certificateRef}
-                    className="relative min-w-[1120px] aspect-[1.414/1] bg-stone-950 flex flex-col items-center justify-center text-center p-16 border-[16px] border-stone-900/50 shadow-inner"
-                >
-                    {/* Background Img - Layer 0 */}
-                    <img
-                        src="/teziutlan-hero.jpg"
-                        alt="Teziutlán"
-                        className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale brightness-90"
-                        crossOrigin="anonymous"
-                    />
+            {/* PREVIEW VISUAL (Lo que el usuario ve en la web, sigue siendo encantador con CSS) */}
+            <div className="w-full relative aspect-[1.414/1] max-w-2xl bg-stone-900 rounded-3xl border border-amber-950/30 overflow-hidden shadow-2xl flex flex-col items-center justify-center p-8 group">
+                {/* Fondo e Interfaz del preview */}
+                <div className="absolute inset-0 bg-[url('/teziutlan-hero.jpg')] bg-cover opacity-20 grayscale transition-transform duration-1000 group-hover:scale-110"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-stone-950 via-transparent to-stone-900/40"></div>
 
-                    {/* Artistic Overlays - Layer 1 (Darkening) */}
-                    <div className="absolute inset-0 bg-stone-950/40"></div>
+                {/* Cuadrícula visual */}
+                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(245,158,11,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,0.2) 1px, transparent 1px)`, backgroundSize: '30px 30px' }}></div>
 
-                    {/* Layer 2 (Gradient Overlay) */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-950 via-stone-950/40 to-stone-950/80"></div>
-
-                    {/* Layer 3 (The Grid - REINFORCED) */}
-                    <div className="absolute inset-0 opacity-20 pointer-events-none certificate-grid"></div>
-
-                    {/* Layer 4 (Radial glow) */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.2),transparent)]"></div>
-
-                    {/* Inner Frame */}
-                    <div className="relative z-10 w-full h-full border-4 border-double border-amber-600/30 p-12 flex flex-col items-center justify-between">
-
-                        {/* Cert Header */}
-                        <div className="flex flex-col items-center">
-                            <img src="/logo-footer.png" alt="FiberLink" className="h-14 w-auto mb-6 brightness-200 contrast-125" crossOrigin="anonymous" />
-                            <div className="flex items-center gap-4 mb-2">
-                                <div className="h-px w-8 bg-amber-500/50"></div>
-                                <span className="text-amber-500 font-black uppercase tracking-[0.5em] text-[10px]">Documento de Honor</span>
-                                <div className="h-px w-8 bg-amber-500/50"></div>
-                            </div>
-                            <h1 className="text-6xl font-black text-white uppercase tracking-tighter drop-shadow-2xl">
-                                Guardián de la Historia
-                            </h1>
-                            <div className="mt-4 flex gap-1">
-                                {[...Array(5)].map((_, i) => (
-                                    <span key={i} className="text-amber-500 text-xs">★</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Cert Body */}
-                        <div className="flex flex-col items-center gap-6">
-                            <p className="text-stone-400 text-xl font-medium italic">Se otorga con distinción el presente a:</p>
-                            <h2 className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-700 italic drop-shadow-lg py-4">
-                                {donorName}
-                            </h2>
-                            <p className="max-w-2xl text-stone-300 text-lg leading-relaxed font-medium">
-                                Por su invaluable contribución de <strong className="text-amber-400 text-2xl font-black ml-1">${amount} MXN</strong> <br />
-                                a la iniciativa de preservación cultural <strong className="text-white underline decoration-amber-500/50 decoration-2 underline-offset-4">"Teziutlán: Piedra y Niebla"</strong>.
-                            </p>
-                        </div>
-
-                        {/* Cert Footer */}
-                        <div className="w-full flex justify-between items-end px-16">
-                            <div className="text-left">
-                                <span className="block text-stone-500 text-[9px] uppercase font-bold tracking-[0.3em] mb-2">Fecha de Expedición</span>
-                                <span className="text-white font-black text-base">{date}</span>
-                            </div>
-
-                            <div className="flex flex-col items-center">
-                                <div className="size-20 border-2 border-amber-500/10 rounded-full flex items-center justify-center text-amber-500/30 mb-2 bg-gradient-to-b from-amber-500/5 to-transparent">
-                                    <span className="material-symbols-outlined text-4xl">verified_user</span>
-                                </div>
-                                <span className="text-stone-500 text-[8px] uppercase font-black tracking-[0.4em]">Autenticidad FiberLink Labs</span>
-                            </div>
-
-                            <div className="text-right">
-                                <span className="block text-stone-500 text-[9px] uppercase font-bold tracking-[0.3em] mb-2">Folio de Seguridad</span>
-                                <span className="text-white font-mono text-[10px] bg-white/5 px-3 py-1 rounded-md">
-                                    {Math.random().toString(36).substring(2, 10).toUpperCase()} - 01
-                                </span>
-                            </div>
-                        </div>
+                <div className="relative z-10 border-2 border-double border-amber-600/30 w-full h-full p-6 flex flex-col items-center justify-between text-center">
+                    <img src="/logo-footer.png" className="h-6 opacity-50 brightness-200" />
+                    <div className="space-y-2">
+                        <p className="text-[8px] text-amber-500 font-black tracking-[0.4em] uppercase">Patrimonio Histórico</p>
+                        <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter">Guardián de la Historia</h3>
+                        <div className="w-8 h-0.5 bg-amber-600 mx-auto my-2"></div>
+                        <p className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-amber-600 italic">
+                            {donorName}
+                        </p>
                     </div>
-
-                    {/* Corner Accents */}
-                    <div className="absolute top-0 left-0 size-32 border-t-[6px] border-l-[6px] border-amber-600/40 rounded-tl-3xl"></div>
-                    <div className="absolute top-0 right-0 size-32 border-t-[6px] border-r-[6px] border-amber-600/40 rounded-tr-3xl"></div>
-                    <div className="absolute bottom-0 left-0 size-32 border-b-[6px] border-l-[6px] border-amber-600/40 rounded-bl-3xl"></div>
-                    <div className="absolute bottom-0 right-0 size-32 border-b-[6px] border-r-[6px] border-amber-600/40 rounded-br-3xl"></div>
+                    <p className="text-[10px] text-stone-500 font-medium">Documento de Honor Certificado</p>
                 </div>
             </div>
 
-            {/* Actions */}
+            {/* Acciones */}
             <div className="flex flex-col sm:flex-row gap-5 w-full">
                 <button
                     onClick={downloadPDF}
                     disabled={isGenerating}
-                    className="flex-1 flex items-center justify-center gap-3 px-10 py-6 bg-amber-600 text-white font-black text-lg rounded-2xl shadow-[0_20px_40px_rgba(217,119,6,0.3)] hover:bg-amber-500 hover:scale-[1.02] active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
+                    className="flex-1 flex items-center justify-center gap-3 px-10 py-6 bg-amber-600 text-white font-black text-lg rounded-2xl shadow-[0_20px_40px_rgba(217,119,6,0.3)] hover:bg-amber-500 hover:scale-[1.02] transition-all disabled:opacity-50"
                 >
                     {isGenerating ? (
                         <>
                             <span className="size-6 border-3 border-white/20 border-t-white rounded-full animate-spin"></span>
-                            Forjando PDF...
+                            Descargando PDF...
                         </>
                     ) : (
                         <>
-                            <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">workspace_premium</span>
-                            {isImageLoaded ? 'Descargar Certificado Premium (PDF)' : 'Preparando Motor...'}
+                            <span className="material-symbols-outlined text-2xl">workspace_premium</span>
+                            Descargar Certificado Original (PDF)
                         </>
                     )}
                 </button>
-                <button
-                    onClick={onClose}
-                    className="px-10 py-6 bg-stone-900 border border-white/10 text-white font-black text-lg rounded-2xl hover:bg-stone-800 transition-all active:scale-95"
-                >
+                <button onClick={onClose} className="px-10 py-6 bg-stone-900 border border-white/10 text-white font-black text-lg rounded-2xl">
                     Finalizar
                 </button>
             </div>
 
             <p className="text-[11px] text-stone-600 font-medium tracking-wide">
-                © 2024 FiberLink Labs · Patrimonio Digital y Alta Ingeniería
+                El PDF se genera directamente sin intermediarios para máxima seguridad y rapidez.
             </p>
         </div>
     );
