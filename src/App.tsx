@@ -34,6 +34,7 @@ import BlogExcelPlatforma from './components/BlogExcelPlatforma'
 import BlogPOSWebTradicional from './components/BlogPOSWebTradicional'
 import BlogDashboardErrores from './components/BlogDashboardErrores'
 import DesarrolloWebPage from './components/DesarrolloWebPage'
+import AutomatizacionPage from './components/AutomatizacionPage'
 
 function App() {
   return (
@@ -79,6 +80,7 @@ function App() {
         <Route path="/blog/pos-web-vs-tradicional" element={<BlogPOSWebTradicional />} />
         <Route path="/blog/dashboard-errores-operativos" element={<BlogDashboardErrores />} />
         <Route path="/servicios/desarrollo-web" element={<DesarrolloWebPage />} />
+        <Route path="/servicios/automatizacion" element={<AutomatizacionPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
