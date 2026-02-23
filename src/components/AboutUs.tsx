@@ -299,10 +299,10 @@ const AboutUs = () => {
                         </div>
 
                         {/* Small card */}
-                        <div className="p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 shadow-xl group hover:border-primary/40 hover:-translate-y-1 transition-all duration-500">
+                        <div className="p-8 rounded-[2.5rem] bg-white border border-slate-200 shadow-xl group hover:border-primary/40 hover:-translate-y-1 transition-all duration-500">
                             <span className="material-symbols-outlined text-4xl text-primary mb-5 block">location_on</span>
-                            <h3 className="text-xl font-black text-foreground dark:text-white mb-3">Presencia Nacional</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            <h3 className="text-xl font-black text-slate-900 mb-3">Presencia Nacional</h3>
+                            <p className="text-slate-500 text-sm leading-relaxed">
                                 Operamos desde México, sirviendo empresas en todo el territorio con soluciones cloud-native y soporte remoto 24/7.
                             </p>
                         </div>
@@ -317,7 +317,7 @@ const AboutUs = () => {
                         </div>
 
                         {/* Big card */}
-                        <div className="md:col-span-2 p-10 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 shadow-xl relative overflow-hidden group hover:border-primary/40 transition-all duration-500">
+                        <div className="md:col-span-2 p-10 rounded-[2.5rem] bg-white border border-slate-200 shadow-xl relative overflow-hidden group hover:border-primary/40 transition-all duration-500">
                             <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-bl-[4rem]"></div>
                             <div className="grid grid-cols-2 gap-6 relative z-10">
                                 {[
@@ -331,13 +331,13 @@ const AboutUs = () => {
                                             <span className="material-symbols-outlined text-sm">{item.icon}</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-foreground dark:text-white text-sm">{item.title}</h4>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.desc}</p>
+                                            <h4 className="font-bold text-slate-900 text-sm">{item.title}</h4>
+                                            <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            <p className="text-2xl font-black text-foreground dark:text-white mt-8">La tecnología que tu empresa necesita para crecer sin límites.</p>
+                            <p className="text-2xl font-black text-slate-900 mt-8">La tecnología que tu empresa necesita para crecer sin límites.</p>
                         </div>
                     </div>
                 </div>
