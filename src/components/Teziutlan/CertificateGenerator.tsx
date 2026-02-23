@@ -17,7 +17,7 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
     // Preload image to ensure it's in cache and ready for capture
     useEffect(() => {
         const img = new Image();
-        img.src = '/teziutlan-hero.jpeg';
+        img.src = '/teziutlan-hero.jpg';
         img.onload = () => setIsImageLoaded(true);
         img.onerror = () => setIsImageLoaded(true); // Proceed even if fails
     }, []);
@@ -100,14 +100,14 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
                 >
                     {/* Background Img */}
                     <img
-                        src="/teziutlan-hero.jpeg"
+                        src="/teziutlan-hero.jpg"
                         alt="Teziutlán"
-                        className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale brightness-75"
+                        className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale brightness-110"
                         crossOrigin="anonymous"
                     />
 
                     {/* Artistic Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-950 via-transparent to-stone-950/80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-950/90 via-transparent to-stone-950/50"></div>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(217,119,6,0.1),transparent)]"></div>
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M30%200L60%2030L30%2060L0%2030Z%22%20fill%3D%22none%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.03)%22%20stroke-width%3D%221%22/%3E%3C/svg%3E')] opacity-50"></div>
 
