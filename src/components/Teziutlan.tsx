@@ -146,9 +146,6 @@ const Teziutlan = () => {
                         <span className="hidden sm:block">FiberLink Labs</span>
                     </Link>
                     <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] text-amber-700 dark:text-amber-400 truncate px-2">Teziutlán · Piedra y Niebla</span>
-                    <a href="#invertir" className="text-[10px] sm:text-xs font-black uppercase tracking-widest px-4 py-2 bg-amber-600 text-white rounded-xl hover:bg-amber-500 transition-all active:scale-95 whitespace-nowrap shadow-md shadow-amber-600/20">
-                        Invertir
-                    </a>
                 </div>
             </nav>
 
@@ -210,10 +207,13 @@ const Teziutlan = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                        <a href="#invertir" className="group px-8 py-4 bg-amber-600 text-white font-black rounded-2xl shadow-2xl shadow-amber-600/25 hover:bg-amber-500 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2">
-                            Invertir en Piedra y Niebla
-                            <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                        </a>
+                        <button
+                            onClick={() => setIsDonationModalOpen(true)}
+                            className="group px-8 py-4 bg-amber-600 text-white font-black rounded-2xl shadow-2xl shadow-amber-600/25 hover:bg-amber-500 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2"
+                        >
+                            Donar a la Historia
+                            <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">favorite</span>
+                        </button>
                         <a href="#proyecto" className="px-8 py-4 bg-white/60 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 font-black rounded-2xl hover:bg-white dark:hover:bg-stone-800 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
                             <span className="material-symbols-outlined">explore</span>
                             Conocer el Proyecto
@@ -547,13 +547,6 @@ const Teziutlan = () => {
                             <span className="material-symbols-outlined text-rose-500">favorite</span>
                             Donar a la Iniciativa
                         </button>
-                        <a
-                            href="mailto:contacto@fiberlinklabs.com?subject=Inversión%20Teziutlán%3A%20Piedra%20y%20Niebla"
-                            className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-amber-600 text-white font-black text-lg rounded-2xl shadow-2xl shadow-amber-600/25 hover:bg-amber-500 hover:-translate-y-1 active:scale-95 transition-all"
-                        >
-                            <span className="material-symbols-outlined">diamond</span>
-                            Invierte en la Sierra
-                        </a>
                         <a
                             href="https://wa.me/522311024672?text=Hola,%20me%20interesa%20el%20proyecto%20Teziutlán:%20Piedra%20y%20Niebla"
                             target="_blank"
