@@ -33,22 +33,53 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
     const downloadPDF = async () => {
         if (!certificateRef.current || isGenerating) return;
 
-        console.log('Generating premium PDF...');
+        console.log('Initiating Premium PDF Engine...');
         setIsGenerating(true);
         try {
             const element = certificateRef.current;
 
-            // Wait for any final rendering
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Wait for any pending font/image renders
+            await new Promise(resolve => setTimeout(resolve, 600));
 
             const canvas = await html2canvas(element, {
                 scale: 2,
                 useCORS: true,
-                logging: true,
-                backgroundColor: '#0c0a09'
+                logging: false,
+                backgroundColor: '#0c0a09',
+                // This is the CRITICAL fix: simplify the clone for the capture
+                onclone: (clonedDoc) => {
+                    const clonedEl = clonedDoc.getElementById('premium-cert-capture');
+                    if (clonedEl) {
+                        // 1. Ensure it's fully visible and not clipped
+                        clonedEl.style.transform = 'none';
+                        clonedEl.style.position = 'relative';
+
+                        // 2. Fix the "Name" - html2canvas hates bg-clip-text
+                        const nameEl = clonedEl.querySelector('h2');
+                        if (nameEl) {
+                            nameEl.style.backgroundImage = 'none';
+                            nameEl.style.background = 'none';
+                            nameEl.style.color = '#f59e0b'; // Solid Amber for capture
+                            (nameEl.style as any).webkitTextFillColor = '#f59e0b';
+                            nameEl.style.padding = '10px 0';
+                        }
+
+                        // 3. Ensure the frame is visible
+                        const frameEl = clonedEl.querySelector('.border-double');
+                        if (frameEl) {
+                            (frameEl as HTMLElement).style.borderColor = 'rgba(217, 119, 6, 0.4)';
+                        }
+                    }
+                }
             });
 
+            console.log('Capture successful, encoding PDF...');
             const imgData = canvas.toDataURL('image/png', 1.0);
+
+            if (!imgData || imgData === 'data:,') {
+                throw new Error('Canvas conversion failed (Empty Data)');
+            }
+
             const pdf = new jsPDF({
                 orientation: 'landscape',
                 unit: 'mm',
@@ -61,10 +92,10 @@ const CertificateGenerator = ({ donorName, amount, date, onClose }: CertificateP
 
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
             pdf.save(`Guardian_de_la_Historia_${donorName.replace(/\s+/g, '_')}.pdf`);
-            console.log('PDF download complete.');
+            console.log('PDF Document Handed Over.');
         } catch (error) {
-            console.error('PDF Generation Error:', error);
-            alert('No se pudo descargar el certificado. Por favor intenta de nuevo.');
+            console.error('PDF Engine Critical Error:', error);
+            alert('El navegador bloqueó la generación del PDF. Por favor, intenta de nuevo o usa Chrome/Edge.');
         } finally {
             setIsGenerating(false);
         }
