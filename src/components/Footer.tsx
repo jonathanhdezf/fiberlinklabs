@@ -69,10 +69,10 @@ const Footer = () => {
                         © 2026 FiberLink Servicios TIC. Todos los derechos reservados.
                     </p>
                     <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
-                        <Link to="/privacidad#privacidad-titulo" className="hover:text-primary transition-colors">Privacidad</Link>
-                        <Link to="/terminos#terminos-titulo" className="hover:text-primary transition-colors">Términos</Link>
-                        <Link to="/cookies#cookies-titulo" className="hover:text-primary transition-colors">Cookies</Link>
-                        <Link to="/glosario#glosario-titulo" className="hover:text-primary transition-colors">Glosario</Link>
+                        <Link to="/privacidad" className="hover:text-primary transition-colors">Privacidad</Link>
+                        <Link to="/terminos" className="hover:text-primary transition-colors">Términos</Link>
+                        <Link to="/cookies" className="hover:text-primary transition-colors">Cookies</Link>
+                        <Link to="/glosario" className="hover:text-primary transition-colors">Glosario</Link>
                     </div>
                 </div>
             </div>
