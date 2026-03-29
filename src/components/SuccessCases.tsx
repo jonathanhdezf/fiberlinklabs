@@ -56,6 +56,15 @@ const SuccessCases = () => {
             image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=1000&auto=format&fit=crop",
             tag: "HRTech · Nómina Digital",
             url: "/casos/nomina"
+        },
+        {
+            title: "Gestión de Banquetes y Rentas MVP",
+            client: "Fiesta Catering · Reyna E. Aguilar Martínez",
+            metric: "↓ 90% tiempo en cotizaciones",
+            desc: "Sistema web a medida para banquetes y rentas de mesas, sillas y manteles: control de eventos, inventario inteligente, CRM de clientes y reportes financieros en un solo panel.",
+            image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1000&auto=format&fit=crop",
+            tag: "EventTech · Banquetes y Rentas",
+            url: "/casos/fiesta-catering"
         }
     ];
 

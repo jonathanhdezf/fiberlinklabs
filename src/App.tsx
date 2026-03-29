@@ -37,6 +37,7 @@ import DesarrolloWebPage from './components/DesarrolloWebPage'
 import AutomatizacionPage from './components/AutomatizacionPage'
 import SistemaPOSPage from './components/SistemaPOSPage'
 import InfraestructuraCloudPage from './components/InfraestructuraCloudPage'
+import FiestaCateringCaseStudy from './components/FiestaCateringCaseStudy'
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
         <Route path="/servicios/automatizacion" element={<AutomatizacionPage />} />
         <Route path="/servicios/sistema-pos" element={<SistemaPOSPage />} />
         <Route path="/servicios/infraestructura-cloud" element={<InfraestructuraCloudPage />} />
+        <Route path="/casos/fiesta-catering" element={<FiestaCateringCaseStudy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
